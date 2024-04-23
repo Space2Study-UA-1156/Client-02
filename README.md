@@ -229,12 +229,12 @@ Only the release should merge into the main branch!!!
 ## Teams
 
 ### Development team
-[![@ohanovdmytro](https://avatars.githubusercontent.com/ohanovdmytro?s=150)](https://github.com/ohanovdmytro)
-[![@Olenka-Hryk](https://avatars.githubusercontent.com/Olenka-Hryk?s=150)](https://github.com/Olenka-Hryk)
-[![@Nazar-Lysak](https://avatars.githubusercontent.com/Nazar-Lysak?s=150)](https://github.com/Nazar-Lysak)
-[![@docia](https://avatars.githubusercontent.com/docia?s=150)](https://github.com/docia)
-[![@BodiaPutiak](https://avatars.githubusercontent.com/BodiaPutiak?s=150)](https://github.com/BodiaPutiak)
-<a href="https://github.com/m6xcom"><img src="https://avatars.githubusercontent.com/m6xcom" height="auto" width="150"></a>
+[![@ohanovdmytro](https://avatars.githubusercontent.com/ohanovdmytro?s=130)](https://github.com/ohanovdmytro)
+[![@Olenka-Hryk](https://avatars.githubusercontent.com/Olenka-Hryk?s=130)](https://github.com/Olenka-Hryk)
+[![@Nazar-Lysak](https://avatars.githubusercontent.com/Nazar-Lysak?s=130)](https://github.com/Nazar-Lysak)
+[![@docia](https://avatars.githubusercontent.com/docia?s=130)](https://github.com/docia)
+[![@BodiaPutiak](https://avatars.githubusercontent.com/BodiaPutiak?s=130)](https://github.com/BodiaPutiak)
+<a href="https://github.com/m6xcom"><img src="https://avatars.githubusercontent.com/m6xcom" height="auto" width="130"></a>
 ## FAQ
 
 - **How do I do _specifically_ so and so?**
