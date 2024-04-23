@@ -6,9 +6,9 @@
 
 SpaceToStudy project is a platform where experts in various fields share their knowledge and students can learn from the best. Here you can find the proper training course, find a tutor, or find students and receive feedback from them.
 
-[![GitHub issues](https://github.com/Space2Study-UA-1156/Client-02/issues)]
-[![Pending Pull-Requests](https://github.com/Space2Study-UA-1156/Client-02/pulls)]
-[![GitHub license](../main/LICENSE)]
+[![GitHub issues](https://img.shields.io/github/issues/Space2Study-UA-1156/Client-02)](https://github.com/Space2Study-UA-1156/Client-02/issues)
+[![Pending Pull-Requests](https://img.shields.io/github/issues-pr/Space2Study-UA-1156/Client-02)](https://github.com/Space2Study-UA-1156/Client-02/pulls)
+[![GitHub license](https://img.shields.io/github/license/Space2Study-UA-1156/Client-02)](../main/LICENSE)
 
 ---
 
@@ -248,8 +248,9 @@ Only the release should merge into the main branch!!!
 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript" align="left" width="40" height="60"/>   
 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React" align="left" width="40" height="60"/>  
 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redux/redux-original.svg" alt="Redux" align="left" width="40" height="60"/>
-<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/babel/babel-original.svg" alt="Babel" align="left" width="40" height="60"/>   
-<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/eslint/eslint-original.svg" alt="Eslint" align="left" width="40" height="60"/>   
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" alt="NodeJS" align="left" width="40" height="60"/>
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" alt="MongoDB" align="left" width="40" height="60"/>   
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/eslint/eslint-original.svg" alt="Eslint" align="left" width="40" height="60"/> 
 <br />
 <br />
 
