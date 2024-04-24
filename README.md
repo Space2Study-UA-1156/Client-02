@@ -1,4 +1,4 @@
-<h1 align="center"> Space2Study-node-Client-mvp </h1>
+# Space2Study-Client
 
 <a href="https://softserve.academy/"><img src="../main/photo2.jpg" title="SoftServe IT Academy" alt="SoftServe IT Academy"></a>
 
@@ -234,7 +234,8 @@ Only the release should merge into the main branch!!!
 [![@Nazar-Lysak](https://avatars.githubusercontent.com/Nazar-Lysak?s=130)](https://github.com/Nazar-Lysak)
 [![@docia](https://avatars.githubusercontent.com/docia?s=130)](https://github.com/docia)
 [![@BodiaPutiak](https://avatars.githubusercontent.com/BodiaPutiak?s=130)](https://github.com/BodiaPutiak)
-<a href="https://github.com/m6xcom"><img src="https://avatars.githubusercontent.com/m6xcom" height="auto" width="130"></a>
+[![@m6xcom](https://avatars.githubusercontent.com/m6xcom?s=130)](https://github.com/m6xcom)
+
 ## FAQ
 
 - **How do I do _specifically_ so and so?**
