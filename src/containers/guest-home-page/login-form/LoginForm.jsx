@@ -32,6 +32,10 @@ const LoginForm = ({
     openModal({ component: <ForgotPassword /> })
   }
 
+  const buttonValidate = (emailValue) => {
+    return emailValue?.length ? false : true
+  }
+
   return (
     <Box component='form' onSubmit={handleSubmit} sx={styles.form}>
       <AppTextField
@@ -71,6 +75,7 @@ const LoginForm = ({
       </Typography>
 
       <AppButton
+        disabled={buttonValidate(data.email)}
         loading={authLoading}
         size='large'
         sx={styles.loginButton}
