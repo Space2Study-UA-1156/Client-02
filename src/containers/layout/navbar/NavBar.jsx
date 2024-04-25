@@ -73,6 +73,10 @@ const Navbar = () => {
     <Box sx={styles.header}>
       <Button
         component={Link}
+        onClick={() => {
+          const element = document.getElementById('scroll-content')
+          element?.scrollTo({ top: 0, behavior: 'smooth' })
+        }}
         size={'small'}
         sx={styles.logoButton}
         to={homePath}

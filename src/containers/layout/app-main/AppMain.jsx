@@ -26,7 +26,7 @@ const AppMain = () => {
   }
 
   return (
-    <Box ref={mainWithFooter} sx={styles.content}>
+    <Box id='scroll-content' ref={mainWithFooter} sx={styles.content}>
       <Suspense fallback={<Loader pageLoad />}>
         <AppBreadCrumbs />
         <ScrollToTop element={mainWithFooter} />
