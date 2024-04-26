@@ -26,6 +26,9 @@ export const styles = {
       flexWrap: 'nowrap',
       overflowX: 'auto',
       '&::-webkit-scrollbar': { display: 'none' }
+    },
+    a: {
+      display: 'block'
     }
   }
 }
