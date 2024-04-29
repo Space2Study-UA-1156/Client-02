@@ -32,8 +32,8 @@ const LoginForm = ({
     openModal({ component: <ForgotPassword /> })
   }
 
-  const buttonValidate = (emailValue) => {
-    return emailValue?.length && data?.password?.length ? false : true
+  const buttonValidate = (email, password) => {
+    return !(email && password)
   }
 
   return (
@@ -75,7 +75,7 @@ const LoginForm = ({
       </Typography>
 
       <AppButton
-        disabled={buttonValidate(data.email)}
+        disabled={buttonValidate(data.email, data.password)}
         loading={authLoading}
         size='large'
         sx={styles.loginButton}
