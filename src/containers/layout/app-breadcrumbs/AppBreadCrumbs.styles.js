@@ -2,7 +2,8 @@ const link = {
   color: 'primary.900',
   textDecoration: 'none',
   typography: 'caption',
-  whiteSpace: 'nowrap'
+  whiteSpace: 'nowrap',
+  display: 'block'
 }
 
 export const styles = {
@@ -26,9 +27,6 @@ export const styles = {
       flexWrap: 'nowrap',
       overflowX: 'auto',
       '&::-webkit-scrollbar': { display: 'none' }
-    },
-    a: {
-      display: 'block'
     }
   }
 }
