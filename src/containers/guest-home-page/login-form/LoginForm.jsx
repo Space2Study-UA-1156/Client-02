@@ -36,7 +36,6 @@ const LoginForm = ({
     return emailValue?.length && data?.password?.length ? false : true
   }
 
-  console.log()
   return (
     <Box component='form' onSubmit={handleSubmit} sx={styles.form}>
       <AppTextField
