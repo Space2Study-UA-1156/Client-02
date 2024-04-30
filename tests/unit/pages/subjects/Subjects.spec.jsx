@@ -7,6 +7,7 @@ describe('Subjects render test', () => {
   test('should render Subjects page', () => {
     renderWithProviders(<Subjects />)
   })
+
   test('Check text on the Subjects page', () => {
     render(<Subjects />)
     const textElement = screen.getByText('Subjects')
