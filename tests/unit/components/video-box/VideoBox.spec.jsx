@@ -6,7 +6,7 @@ describe('VideoBox test', () => {
     render(<VideoBox />)
   })
   it('should render VideoBox with a particular src attribute', () => {
-    const video = 'holera/freddyfasbear.img'
+    const video = 'bublyk/test.img'
 
     render(<VideoBox video={video} />)
     const videoElement = screen.getByAltText('Video')
