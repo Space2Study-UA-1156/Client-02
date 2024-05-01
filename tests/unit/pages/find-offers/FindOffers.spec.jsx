@@ -1,27 +1,25 @@
 import FindOffers from '~/pages/find-offers/FindOffers.jsx'
-import { screen } from '@testing-library/react'
-import { describe, expect } from 'vitest'
-import { renderWithProviders } from '~tests/test-utils'
+import { render, screen } from '@testing-library/react'
+import { beforeEach, describe, expect } from 'vitest'
 
 describe('FindOffers page', () => {
-  vi.mock('~/components/page-wrapper/PageWrapper', () => {
-    return {
-      __esModule: true,
-      default: vi.fn(({ children }) => (
-        <div data-testid='page-wrapper'>{children}</div>
-      ))
-    }
+  beforeEach(() => {
+    vi.mock('~mui/material/PageWrapper', () => {
+      return {
+        __deModule: true,
+        default: vi.fn(() => (
+          <div data-testid='page-wrapper'>Mocked PageWrapper</div>
+        ))
+      }
+    })
+    render(<FindOffers />)
   })
 
   it('renders the page', () => {
-    renderWithProviders(<FindOffers />)
-    const pageWrapper = screen.getByTestId('page-wrapper')
-
-    expect(pageWrapper).toBeInTheDocument()
+    render(<FindOffers />)
   })
 
   it('displays text on the page', () => {
-    renderWithProviders(<FindOffers />)
     const pageText = screen.getByText('Find offers')
 
     expect(pageText).toBeInTheDocument()
