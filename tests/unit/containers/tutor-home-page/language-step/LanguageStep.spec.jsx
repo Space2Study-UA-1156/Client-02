@@ -1,7 +1,7 @@
-import LanguageStep from '~/containers/tutor-home-page/language-step/LanguageStep'
-import { renderWithProviders } from '~tests/test-utils'
 import { screen } from '@testing-library/react'
 import { vi } from 'vitest'
+import LanguageStep from '~/containers/tutor-home-page/language-step/LanguageStep'
+import { renderWithProviders } from '~tests/test-utils'
 
 vi.mock('@mui/material', () => ({
   Box: ({ sx, children }) => <div style={sx}>{children}</div>
