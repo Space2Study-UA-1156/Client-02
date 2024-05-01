@@ -3,10 +3,7 @@ import { render } from '@testing-library/react'
 import TitleWithDescription from '~/components/title-with-description/TitleWithDescription'
 
 describe('TitleWithDescription test', () => {
-  test('should render TitleWithDescription component', () => {
-    render(<TitleWithDescription />)
-  })
-  test('should render TitleWithDescription component with title and description', () => {
+  it('should render TitleWithDescription component with title and description', () => {
     const title = 'Test Title'
     const description = 'Test Description'
     const { getByText } = render(
