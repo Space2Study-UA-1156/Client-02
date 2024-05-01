@@ -1,7 +1,7 @@
-import AddPhotoStep from '~/containers/tutor-home-page/add-photo-step/AddPhotoStep'
-import { renderWithProviders } from '~tests/test-utils'
 import { screen } from '@testing-library/react'
 import { vi } from 'vitest'
+import AddPhotoStep from '~/containers/tutor-home-page/add-photo-step/AddPhotoStep'
+import { renderWithProviders } from '~tests/test-utils'
 
 vi.mock('@mui/material', () => ({
   Box: ({ sx, children }) => <div style={sx}>{children}</div>
