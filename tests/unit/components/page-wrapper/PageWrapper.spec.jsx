@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import { beforeEach, describe } from 'vitest'
-import PageWrapper from '~/components/app-carousel/AppCarousel'
+import PageWrapper from '~/components/page-wrapper/PageWrapper'
 
 const childrenText = 'I am a children'
 
