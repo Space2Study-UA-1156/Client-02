@@ -3,12 +3,21 @@ import { render, screen } from '@testing-library/react'
 
 import Subjects from '~/pages/subjects/Subjects'
 
+vi.mock('~/components/page-wrapper/PageWrapper', () => ({
+  __esModule: true,
+  default: vi.fn(({ children }) => (
+    <div data-testid='page-subject'>{children}</div>
+  ))
+}))
+
 describe('Subjects render test', () => {
-  test('should render Subjects page', () => {
+  it('should render Subjects page', () => {
     renderWithProviders(<Subjects />)
+    const pageTitle = screen.getByTestId('page-subject')
+    expect(pageTitle).toBeInTheDocument()
   })
 
-  test('Check text on the Subjects page', () => {
+  it('Check text on the Subjects page', () => {
     render(<Subjects />)
     const textElement = screen.getByText('Subjects')
     expect(textElement).toBeInTheDocument()
