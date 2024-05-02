@@ -1,13 +1,13 @@
 import { render, screen } from '@testing-library/react'
-import { describe } from 'vitest'
+import { describe, vi } from 'vitest'
 import AppTextArea from '~/components/app-text-area/AppTextArea'
 
 vi.mock('@mui/material/Typography', () => ({
-  _esModule: true,
-  default: (props) => {
+  default: ({ sx, color, children }) => {
     return (
-      <div data-equal={`${props.value.length === props.maxLength}`}>
-        `${Number(props.value.length)}/${props.maxLength}`
+      <div data-testid='typography' style={sx}>
+        {children}
+        <div>{color}</div>
       </div>
     )
   }
@@ -58,9 +58,7 @@ describe('AppTextArea test', () => {
       maxLength: 10
     }
     render(<AppTextArea {...props} />)
-    const value = screen.queryByText(
-      `${Number(props.value.length)}/${props.maxLength}`
-    )
-    expect(value).toHaveProperty('data-equal', 'true')
+    const value = screen.getByText('error')
+    expect(value).toBeInTheDocument()
   })
 })
