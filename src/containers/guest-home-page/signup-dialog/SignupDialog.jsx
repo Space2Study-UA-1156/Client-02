@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux'
 
 import { useModalContext } from '~/context/modal-context'
 import { useSnackBarContext } from '~/context/snackbar-context'
+import { confirmPassword } from '~/utils/validations/login'
 import useConfirm from '~/hooks/use-confirm'
 import useForm from '~/hooks/use-form'
 
@@ -62,7 +63,8 @@ const SignupDialog = ({ type }) => {
         email: '',
         password: '',
         confirmPassword: ''
-      }
+      },
+      validations: { confirmPassword }
     })
 
   const description = (
