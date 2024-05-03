@@ -25,7 +25,6 @@ const ConfirmDialog = ({
     <Dialog
       PaperProps={{ sx: styles.root }}
       data-testid='confirmDialog'
-      onClose={onDismiss}
       open={open}
     >
       <Typography sx={styles.title}>{t(title)}</Typography>
