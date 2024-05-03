@@ -6,16 +6,20 @@ const children = 'Test text'
 const handleTab = vi.fn()
 
 vi.mock('@mui/material/Button', () => ({
-  default: ({ sx, children }) => (
-    <button data-testid='button' onClick={handleTab} style={sx}>
-      {children}
-    </button>
-  )
+  default: (props) => {
+    console.log('aaaaaaa', props.activeTab)
+    return (
+      <button data-testid='button' onClick={handleTab} style={props.sx}>
+        {children}
+        <div>{props.activeTab && 'Active'}</div>
+      </button>
+    )
+  }
 }))
 
 describe('Tab component test', () => {
   it('should render Tab component with children', () => {
-    render(<Tab activeTab>{children}</Tab>)
+    render(<Tab>{children}</Tab>)
     expect(screen.getByText(children)).toBeInTheDocument()
   })
   it('should render Tab component with onClick', () => {
@@ -30,5 +34,16 @@ describe('Tab component test', () => {
 
     const appButton = screen.getByTestId('button')
     expect(appButton).toBeInTheDocument()
+  })
+  it('should render active tab', () => {
+    const props = {
+      activeTab: true
+    }
+    render(<Tab {...props}>{children}</Tab>)
+
+    const tabButton = screen.getByTestId('button')
+    console.log('ssss', tabButton)
+    // expect(tabButton).toHaveAttribute('style', 'true')
+    expect(screen.getByText('Active')).toBeInTheDocument()
   })
 })
