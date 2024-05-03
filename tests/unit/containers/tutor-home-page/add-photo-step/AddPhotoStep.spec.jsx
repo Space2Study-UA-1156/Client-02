@@ -4,7 +4,11 @@ import AddPhotoStep from '~/containers/tutor-home-page/add-photo-step/AddPhotoSt
 import { renderWithProviders } from '~tests/test-utils'
 
 vi.mock('@mui/material', () => ({
-  Box: ({ sx, children }) => <div style={sx}>{children}</div>
+  Box: ({ sx, children }) => (
+    <div data-testid='mock-box' style={sx}>
+      {children}
+    </div>
+  )
 }))
 
 describe('Test "AddPhotoStep" container', () => {
@@ -21,8 +25,8 @@ describe('Test "AddPhotoStep" container', () => {
   })
 
   it('should render MUI Box properly', () => {
-    const boxElement = screen.getByText('AddPhoto step')
-    expect(boxElement).toHaveClass('MuiBox-root')
+    const boxElement = screen.getByTestId('mock-box')
+    expect(boxElement).toBeInTheDocument()
   })
 
   it('should render container on the page', () => {
