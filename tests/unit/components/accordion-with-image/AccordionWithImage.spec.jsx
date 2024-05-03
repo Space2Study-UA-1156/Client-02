@@ -1,6 +1,5 @@
 import AccordionWithImage from '~/components/accordion-with-image/AccordionWithImage.jsx'
 import { screen, render, fireEvent } from '@testing-library/react'
-
 import { expect } from 'vitest'
 
 describe('PopupDialog component', () => {
@@ -19,10 +18,11 @@ describe('PopupDialog component', () => {
     ]
     render(<AccordionWithImage items={items} />)
 
-    const titleElement = screen.findByText(items[0].title)
+    const titleElement = screen.getByText(items[0].title)
+
     fireEvent.click(titleElement)
 
-    const subtitleElement = screen.findByText(items[0].description)
+    const subtitleElement = screen.getByText(items[0].description)
 
     expect(subtitleElement).toBeInTheDocument()
   })
