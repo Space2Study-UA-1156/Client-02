@@ -4,47 +4,32 @@ import { vi } from 'vitest'
 
 import { beforeEach, expect } from 'vitest'
 
+vi.mock('~/hooks/use-confirm', () => ({
+  default: () => ({
+    checkConfirmation: async () => true
+  })
+}))
+
+vi.mock('~/hooks/use-breakpoints', () => ({
+  default: () => ({
+    isMobile: false
+  })
+}))
+
 describe('PopupDialog component', () => {
   const close = vi.fn()
-  const closeAfterDelay = vi.fn((delay) => {
-    const timerId = setTimeout(close, delay ?? 5000)
+  let timeout = setTimeout(close, 5000)
+  const closeAfterDelay = vi.fn(() => {
+    const timerId = timeout
     return timerId
   })
   const props = {
     content: 'content',
     closeModal: close,
-    timerId: 123,
+    timerId: timeout,
     closeModalAfterDelay: closeAfterDelay
   }
   beforeEach(() => {
-    vi.mock('~/hooks/use-confirm', () => ({
-      useConfirm: () => ({
-        checkConfirmation: async () => true
-      })
-    }))
-
-    vi.mock('~/hooks/use-breakpoints', () => ({
-      useBreakpoints: () => ({
-        isMobile: false
-      })
-    }))
-
-    vi.mock('~mui/material/Box', () => {
-      return {
-        __esModule: true,
-        default: vi.fn(() => <div data-testid='mock-box'>Mocked Box</div>)
-      }
-    })
-
-    vi.mock('~mui/material/IconButton', () => {
-      return {
-        __esModule: true,
-        deafult: vi.fn(() => (
-          <button data-testid='mock-icon-button'>Mocked IconButton</button>
-        ))
-      }
-    })
-
     render(<PopupDialog {...props} />)
   })
 
@@ -71,5 +56,11 @@ describe('PopupDialog component', () => {
     expect(closeAfterDelay).toHaveBeenCalled()
 
     vi.useRealTimers()
+  })
+
+  it('clears popup timeout on mouse over', () => {
+    const popupContent = screen.getByTestId('popupContent')
+    fireEvent.mouseOver(popupContent)
+    expect(timeout._idleTimeout).toBe(-1)
   })
 })
