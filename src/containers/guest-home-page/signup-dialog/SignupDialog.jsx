@@ -6,9 +6,15 @@ import { useDispatch } from 'react-redux'
 
 import { useModalContext } from '~/context/modal-context'
 import { useSnackBarContext } from '~/context/snackbar-context'
-import { confirmPassword } from '~/utils/validations/login'
 import useConfirm from '~/hooks/use-confirm'
 import useForm from '~/hooks/use-form'
+import {
+  email,
+  password,
+  firstName,
+  lastName,
+  confirmPassword
+} from '~/utils/validations/login'
 
 import { signup, snackbarVariants } from '~/constants'
 import GoogleLogin from '~/containers/guest-home-page/google-login/GoogleLogin'
@@ -64,7 +70,7 @@ const SignupDialog = ({ type }) => {
         password: '',
         confirmPassword: ''
       },
-      validations: { confirmPassword }
+      validations: { email, password, firstName, lastName, confirmPassword }
     })
 
   const description = (
