@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import HashLink from '~/components/hash-link/HashLink'
@@ -25,6 +25,7 @@ const SignupForm = ({
   const { t } = useTranslation()
   const { privacyPolicy, termOfUse } = guestRoutes
   const [isAgreementChecked, setIsAgreementChecked] = useState(false)
+  const [isSignUpButtonDisabled, setIsSignUpButtonDisabled] = useState(true)
   const { inputVisibility: passwordVisibility, showInputText: showPassword } =
     useInputVisibility(errors.password)
   const {
@@ -36,6 +37,20 @@ const SignupForm = ({
   const handleOnAgreementChange = () => {
     setIsAgreementChecked((prev) => !prev)
   }
+
+  useEffect(() => {
+    const isFormValid = () => {
+      return (
+        !errors['firstName'] &&
+        !errors['lastName'] &&
+        !errors['email'] &&
+        !errors['password'] &&
+        !errors['confirmPassword'] &&
+        isAgreementChecked
+      )
+    }
+    setIsSignUpButtonDisabled(!isFormValid())
+  }, [errors, isAgreementChecked])
 
   const policyAgreement = (
     <Box sx={styles.box}>
@@ -142,7 +157,7 @@ const SignupForm = ({
       </Box>
 
       <AppButton
-        disabled={!isAgreementChecked}
+        disabled={isSignUpButtonDisabled}
         loading={authLoading}
         sx={styles.signupButton}
         type='submit'
