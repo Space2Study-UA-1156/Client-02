@@ -76,6 +76,10 @@ const ForgotPassword = () => {
     </Typography>
   )
 
+  const buttonValidate = (errors, data) => {
+    return errors.length > 0 || data.length === 0
+  }
+
   return (
     <Box sx={styles.root}>
       <TitleWithDescription
@@ -98,7 +102,12 @@ const ForgotPassword = () => {
           type='email'
           value={data.email}
         />
-        <AppButton loading={loading} sx={styles.sentPassword} type='submit'>
+        <AppButton
+          disabled={buttonValidate(errors.email, data.email)}
+          loading={loading}
+          sx={styles.sentPassword}
+          type='submit'
+        >
           {t('login.sendPassword')}
         </AppButton>
       </Box>
