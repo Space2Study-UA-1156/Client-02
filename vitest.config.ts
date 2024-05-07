@@ -22,7 +22,7 @@ export default defineConfig({
       all: true,
       reportOnFailure: true,
       reporter: ['lcov', 'text'],
-      include: ['src/**/*.jsx', 'src/**/*.tsx'],
+      include: ['src/**/*.jsx', 'src/**/*.tsx', 'src/**/*.js'],
       exclude: ['./tests/setup-tests.js'],
       reportsDirectory: './tests/coverage'
     },
