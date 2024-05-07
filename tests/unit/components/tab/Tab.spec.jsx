@@ -10,7 +10,7 @@ vi.mock('@mui/material/Button', () => ({
     return (
       <button data-testid='button' onClick={handleTab} style={sx}>
         {children}
-        <div>{sx[1] ? 'tab-active' : ''}</div>
+        <div>{sx[1] ? 'tab-active' : 'disactive'}</div>
       </button>
     )
   }
@@ -31,6 +31,10 @@ describe('Tab component test', () => {
   it('should render Tab component with activeTab styles if activeTab prop is true', () => {
     render(<Tab activeTab>{children}</Tab>)
     expect(screen.getByText('tab-active')).toBeInTheDocument()
+  })
+  it('should render Tab component with activeTab styles if activeTab prop is false', () => {
+    render(<Tab>{children}</Tab>)
+    expect(screen.getByText('disactive')).toBeInTheDocument()
   })
   it('should render MUI AppButton properly', () => {
     render(<Tab onClick={handleTab}>{children}</Tab>)
