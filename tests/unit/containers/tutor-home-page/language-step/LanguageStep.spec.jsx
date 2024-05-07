@@ -1,17 +1,17 @@
 import { screen } from '@testing-library/react'
 import { vi } from 'vitest'
-import AddPhotoStep from '~/containers/tutor-home-page/add-photo-step/AddPhotoStep'
+import LanguageStep from '~/containers/tutor-home-page/language-step/LanguageStep'
 import { renderWithProviders } from '~tests/test-utils'
 
-vi.mock('@mui/material', () => ({
-  Box: ({ sx, children }) => (
+vi.mock('@mui/material/Box', () => ({
+  default: ({ sx, children }) => (
     <div data-testid='mock-box' style={sx}>
       {children}
     </div>
   )
 }))
 
-describe('Test "AddPhotoStep" container', () => {
+describe('Test "LanguageStep" container', () => {
   const btnsBox = (
     <>
       <button data-testid='test-button'>Test Button 1</button>
@@ -21,16 +21,17 @@ describe('Test "AddPhotoStep" container', () => {
   )
 
   beforeEach(() => {
-    renderWithProviders(<AddPhotoStep btnsBox={btnsBox} />)
+    renderWithProviders(<LanguageStep btnsBox={btnsBox} />)
   })
 
   it('should render MUI Box properly', () => {
     const boxElement = screen.getByTestId('mock-box')
     expect(boxElement).toBeInTheDocument()
+    expect(getComputedStyle(boxElement).display).toEqual('flex')
   })
 
   it('should render container on the page', () => {
-    expect(screen.getByText('AddPhoto step')).toBeInTheDocument()
+    expect(screen.getByText('Language step')).toBeInTheDocument()
   })
 
   it('should render the buttons passed in props', () => {

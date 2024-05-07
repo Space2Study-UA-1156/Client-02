@@ -33,7 +33,7 @@ const LoginForm = ({
   }
 
   const buttonValidate = (email, password) => {
-    return !(email && password)
+    return !(!email.length && password.length)
   }
 
   return (
@@ -75,7 +75,7 @@ const LoginForm = ({
       </Typography>
 
       <AppButton
-        disabled={buttonValidate(data.email, data.password)}
+        disabled={buttonValidate(errors.email, data.password)}
         loading={authLoading}
         size='large'
         sx={styles.loginButton}
