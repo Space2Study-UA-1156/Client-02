@@ -37,7 +37,6 @@ const PopupDialog = ({
       fullScreen={isMobile}
       maxWidth='xl'
       onClick={(e) => e.stopPropagation()}
-      onClose={handleClose}
       open
     >
       <Box
