@@ -1,6 +1,6 @@
-import AccordionWithImage from '~/components/accordion-with-image/AccordionWithImage.jsx'
-import { screen, render, fireEvent } from '@testing-library/react'
 import { expect } from 'vitest'
+import { screen, render, fireEvent } from '@testing-library/react'
+import AccordionWithImage from '~/components/accordion-with-image/AccordionWithImage.jsx'
 
 describe('PopupDialog component', () => {
   it('should show the mock data on click on the title', () => {
