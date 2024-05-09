@@ -22,14 +22,8 @@ jobs:
         with:
           node-version: 18
 
-      # Remove package-lock.json and node_modules directory
-      - name: Clean dependencies
-        run: |
-          rm -rf package-lock.json node_modules
-
-      # Reinstall dependencies
       - name : Npm Install
-        run: npm install
+        run: npm run reinstall
         
       - name : Lint
         run : npm run lint
