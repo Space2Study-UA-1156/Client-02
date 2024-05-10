@@ -9,21 +9,29 @@ export const styles = {
     paddingBottom: { xs: '30px', sm: '0px' },
     ...fadeAnimation
   },
+  rigthBox: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    maxWidth: '432px'
+  },
   image: {
-    height: 'inherit',
-    width: '450px',
-    maxWidth: { md: '50%', lg: '450px' }
+    img: {
+      margin: '0 auto',
+      display: 'block',
+      maxWidth: { xs: '180px', sm: '100%' }
+    }
   },
   titleWithForm: {
-    width: '432px', 
-    display: 'flex', 
-    flexDirection: 'column', 
-    gap: '30px'
+    display: 'flex',
+    flexDirection: 'column',
+    gap: { xs: '16px', sm: '20px' },
+    maxWidth: '432px'
   },
   form: {
-    display: 'flex', 
-    flexDirection: 'column', 
-    gap: '20px'
+    display: 'flex',
+    flexDirection: 'column',
+    gap: { xs: '16px', sm: '20px' }
   },
   inputField: {
     width: '100%'

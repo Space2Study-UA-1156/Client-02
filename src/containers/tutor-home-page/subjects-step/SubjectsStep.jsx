@@ -7,21 +7,20 @@ import TextField from '@mui/material/TextField'
 import SubjectsStepImage from '~/assets/img/subjects-step/image.svg'
 
 import { styles } from '~/containers/tutor-home-page/subjects-step/SubjectsStep.styles'
-import {categoriesMock, languagesMock} from '~/containers/tutor-home-page/subjects-step/constants'
+import { categoriesMock, languagesMock } from '~/containers/tutor-home-page/subjects-step/constants'
 import AppButton from '~/components/app-button/AppButton'
 import { useStepContext } from '~/context/step-context'
 import AppChipList from '~/components/app-chips-list/AppChipList'
 
-const SubjectsStep = ({ btnsBox }) => {
+const SubjectsStep = ({ btnsBox, userRole }) => {
   const [category, setCategory] = useState(null)
   const [subject, setSubject] = useState(null)
   const { stepData, handleStepData } = useStepContext()
-  const subjectLabel = 'subjects';
-  const selectedSubjects = stepData[subjectLabel]
+  const subjectLabel = userRole === 'student' ? 'interests' : 'subjects'
+  const selectedSubjects = stepData[subjectLabel] ?? []
 
   const handleChangeCategory = (e, categoryValue) => {
     setCategory(categoryValue)
-    setSubject(null)
   }
 
   const handleChangeSubject = (e, subjectValue) => {
@@ -29,6 +28,10 @@ const SubjectsStep = ({ btnsBox }) => {
   }
 
   const handleAddSubject = () => {
+    if (selectedSubjects.find((item) => item.name === subject.name)) {
+      setSubject(null)
+      return
+    }
     handleStepData(subjectLabel, [...selectedSubjects, subject])
     setSubject(null)
   }
@@ -39,7 +42,7 @@ const SubjectsStep = ({ btnsBox }) => {
       selectedSubjects.filter((subject) => subject.name !== subjectName)
     )
   }
-  
+
   return (
     <Box sx={styles.container}>
       <Box
@@ -57,8 +60,8 @@ const SubjectsStep = ({ btnsBox }) => {
             <Autocomplete
               disablePortal
               id='combo-box-demo'
-              options={categoriesMock}
               getOptionLabel={(option) => option.name}
+              options={categoriesMock}
               onChange={handleChangeCategory}
               renderInput={(params) => (
                 <TextField {...params} label='Main Tutoring Category' />
@@ -68,16 +71,17 @@ const SubjectsStep = ({ btnsBox }) => {
             <Autocomplete
               disablePortal
               id='combo-box-demo'
-              options={languagesMock}
               getOptionLabel={(option) => option.name}
+              options={languagesMock}
               onChange={handleChangeSubject}
               renderInput={(params) => (
                 <TextField {...params} label='Subject' />
               )}
               sx={styles.inputField}
             />
-            <AppButton
-              onClick={handleAddSubject}
+            <AppButton 
+              disabled={subject === null ? true : false}
+              onClick={handleAddSubject} 
               variant={'tonal'}
             >
               Add one more subject
