@@ -3,10 +3,6 @@ export const styles = {
     mb: '20px',
     width: { sm: '100%', md: '430px' }
   },
-  subtitle: {
-    mb: '20px',
-    fontSize: 'smaller'
-  },
   button: {
     width: '100%',
     padding: '14px 0px',

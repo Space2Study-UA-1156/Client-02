@@ -9,35 +9,44 @@ import { languages } from '~/containers/tutor-home-page/language-step/constants'
 import AppButton from '~/components/app-button/AppButton'
 import { useSelector } from 'react-redux'
 import AppChipList from '~/components/app-chips-list/AppChipList'
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
 const LanguageStepStudentContent = () => {
   const { stepData, handleStepData } = useStepContext()
   const { authLoading } = useSelector((state) => state.appMain)
   const [chosenLanguage, setChosenLanguage] = useState(null)
+
   const { t } = useTranslation()
   const languageLabel = 'language'
-  const selectedLanguages = stepData[languageLabel] ?? []
+  const selectedLanguages = useMemo(
+    () => stepData[languageLabel] ?? [],
+    [stepData]
+  )
 
   const handleChangeLanguage = (event, value) => {
     setChosenLanguage(value)
   }
 
   const handleAddLanguage = () => {
-    handleStepData(languageLabel, [...selectedLanguages, chosenLanguage])
-    setChosenLanguage(null)
+    if (!selectedLanguages.includes(chosenLanguage)) {
+      handleStepData(languageLabel, [...selectedLanguages, chosenLanguage])
+      setChosenLanguage(null)
+    }
   }
 
   const handleDeleteLanguage = (languageToDelete) => {
     handleStepData(
       languageLabel,
-      selectedLanguages.filter((language) => language !== languageToDelete),
-      null
+      selectedLanguages.filter((language) => language !== languageToDelete)
     )
   }
 
-  console.log('selectedLanguages', selectedLanguages, chosenLanguage)
+  const disabled = useMemo(() => {
+    if (selectedLanguages.includes(chosenLanguage)) return true
+
+    if (!chosenLanguage) return true
+  }, [selectedLanguages, chosenLanguage])
 
   return (
     <Box>
@@ -61,7 +70,7 @@ const LanguageStepStudentContent = () => {
         value={chosenLanguage}
       />
       <AppButton
-        disabled={!chosenLanguage}
+        disabled={!chosenLanguage || disabled}
         loading={authLoading}
         onClick={handleAddLanguage}
         sx={styles.button}
@@ -69,9 +78,6 @@ const LanguageStepStudentContent = () => {
       >
         Add one more language
       </AppButton>
-      <Typography sx={styles.subtitle}>
-        Inputs with the * sign are required
-      </Typography>
       <AppChipList
         defaultQuantity={3}
         handleChipDelete={handleDeleteLanguage}
