@@ -7,12 +7,14 @@ import Autocomplete from '@mui/material/Autocomplete'
 import { useStepContext } from '~/context/step-context'
 import { languages } from '~/containers/tutor-home-page/language-step/constants'
 import LanguageStepStudentContent from '~/containers/student-home-page/language-step/LanguageStepContent'
+import { useTranslation } from 'react-i18next'
 
 const LanguageStep = ({ btnsBox, userRole }) => {
-  const languageImg = image
+  const { t } = useTranslation()
 
   const { stepData, handleStepData } = useStepContext()
   const { language } = stepData
+
   const isTutor = userRole === 'tutor'
 
   const handleLanguageChange = (event, value) => {
@@ -22,20 +24,20 @@ const LanguageStep = ({ btnsBox, userRole }) => {
   return (
     <Box sx={styles.container}>
       <Box sx={styles.imgContainer}>
-        <Box
-          alt='languages'
-          component='img'
-          src={languageImg}
-          sx={styles.img}
-        />
+        <Box alt='languages' component='img' src={image} sx={styles.img} />
       </Box>
       <Box id='formContainer' sx={styles.formContainer}>
         {isTutor ? (
           <Box>
-            <Typography sx={styles.title}>
-              Velit officia consequat duis enim velit mollit. Other categories
-              you can add in your account settings later.
+            <Typography id='title' sx={styles.title}>
+              {t('becomeTutor.languages.title')}
             </Typography>
+            <Box
+              alt='General Step'
+              component='img'
+              src={image}
+              sx={styles.imgMobile}
+            />
             <Autocomplete
               disablePortal
               onChange={handleLanguageChange}

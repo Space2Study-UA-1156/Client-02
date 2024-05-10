@@ -3,21 +3,21 @@ import { fadeAnimation } from '~/styles/app-theme/custom-animations'
 export const styles = {
   container: {
     height: { sm: '485px' },
-    maxWidth: { sm: 'sm', md: 'md', lg: 'lg' },
     display: 'flex',
     justifyContent: 'space-between',
-    gap: { md: '40px' },
+    gap: { md: '40px', lg: '43px' },
     ...fadeAnimation
   },
   formContainer: {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
-    width: '432px',
-    boxSizing: 'border-box'
+    width: { sm: '100%', md: '430px' },
+    margin: { sm: '0 auto', md: '0' }
   },
   title: {
-    mb: '20px'
+    mb: '20px',
+    width: { sm: '100%', md: '430px' }
   },
   imgContainer: {
     width: '450px',
@@ -27,7 +27,12 @@ export const styles = {
     pl: { md: '30px' }
   },
   img: {
-    objectFit: 'contain',
     width: '100%'
+  },
+  imgMobile: {
+    display: { xs: 'block', sm: 'none' },
+    width: '60%',
+    margin: 'auto',
+    marginBottom: '20px'
   }
 }

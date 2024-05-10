@@ -1,6 +1,7 @@
 export const styles = {
   title: {
-    mb: '20px'
+    mb: '20px',
+    width: { sm: '100%', md: '430px' }
   },
   subtitle: {
     mb: '20px',
@@ -14,5 +15,11 @@ export const styles = {
   },
   chosenLanguages: {
     display: 'flex'
+  },
+  imgMobile: {
+    display: { xs: 'block', sm: 'none' },
+    width: '60%',
+    margin: 'auto',
+    marginBottom: '20px'
   }
 }

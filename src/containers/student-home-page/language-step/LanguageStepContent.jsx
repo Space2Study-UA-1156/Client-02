@@ -4,17 +4,19 @@ import { styles } from '~/containers/student-home-page/language-step/LanguageSte
 import TextField from '@mui/material/TextField'
 import Autocomplete from '@mui/material/Autocomplete'
 import { useStepContext } from '~/context/step-context'
+import image from '~/assets/img/language-step/image.svg'
 import { languages } from '~/containers/tutor-home-page/language-step/constants'
 import AppButton from '~/components/app-button/AppButton'
 import { useSelector } from 'react-redux'
 import AppChipList from '~/components/app-chips-list/AppChipList'
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
 const LanguageStepStudentContent = () => {
   const { stepData, handleStepData } = useStepContext()
   const { authLoading } = useSelector((state) => state.appMain)
   const [chosenLanguage, setChosenLanguage] = useState(null)
-
+  const { t } = useTranslation()
   const languageLabel = 'language'
   const selectedLanguages = stepData[languageLabel] ?? []
 
@@ -40,9 +42,14 @@ const LanguageStepStudentContent = () => {
   return (
     <Box>
       <Typography sx={styles.title}>
-        Velit officia consequat duis enim velit mollit. Other categories you can
-        add in your account settings later.
+        {t('becomeTutor.languages.title')}
       </Typography>
+      <Box
+        alt='General Step'
+        component='img'
+        src={image}
+        sx={styles.imgMobile}
+      />
       <Autocomplete
         disablePortal
         onChange={handleChangeLanguage}
