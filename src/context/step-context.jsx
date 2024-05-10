@@ -1,8 +1,16 @@
-import { createContext, useCallback, useContext, useState } from 'react'
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useState
+} from 'react'
+import useConfirm from '~/hooks/use-confirm'
 
 const StepContext = createContext()
 
 const StepProvider = ({ children, initialValues, stepLabels }) => {
+  const { setNeedConfirmation } = useConfirm()
   const [generalData, setGeneralData] = useState({
     data: initialValues,
     errors: {}
@@ -18,6 +26,15 @@ const StepProvider = ({ children, initialValues, stepLabels }) => {
     [languageLabel]: language,
     [photoLabel]: photo
   }
+
+  useEffect(() => {
+    setNeedConfirmation(
+      Object.keys(generalData.data).some((key) => generalData.data[key]) ||
+        subject.length !== 0 ||
+        language !== null ||
+        photo.length !== 0
+    )
+  }, [generalData, subject, language, photo, setNeedConfirmation])
 
   const handleStepData = useCallback(
     (stepLabel, data, errors) => {
