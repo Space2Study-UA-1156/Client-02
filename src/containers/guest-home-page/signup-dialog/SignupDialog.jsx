@@ -101,7 +101,7 @@ const SignupDialog = ({ type }) => {
         <Typography sx={styles.title} variant='h2'>
           {t('signup.head', { returnObjects: true })[type]}
         </Typography>
-        <Box sx={styles.form}>
+        <Box id='form' sx={styles.form}>
           <SignupForm
             closeModal={closeModal}
             data={data}
