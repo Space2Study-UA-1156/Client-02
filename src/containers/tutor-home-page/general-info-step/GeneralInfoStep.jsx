@@ -22,14 +22,26 @@ const GeneralInfoStep = ({ btnsBox }) => {
   const { t } = useTranslation()
 
   const handleInputChange = (event, fieldName) => {
-    handleStepData(generalLabel, {
-      ...stepData.generalInfo.data,
-      [fieldName]: event.target.value
-    })
+    handleStepData(
+      generalLabel,
+      {
+        ...stepData.generalInfo.data,
+        [fieldName]: event.target.value
+      },
+      stepData.generalInfo.isAdult,
+      stepData.generalInfo.errors
+    )
   }
 
   const handleCheckboxChange = () => {
-    console.log('checked')
+    handleStepData(
+      generalLabel,
+      {
+        ...stepData.generalInfo.data
+      },
+      !stepData.generalInfo.isAdult,
+      stepData.generalInfo.errors
+    )
   }
 
   const countries = [
@@ -73,7 +85,7 @@ const GeneralInfoStep = ({ btnsBox }) => {
             value={stepData?.generalInfo?.data?.lastName ?? ''}
           />
           <FormControl>
-            <InputLabel>Country</InputLabel>
+            <InputLabel sx={styles.inputLabel}>Country</InputLabel>
             <Select
               label='Country'
               onChange={(event) => handleInputChange(event, 'country')}
@@ -88,7 +100,7 @@ const GeneralInfoStep = ({ btnsBox }) => {
           </FormControl>
 
           <FormControl>
-            <InputLabel>City</InputLabel>
+            <InputLabel sx={styles.inputLabel}>City</InputLabel>
             <Select
               label='City'
               onChange={(event) => handleInputChange(event, 'city')}
@@ -115,6 +127,7 @@ const GeneralInfoStep = ({ btnsBox }) => {
           sx={styles.summaryLength}
         >{`${stepData?.generalInfo?.data?.professionalSummary?.length}/70`}</Typography>
         <FormControlLabel
+          checked={stepData?.generalInfo?.isAdult}
           control={<Checkbox onChange={handleCheckboxChange} />}
           label='I confirm that I am over 18 years old'
         />

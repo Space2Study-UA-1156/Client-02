@@ -35,6 +35,9 @@ export const styles = {
     gap: '20px',
     marginBottom: '20px'
   },
+  inputLabel: {
+    marginTop: '-3px'
+  },
   requiredLabel: {
     fontSize: '12px'
   },

@@ -13,6 +13,7 @@ const StepProvider = ({ children, initialValues, stepLabels }) => {
   const { setNeedConfirmation } = useConfirm()
   const [generalData, setGeneralData] = useState({
     data: initialValues,
+    isAdult: false,
     errors: {}
   })
   const [subject, setSubject] = useState([])
@@ -37,10 +38,11 @@ const StepProvider = ({ children, initialValues, stepLabels }) => {
   }, [generalData, subject, language, photo, setNeedConfirmation])
 
   const handleStepData = useCallback(
-    (stepLabel, data, errors) => {
+    (stepLabel, data, isAdult, errors) => {
+      console.log(isAdult)
       switch (stepLabel) {
         case generalLabel:
-          setGeneralData({ data, errors })
+          setGeneralData({ data, isAdult, errors })
           break
         case subjectLabel:
           setSubject(data)
