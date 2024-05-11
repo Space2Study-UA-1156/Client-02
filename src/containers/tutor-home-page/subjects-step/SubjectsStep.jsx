@@ -42,13 +42,6 @@ const SubjectsStep = ({ btnsBox, userRole }) => {
     setSubject(null)
   }
 
-  const handleDeleteSubject = (subjectName) => {
-    handleStepData(
-      subjectLabel,
-      selectedSubjects.filter((subject) => subject.name !== subjectName)
-    )
-  }
-
   const image = (
     <Box
         alt='Girl studying'
