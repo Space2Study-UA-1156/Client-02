@@ -5,14 +5,20 @@ import { useState } from 'react'
 import Autocomplete from '@mui/material/Autocomplete'
 import TextField from '@mui/material/TextField'
 import SubjectsStepImage from '~/assets/img/subjects-step/image.svg'
+import AppChipList from '~/components/app-chips-list/AppChipList'
+import AppButton from '~/components/app-button/AppButton'
+
+
 
 import { styles } from '~/containers/tutor-home-page/subjects-step/SubjectsStep.styles'
 import { categoriesMock, languagesMock } from '~/containers/tutor-home-page/subjects-step/constants'
-import AppButton from '~/components/app-button/AppButton'
 import { useStepContext } from '~/context/step-context'
-import AppChipList from '~/components/app-chips-list/AppChipList'
+import useBreakpoints from '~/hooks/use-breakpoints'
+import { useTranslation } from 'react-i18next'
 
 const SubjectsStep = ({ btnsBox, userRole }) => {
+  const { t } = useTranslation()
+  const { isMobile, isTablet, isLaptopAndAbove } = useBreakpoints()
   const [category, setCategory] = useState(null)
   const [subject, setSubject] = useState(null)
   const { stepData, handleStepData } = useStepContext()
@@ -43,19 +49,26 @@ const SubjectsStep = ({ btnsBox, userRole }) => {
     )
   }
 
-  return (
-    <Box sx={styles.container}>
-      <Box
+  const image = (
+    <Box
         alt='Girl studying'
         component='img'
         src={SubjectsStepImage}
         sx={styles.image}
-      />
+    />
+  )
+
+  return (
+    <Box sx={styles.container}>
+      {isLaptopAndAbove && image}
+
       <Box sx={styles.rigthBox}>
         <Box sx={styles.titleWithForm}>
           <Typography>
-            Velit officia consequat duis enim velit mollit. Other categories you can add in your account settings later.
+            {t('becomeTutor.categories.title')}
           </Typography>
+          {isMobile && image}
+
           <Box component='form' sx={styles.form}>
             <Autocomplete
               disablePortal
@@ -64,7 +77,7 @@ const SubjectsStep = ({ btnsBox, userRole }) => {
               options={categoriesMock}
               onChange={handleChangeCategory}
               renderInput={(params) => (
-                <TextField {...params} label='Main Tutoring Category' />
+                <TextField {...params} label={t('becomeTutor.categories.mainSubjectsLabel')} />
               )}
               sx={styles.inputField}
             />
@@ -75,7 +88,7 @@ const SubjectsStep = ({ btnsBox, userRole }) => {
               options={languagesMock}
               onChange={handleChangeSubject}
               renderInput={(params) => (
-                <TextField {...params} label='Subject' />
+                <TextField {...params} label={t('becomeTutor.categories.subjectLabel')} />
               )}
               sx={styles.inputField}
             />
@@ -84,7 +97,7 @@ const SubjectsStep = ({ btnsBox, userRole }) => {
               onClick={handleAddSubject} 
               variant={'tonal'}
             >
-              Add one more subject
+              {t('becomeTutor.categories.btnText')}
             </AppButton>
 
             <AppChipList
