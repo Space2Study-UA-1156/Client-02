@@ -18,7 +18,7 @@ import { useTranslation } from 'react-i18next'
 
 const SubjectsStep = ({ btnsBox, userRole }) => {
   const { t } = useTranslation()
-  const { isMobile, isTablet, isLaptopAndAbove } = useBreakpoints()
+  const { isMobile, isLaptopAndAbove } = useBreakpoints()
   const [category, setCategory] = useState(null)
   const [subject, setSubject] = useState(null)
   const { stepData, handleStepData } = useStepContext()
@@ -99,12 +99,6 @@ const SubjectsStep = ({ btnsBox, userRole }) => {
             >
               {t('becomeTutor.categories.btnText')}
             </AppButton>
-
-            <AppChipList
-              defaultQuantity={2}
-              handleChipDelete={handleDeleteSubject}
-              items={selectedSubjects.map((subject) => subject.name)}
-            />
           </Box>
         </Box>
         {btnsBox}
