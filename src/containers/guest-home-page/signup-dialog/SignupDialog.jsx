@@ -11,7 +11,7 @@ import useForm from '~/hooks/use-form'
 import { signup, snackbarVariants } from '~/constants'
 import GoogleLogin from '~/containers/guest-home-page/google-login/GoogleLogin'
 import SignupForm from '~/containers/guest-home-page/signup-form/SignupForm'
-import { signupUser } from '~/redux/reducer'
+import { loginUser, signupUser } from '~/redux/reducer'
 
 import student from '~/assets/img/signup-dialog/student.svg'
 import tutor from '~/assets/img/signup-dialog/tutor.svg'
@@ -24,7 +24,6 @@ const SignupDialog = ({ type }) => {
   const { openModal, closeModal } = useModalContext()
   const { setAlert } = useSnackBarContext()
   const dispatch = useDispatch()
-
   const signupImg = { student, tutor }
 
   const { handleSubmit, handleInputChange, handleBlur, data, errors } = useForm(
@@ -32,11 +31,12 @@ const SignupDialog = ({ type }) => {
       onSubmit: async () => {
         try {
           await dispatch(signupUser({ ...data, role: type })).unwrap()
-          openModal(
-            {
-              component: <EmailConfirmModal />
-            },
-            5000
+          openModal({
+            component: <EmailConfirmModal />
+          })
+          setTimeout(
+            () => dispatch(loginUser({ ...data, role: type })).unwrap(),
+            3000
           )
         } catch (e) {
           setAlert({
