@@ -1,6 +1,7 @@
 import {
   createContext,
   useCallback,
+  useMemo,
   useContext,
   useEffect,
   useState
@@ -20,12 +21,24 @@ const StepProvider = ({ children, initialValues, stepLabels }) => {
   const [photo, setPhoto] = useState([])
   const [generalLabel, subjectLabel, languageLabel, photoLabel] = stepLabels
 
-  const stepData = {
-    [generalLabel]: generalData,
-    [subjectLabel]: subject,
-    [languageLabel]: language,
-    [photoLabel]: photo
-  }
+  const stepData = useMemo(
+    () => ({
+      [generalLabel]: generalData,
+      [subjectLabel]: subject,
+      [languageLabel]: language,
+      [photoLabel]: photo
+    }),
+    [
+      generalData,
+      subject,
+      language,
+      photo,
+      generalLabel,
+      subjectLabel,
+      languageLabel,
+      photoLabel
+    ]
+  )
 
   useEffect(() => {
     setNeedConfirmation(
@@ -58,10 +71,13 @@ const StepProvider = ({ children, initialValues, stepLabels }) => {
     [generalLabel, subjectLabel, languageLabel, photoLabel]
   )
 
+  const contextValue = useMemo(
+    () => ({ generalLabel, stepData, handleStepData }),
+    [generalLabel, stepData, handleStepData]
+  )
+
   return (
-    <StepContext.Provider value={{ generalLabel, stepData, handleStepData }}>
-      {children}
-    </StepContext.Provider>
+    <StepContext.Provider value={contextValue}>{children}</StepContext.Provider>
   )
 }
 
