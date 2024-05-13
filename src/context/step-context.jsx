@@ -39,7 +39,6 @@ const StepProvider = ({ children, initialValues, stepLabels }) => {
 
   const handleStepData = useCallback(
     (stepLabel, data, isAdult, errors) => {
-      console.log(isAdult)
       switch (stepLabel) {
         case generalLabel:
           setGeneralData({ data, isAdult, errors })
