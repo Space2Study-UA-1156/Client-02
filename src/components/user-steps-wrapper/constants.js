@@ -5,13 +5,14 @@ export const initialValues = {
   lastName: '',
   country: null,
   city: null,
-  professionalSummary: ''
+  professionalSummary: '',
+  legalAge: false
 }
 
 export const validations = {
   firstName: nameField,
   lastName: nameField,
-  professionalSummary: textField(0, 200)
+  professionalSummary: textField(0, 100)
 }
 
 export const tutorStepLabels = ['generalInfo', 'subjects', 'language', 'photo']
