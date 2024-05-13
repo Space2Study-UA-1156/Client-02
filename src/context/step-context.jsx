@@ -3,18 +3,35 @@ import {
   useCallback,
   useMemo,
   useContext,
-  useEffect,
-  useState
+  useState,
+  useEffect
 } from 'react'
+import useForm from '~/hooks/use-form'
 import useConfirm from '~/hooks/use-confirm'
 
 const StepContext = createContext()
 
-const StepProvider = ({ children, initialValues, stepLabels }) => {
+const StepProvider = ({ children, initialValues, validations, stepLabels }) => {
   const { setNeedConfirmation } = useConfirm()
+  const {
+    handleInputChange,
+    handleSelectChange,
+    handleBlur,
+    errors,
+    data,
+    isDirty
+  } = useForm({
+    initialValues,
+    validations
+  })
+
+  useEffect(() => {
+    setNeedConfirmation(isDirty)
+  }, [isDirty, setNeedConfirmation])
+
   const [generalData, setGeneralData] = useState({
     data: initialValues,
-    errors: {}
+    errors: errors
   })
   const [subject, setSubject] = useState([])
   const [language, setLanguage] = useState(null)
@@ -40,15 +57,6 @@ const StepProvider = ({ children, initialValues, stepLabels }) => {
     ]
   )
 
-  useEffect(() => {
-    setNeedConfirmation(
-      Object.keys(generalData.data).some((key) => generalData.data[key]) ||
-        subject.length !== 0 ||
-        language !== null ||
-        photo.length !== 0
-    )
-  }, [generalData, subject, language, photo, setNeedConfirmation])
-
   const handleStepData = useCallback(
     (stepLabel, data, errors) => {
       switch (stepLabel) {
@@ -72,8 +80,26 @@ const StepProvider = ({ children, initialValues, stepLabels }) => {
   )
 
   const contextValue = useMemo(
-    () => ({ generalLabel, stepData, handleStepData }),
-    [generalLabel, stepData, handleStepData]
+    () => ({
+      handleInputChange,
+      handleSelectChange,
+      handleBlur,
+      errors,
+      data,
+      initialValues,
+      stepData,
+      handleStepData
+    }),
+    [
+      handleInputChange,
+      handleSelectChange,
+      handleBlur,
+      errors,
+      data,
+      initialValues,
+      stepData,
+      handleStepData
+    ]
   )
 
   return (
