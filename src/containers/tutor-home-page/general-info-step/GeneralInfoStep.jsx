@@ -1,14 +1,14 @@
-import { useCallback, useMemo } from 'react'
+import { useCallback, useMemo, useEffect, memo } from 'react'
 import { useTranslation } from 'react-i18next'
 import {
   Typography,
   Box,
-  TextField,
   FormControl,
   FormControlLabel,
   Checkbox
 } from '@mui/material'
 import AsyncAutocomplete from '~/components/async-autocomlete/AsyncAutocomplete'
+import AppTextField from '~/components/app-text-field/AppTextField'
 
 import { LocationService } from '~/services/location-service'
 import { useStepContext } from '~/context/step-context'
@@ -18,16 +18,18 @@ import { styles } from '~/containers/tutor-home-page/general-info-step/GeneralIn
 
 const GeneralInfoStep = ({ btnsBox }) => {
   const { t } = useTranslation()
-  const { generalLabel, stepData, handleStepData } = useStepContext()
-
   const {
-    firstName = '',
-    lastName = '',
-    country = '',
-    city = '',
-    professionalSummary = '',
-    legalAge = false
-  } = stepData?.generalInfo?.data || {}
+    handleInputChange,
+    handleSelectChange,
+    handleBlur,
+    errors,
+    data,
+    handleStepData
+  } = useStepContext()
+
+  useEffect(() => {
+    handleStepData('generalInfo', data, errors)
+  }, [handleStepData, data, errors])
 
   const countriesOptions = useMemo(
     () => ({
@@ -48,27 +50,6 @@ const GeneralInfoStep = ({ btnsBox }) => {
     []
   )
 
-  const handleInputChange = useCallback(
-    (fieldName) =>
-      ({ target: { value } }) => {
-        handleStepData(generalLabel, {
-          ...stepData.generalInfo.data,
-          [fieldName]: value
-        })
-      },
-    [generalLabel, handleStepData, stepData.generalInfo.data]
-  )
-
-  const handleSelectedValue = useCallback(
-    (fieldName) => (event, selectedValue) => {
-      handleStepData(generalLabel, {
-        ...stepData.generalInfo.data,
-        [fieldName]: selectedValue
-      })
-    },
-    [generalLabel, handleStepData, stepData.generalInfo.data]
-  )
-
   return (
     <Box sx={styles.container}>
       <Box sx={styles.imgContainer}>
@@ -85,54 +66,67 @@ const GeneralInfoStep = ({ btnsBox }) => {
           sx={styles.imgMobile}
         />
         <Box sx={styles.form}>
-          <TextField
+          <AppTextField
+            errorMsg={t(errors.firstName)}
             label={t('becomeTutor.generalInfo.inputFirstName')}
+            onBlur={handleBlur('firstName')}
             onChange={handleInputChange('firstName')}
             required
-            value={firstName ?? ''}
+            type='text'
+            value={data.firstName}
           />
-          <TextField
+          <AppTextField
+            errorMsg={t(errors.lastName)}
             label={t('becomeTutor.generalInfo.inputLastName')}
+            onBlur={handleBlur('lastName')}
             onChange={handleInputChange('lastName')}
             required
-            value={lastName ?? ''}
+            type='text'
+            value={data.lastName}
           />
           <FormControl>
             <AsyncAutocomplete
-              fetchOnFocus={!country}
-              onChange={handleSelectedValue('country')}
+              fetchOnFocus={!data.country}
+              onBlur={handleBlur('country')}
+              onChange={handleSelectChange('country')}
               service={LocationService.getCountries}
               textFieldProps={countriesOptions}
-              value={country}
+              value={data.country}
             />
           </FormControl>
           <FormControl>
             <AsyncAutocomplete
-              fetchOnFocus={!city}
-              onChange={handleSelectedValue('city')}
-              service={getCities(country)}
+              fetchOnFocus={!data.city}
+              onBlur={handleBlur('city')}
+              onChange={handleSelectChange('city')}
+              service={getCities(data.country)}
               textFieldProps={citiesOptions}
-              value={city}
+              value={data.city}
             />
           </FormControl>
         </Box>
-        <TextField
+        <AppTextField
+          errorMsg={t(errors.professionalSummary)}
           fullWidth
-          inputProps={{ maxLength: 100 }}
+          inputProps={{ maxLength: 101 }}
           multiline
+          onBlur={handleBlur('professionalSummary')}
           onChange={handleInputChange('professionalSummary')}
           placeholder={t('becomeTutor.generalInfo.textFieldLabel')}
           rows={4}
-          value={professionalSummary ?? ''}
+          type='text'
+          value={data.professionalSummary}
         />
         <Typography
           sx={styles.summaryLength}
-        >{`${professionalSummary?.length}/100`}</Typography>
+        >{`${data.professionalSummary?.length}/100`}</Typography>
         <FormControlLabel
           control={
             <Checkbox
-              checked={legalAge}
-              onChange={handleSelectedValue('legalAge')}
+              checked={data.legalAge}
+              onBlur={handleBlur('legalAge')}
+              onChange={handleInputChange('legalAge')}
+              type='checkbox'
             />
           }
           label={t('becomeTutor.generalInfo.checkboxAgeVerification')}
@@ -146,4 +140,4 @@ const GeneralInfoStep = ({ btnsBox }) => {
   )
 }
 
-export default GeneralInfoStep
+export default memo(GeneralInfoStep)
