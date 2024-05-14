@@ -25,6 +25,19 @@ const SignupForm = ({
   const { t } = useTranslation()
   const { privacyPolicy, termOfUse } = guestRoutes
   const [isAgreementChecked, setIsAgreementChecked] = useState(false)
+  const isSignUpButtonDisabled =
+    !errors['firstName'] &&
+    data.firstName &&
+    !errors['lastName'] &&
+    data.lastName &&
+    !errors['email'] &&
+    data.email &&
+    !errors['password'] &&
+    data.password &&
+    !errors['confirmPassword'] &&
+    data.confirmPassword &&
+    isAgreementChecked
+
   const { inputVisibility: passwordVisibility, showInputText: showPassword } =
     useInputVisibility(errors.password)
   const {
@@ -69,6 +82,7 @@ const SignupForm = ({
       <Box sx={{ display: { md: 'block', lg: 'flex' }, gap: '15px' }}>
         <AppTextField
           autoFocus
+          errorMsg={t(errors['firstName'])}
           fullWidth
           label={t('common.labels.firstName')}
           onBlur={handleBlur('firstName')}
@@ -80,6 +94,7 @@ const SignupForm = ({
         />
 
         <AppTextField
+          errorMsg={t(errors['lastName'])}
           fullWidth
           label={t('common.labels.lastName')}
           onBlur={handleBlur('lastName')}
@@ -92,6 +107,7 @@ const SignupForm = ({
       </Box>
 
       <AppTextField
+        errorMsg={t(errors['email'])}
         fullWidth
         label={t('common.labels.email')}
         onBlur={handleBlur('email')}
@@ -104,6 +120,7 @@ const SignupForm = ({
 
       <AppTextField
         InputProps={passwordVisibility}
+        errorMsg={t(errors['password'])}
         fullWidth
         label={t('common.labels.password')}
         onBlur={handleBlur('password')}
@@ -138,7 +155,7 @@ const SignupForm = ({
       </Box>
 
       <AppButton
-        disabled={!isAgreementChecked}
+        disabled={!isSignUpButtonDisabled}
         loading={authLoading}
         sx={styles.signupButton}
         type='submit'
