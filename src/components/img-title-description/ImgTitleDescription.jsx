@@ -3,10 +3,16 @@ import TitleWithDescription from '~/components/title-with-description/TitleWithD
 
 import { styles } from '~/components/img-title-description/ImgTitleDescription.styles'
 
-const ImgTitleDescription = ({ img, title, description, style = styles }) => {
+const ImgTitleDescription = ({
+  altText = 'info',
+  img,
+  title,
+  description,
+  style = styles
+}) => {
   return (
     <Box sx={style.root}>
-      <Box alt='info' component={'img'} src={img} sx={style.img} />
+      <Box alt={altText} component={'img'} src={img} sx={style.img} />
 
       <TitleWithDescription
         description={description}
