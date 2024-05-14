@@ -1,12 +1,10 @@
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
-import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
 
 import { useModalContext } from '~/context/modal-context'
 import { useSnackBarContext } from '~/context/snackbar-context'
-import useConfirm from '~/hooks/use-confirm'
 import useForm from '~/hooks/use-form'
 import {
   email,
@@ -18,43 +16,33 @@ import {
 
 import { signup, snackbarVariants } from '~/constants'
 import GoogleLogin from '~/containers/guest-home-page/google-login/GoogleLogin'
-import NotificationModal from '~/containers/guest-home-page/notification-modal/NotificationModal'
 import SignupForm from '~/containers/guest-home-page/signup-form/SignupForm'
-import { signupUser } from '~/redux/reducer'
+import { loginUser, signupUser } from '~/redux/reducer'
 
-import info from '~/assets/img/guest-home-page/info.svg'
 import student from '~/assets/img/signup-dialog/student.svg'
 import tutor from '~/assets/img/signup-dialog/tutor.svg'
 
 import { styles } from '~/containers/guest-home-page/signup-dialog/SignupDialog.styles'
+import EmailConfirmModal from '~/containers/email-confirm-modal/EmailConfirmModal'
 
 const SignupDialog = ({ type }) => {
   const { t } = useTranslation()
-  const { setNeedConfirmation } = useConfirm()
   const { openModal, closeModal } = useModalContext()
   const { setAlert } = useSnackBarContext()
   const dispatch = useDispatch()
-
   const signupImg = { student, tutor }
 
-  const { handleSubmit, handleInputChange, handleBlur, data, isDirty, errors } =
-    useForm({
+  const { handleSubmit, handleInputChange, handleBlur, data, errors } = useForm(
+    {
       onSubmit: async () => {
         try {
           await dispatch(signupUser({ ...data, role: type })).unwrap()
-          openModal(
-            {
-              component: (
-                <NotificationModal
-                  buttonTitle={t('common.confirmButton')}
-                  description={description}
-                  img={info}
-                  onClose={closeModal}
-                  title={t('signup.confirmEmailTitle')}
-                />
-              )
-            },
-            5000
+          openModal({
+            component: <EmailConfirmModal />
+          })
+          setTimeout(
+            () => dispatch(loginUser({ ...data, role: type })).unwrap(),
+            3000
           )
         } catch (e) {
           setAlert({
@@ -71,20 +59,8 @@ const SignupDialog = ({ type }) => {
         confirmPassword: ''
       },
       validations: { email, password, firstName, lastName, confirmPassword }
-    })
-
-  const description = (
-    <Typography component='span'>
-      {t('signup.confirmEmailMessage')}
-      <Typography component='span' variant='subtitle2'>
-        {data.email}
-      </Typography>
-      {t('signup.confirmEmailDesc')}
-    </Typography>
+    }
   )
-  useEffect(() => {
-    setNeedConfirmation(isDirty)
-  }, [isDirty, setNeedConfirmation])
 
   return (
     <Box sx={styles.root}>
