@@ -31,7 +31,7 @@ const StepProvider = ({ children, initialValues, validations, stepLabels }) => {
 
   const [generalData, setGeneralData] = useState({
     data: initialValues,
-    errors: errors
+    errors
   })
   const [subject, setSubject] = useState([])
   const [language, setLanguage] = useState(null)

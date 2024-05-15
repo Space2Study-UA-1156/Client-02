@@ -9,10 +9,12 @@ export const initialValues = {
   legalAge: false
 }
 
+export const maxLengthTextField = 100
+
 export const validations = {
   firstName: nameField,
   lastName: nameField,
-  professionalSummary: textField(0, 100)
+  professionalSummary: textField(0, maxLengthTextField)
 }
 
 export const tutorStepLabels = ['generalInfo', 'subjects', 'language', 'photo']

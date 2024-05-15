@@ -12,6 +12,7 @@ import AppTextField from '~/components/app-text-field/AppTextField'
 
 import { LocationService } from '~/services/location-service'
 import { useStepContext } from '~/context/step-context'
+import { maxLengthTextField } from '~/components/user-steps-wrapper/constants'
 
 import image from '~/assets/img/tutor-home-page/become-tutor/general-info.svg'
 import { styles } from '~/containers/tutor-home-page/general-info-step/GeneralInfoStep.styles'
@@ -108,7 +109,7 @@ const GeneralInfoStep = ({ btnsBox }) => {
         <AppTextField
           errorMsg={t(errors.professionalSummary)}
           fullWidth
-          inputProps={{ maxLength: 101 }}
+          inputProps={{ maxLength: maxLengthTextField + 1 }}
           multiline
           onBlur={handleBlur('professionalSummary')}
           onChange={handleInputChange('professionalSummary')}
@@ -119,7 +120,7 @@ const GeneralInfoStep = ({ btnsBox }) => {
         />
         <Typography
           sx={styles.summaryLength}
-        >{`${data.professionalSummary?.length}/100`}</Typography>
+        >{`${data.professionalSummary?.length}/${maxLengthTextField}`}</Typography>
         <FormControlLabel
           control={
             <Checkbox
