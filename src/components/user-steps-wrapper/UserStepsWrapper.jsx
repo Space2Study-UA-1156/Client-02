@@ -12,6 +12,7 @@ import SubjectsStep from '~/containers/tutor-home-page/subjects-step/SubjectsSte
 import { useDispatch } from 'react-redux'
 import {
   initialValues,
+  validations,
   studentStepLabels,
   tutorStepLabels
 } from '~/components/user-steps-wrapper/constants'
@@ -39,7 +40,11 @@ const UserStepsWrapper = ({ userRole }) => {
   const stepLabels = userRole === student ? studentStepLabels : tutorStepLabels
 
   return (
-    <StepProvider initialValues={initialValues} stepLabels={stepLabels}>
+    <StepProvider
+      initialValues={initialValues}
+      stepLabels={stepLabels}
+      validations={validations}
+    >
       <StepWrapper steps={stepLabels}>{childrenArr}</StepWrapper>
     </StepProvider>
   )

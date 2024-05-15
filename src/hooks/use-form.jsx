@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useCallback } from 'react'
 import { getEmptyValues } from '~/utils/helper-functions'
 import { isEqual } from '~/utils/isEqual'
 
@@ -13,68 +13,94 @@ export const useForm = ({
   const [errors, setErrors] = useState(initialErrors)
   const [isTouched, setTouched] = useState(getEmptyValues(initialValues, false))
 
-  const validateValue = (key, value) => {
-    if (validations && validations[key]) {
-      return validations[key]?.(value, data)
-    }
-  }
+  const validateValue = useCallback(
+    (key, value) => {
+      if (validations && validations[key]) {
+        return validations[key]?.(value, data)
+      }
+    },
+    [data, validations]
+  )
 
-  const checkForError = (key, value) => {
-    if (isTouched[key] || errors[key]) {
-      const valid = validateValue(key, value)
+  const checkForError = useCallback(
+    (key, value) => {
+      if (isTouched[key] || errors[key]) {
+        const valid = validateValue(key, value)
+
+        setErrors((prev) => ({
+          ...prev,
+          [key]: valid ?? ''
+        }))
+      }
+    },
+    [errors, isTouched, validateValue]
+  )
+
+  const handleInputChange = useCallback(
+    (key) => (event) => {
+      const value =
+        event.target.type === 'checkbox'
+          ? event.target.checked
+          : event.target.value
+      setData((prev) => ({
+        ...prev,
+        [key]: value
+      }))
+      checkForError(key, event.target.value)
+    },
+    [checkForError]
+  )
+
+  const handleSelectChange = useCallback(
+    (key) => (event, selectedValue) => {
+      setData((prev) => ({
+        ...prev,
+        [key]: selectedValue
+      }))
+      checkForError(key, event.target.value)
+    },
+    [checkForError]
+  )
+
+  const handleNonInputValueChange = useCallback(
+    (key, value) => {
+      setData((prev) => {
+        const newData = {
+          ...prev,
+          [key]: value
+        }
+        setDirty(!isEqual(newData, initialValues))
+        return newData
+      })
+      checkForError(key, value)
+    },
+    [checkForError, initialValues]
+  )
+
+  const handleErrors = useCallback((key, error) => {
+    setErrors((prev) => ({
+      ...prev,
+      [key]: error
+    }))
+  }, [])
+
+  const handleBlur = useCallback(
+    (key) => (event) => {
+      setDirty(!isEqual(data, initialValues))
+
+      const valid = validateValue(key, event.target.value)
 
       setErrors((prev) => ({
         ...prev,
         [key]: valid ?? ''
       }))
-    }
-  }
-
-  const handleInputChange = (key) => (event) => {
-    const value =
-      event.target.type === 'checkbox'
-        ? event.target.checked
-        : event.target.value
-    setData((prev) => ({
-      ...prev,
-      [key]: value
-    }))
-    checkForError(key, event.target.value)
-  }
-
-  const handleNonInputValueChange = (key, value) => {
-    setData((prev) => {
-      const newData = {
+      setTouched((prev) => ({
         ...prev,
-        [key]: value
-      }
-      setDirty(!isEqual(newData, initialValues))
-      return newData
-    })
-    checkForError(key, value)
-  }
-
-  const handleErrors = (key, error) => {
-    setErrors((prev) => ({
-      ...prev,
-      [key]: error
-    }))
-  }
-
-  const handleBlur = (key) => (event) => {
-    setDirty(!isEqual(data, initialValues))
-
-    const valid = validateValue(key, event.target.value)
-
-    setErrors((prev) => ({
-      ...prev,
-      [key]: valid ?? ''
-    }))
-    setTouched((prev) => ({
-      ...prev,
-      [key]: true
-    }))
-  }
+        [key]: true
+      }))
+    },
+    [data, initialValues, validateValue]
+  )
 
   const handleSubmit = (event) => {
     event.preventDefault()
@@ -100,6 +126,7 @@ export const useForm = ({
     isDirty,
     errors,
     handleInputChange,
+    handleSelectChange,
     handleNonInputValueChange,
     handleBlur,
     handleErrors,

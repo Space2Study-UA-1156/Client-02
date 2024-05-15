@@ -1,48 +1,55 @@
+import { useCallback, useMemo, useEffect, memo } from 'react'
 import { useTranslation } from 'react-i18next'
 import {
   Typography,
   Box,
-  TextField,
   FormControl,
-  Select,
-  InputLabel,
-  MenuItem,
   FormControlLabel,
   Checkbox
 } from '@mui/material'
-import image from '~/assets/img/tutor-home-page/become-tutor/general-info.svg'
+import AsyncAutocomplete from '~/components/async-autocomlete/AsyncAutocomplete'
+import AppTextField from '~/components/app-text-field/AppTextField'
 
+import { LocationService } from '~/services/location-service'
 import { useStepContext } from '~/context/step-context'
+import { maxLengthTextField } from '~/components/user-steps-wrapper/constants'
 
+import image from '~/assets/img/tutor-home-page/become-tutor/general-info.svg'
 import { styles } from '~/containers/tutor-home-page/general-info-step/GeneralInfoStep.styles'
 
 const GeneralInfoStep = ({ btnsBox }) => {
-  const { generalLabel, stepData, handleStepData } = useStepContext()
-
   const { t } = useTranslation()
+  const {
+    handleInputChange,
+    handleSelectChange,
+    handleBlur,
+    errors,
+    data,
+    handleStepData
+  } = useStepContext()
 
-  const handleInputChange = (event, fieldName) => {
-    handleStepData(generalLabel, {
-      ...stepData.generalInfo.data,
-      [fieldName]: event.target.value
-    })
-  }
+  useEffect(() => {
+    handleStepData('generalInfo', data, errors)
+  }, [handleStepData, data, errors])
 
-  const handleCheckboxChange = () => {
-    console.log('checked')
-  }
+  const countriesOptions = useMemo(
+    () => ({
+      label: t('becomeTutor.generalInfo.selectCountry')
+    }),
+    [t]
+  )
 
-  const countries = [
-    { label: 'Ukraine', id: 'ua' },
-    { label: 'Spain', id: 'es' },
-    { label: 'France', id: 'fr' }
-  ]
+  const citiesOptions = useMemo(
+    () => ({
+      label: t('becomeTutor.generalInfo.selectCity')
+    }),
+    [t]
+  )
 
-  const cities = [
-    { label: 'Lviv', id: 'lv', country: 'ua' },
-    { label: 'Kyiv', id: 'kv', country: 'ua' },
-    { label: 'Ternopil', id: 'tl', country: 'ua' }
-  ]
+  const getCities = useCallback(
+    (country) => () => LocationService.getCities(country),
+    []
+  )
 
   return (
     <Box sx={styles.container}>
@@ -60,63 +67,70 @@ const GeneralInfoStep = ({ btnsBox }) => {
           sx={styles.imgMobile}
         />
         <Box sx={styles.form}>
-          <TextField
-            label={'First Name'}
-            onChange={() => handleInputChange(event, 'firstName')}
+          <AppTextField
+            errorMsg={t(errors.firstName)}
+            label={t('becomeTutor.generalInfo.inputFirstName')}
+            onBlur={handleBlur('firstName')}
+            onChange={handleInputChange('firstName')}
             required
-            value={stepData?.generalInfo?.data?.firstName ?? ''}
+            type='text'
+            value={data.firstName}
           />
-          <TextField
-            label={'Last Name'}
-            onChange={() => handleInputChange(event, 'lastName')}
+          <AppTextField
+            errorMsg={t(errors.lastName)}
+            label={t('becomeTutor.generalInfo.inputLastName')}
+            onBlur={handleBlur('lastName')}
+            onChange={handleInputChange('lastName')}
             required
-            value={stepData?.generalInfo?.data?.lastName ?? ''}
+            type='text'
+            value={data.lastName}
           />
           <FormControl>
-            <InputLabel>Country</InputLabel>
-            <Select
-              label='Country'
-              onChange={(event) => handleInputChange(event, 'country')}
-              value={stepData?.generalInfo?.data?.country ?? ''}
-            >
-              {countries.map((c) => (
-                <MenuItem key={c.id} value={c.id}>
-                  {c.label}
-                </MenuItem>
-              ))}
-            </Select>
+            <AsyncAutocomplete
+              fetchOnFocus={!data.country}
+              onBlur={handleBlur('country')}
+              onChange={handleSelectChange('country')}
+              service={LocationService.getCountries}
+              textFieldProps={countriesOptions}
+              value={data.country}
+            />
           </FormControl>
-
           <FormControl>
-            <InputLabel>City</InputLabel>
-            <Select
-              label='City'
-              onChange={(event) => handleInputChange(event, 'city')}
-              value={stepData?.generalInfo?.data?.city ?? ''}
-            >
-              {cities.map((c) => (
-                <MenuItem key={c.id} value={c.id}>
-                  {c.label}
-                </MenuItem>
-              ))}
-            </Select>
+            <AsyncAutocomplete
+              fetchOnFocus={!data.city}
+              onBlur={handleBlur('city')}
+              onChange={handleSelectChange('city')}
+              service={getCities(data.country)}
+              textFieldProps={citiesOptions}
+              value={data.city}
+            />
           </FormControl>
         </Box>
-        <TextField
+        <AppTextField
+          errorMsg={t(errors.professionalSummary)}
           fullWidth
-          inputProps={{ maxLength: 70 }}
+          inputProps={{ maxLength: maxLengthTextField + 1 }}
           multiline
-          onChange={() => handleInputChange(event, 'professionalSummary')}
+          onBlur={handleBlur('professionalSummary')}
+          onChange={handleInputChange('professionalSummary')}
           placeholder={t('becomeTutor.generalInfo.textFieldLabel')}
           rows={4}
-          value={stepData?.generalInfo?.data?.professionalSummary ?? ''}
+          type='text'
+          value={data.professionalSummary}
         />
         <Typography
           sx={styles.summaryLength}
-        >{`${stepData?.generalInfo?.data?.professionalSummary?.length}/70`}</Typography>
+        >{`${data.professionalSummary?.length}/${maxLengthTextField}`}</Typography>
         <FormControlLabel
-          control={<Checkbox onChange={handleCheckboxChange} />}
-          label='I confirm that I am over 18 years old'
+          control={
+            <Checkbox
+              checked={data.legalAge}
+              onBlur={handleBlur('legalAge')}
+              onChange={handleInputChange('legalAge')}
+              type='checkbox'
+            />
+          }
+          label={t('becomeTutor.generalInfo.checkboxAgeVerification')}
         />
         <Typography sx={styles.requiredLabel}>
           {t('becomeTutor.generalInfo.helperText')}
@@ -127,4 +141,4 @@ const GeneralInfoStep = ({ btnsBox }) => {
   )
 }
 
-export default GeneralInfoStep
+export default memo(GeneralInfoStep)
