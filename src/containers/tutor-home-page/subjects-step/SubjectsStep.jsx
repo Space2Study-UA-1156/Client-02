@@ -8,10 +8,11 @@ import SubjectsStepImage from '~/assets/img/subjects-step/image.svg'
 import AppChipList from '~/components/app-chips-list/AppChipList'
 import AppButton from '~/components/app-button/AppButton'
 
-
-
 import { styles } from '~/containers/tutor-home-page/subjects-step/SubjectsStep.styles'
-import { categoriesMock, languagesMock } from '~/containers/tutor-home-page/subjects-step/constants'
+import {
+  categoriesMock,
+  languagesMock
+} from '~/containers/tutor-home-page/subjects-step/constants'
 import { useStepContext } from '~/context/step-context'
 import useBreakpoints from '~/hooks/use-breakpoints'
 import { useTranslation } from 'react-i18next'
@@ -19,6 +20,7 @@ import { useTranslation } from 'react-i18next'
 const SubjectsStep = ({ btnsBox, userRole }) => {
   const { t } = useTranslation()
   const { isMobile, isLaptopAndAbove } = useBreakpoints()
+  //eslint-disable-next-line no-unused-vars
   const [category, setCategory] = useState(null)
   const [subject, setSubject] = useState(null)
   const { stepData, handleStepData } = useStepContext()
@@ -42,12 +44,19 @@ const SubjectsStep = ({ btnsBox, userRole }) => {
     setSubject(null)
   }
 
+  const handleDeleteSubject = (subjectName) => {
+    handleStepData(
+      subjectLabel,
+      selectedSubjects.filter((subject) => subject.name !== subjectName)
+    )
+  }
+
   const image = (
     <Box
-        alt='Girl studying'
-        component='img'
-        src={SubjectsStepImage}
-        sx={styles.image}
+      alt='Girl studying'
+      component='img'
+      src={SubjectsStepImage}
+      sx={styles.image}
     />
   )
 
@@ -57,41 +66,51 @@ const SubjectsStep = ({ btnsBox, userRole }) => {
 
       <Box sx={styles.rigthBox}>
         <Box sx={styles.titleWithForm}>
-          <Typography>
-            {t('becomeTutor.categories.title')}
-          </Typography>
+          <Typography>{t('becomeTutor.categories.title')}</Typography>
           {isMobile && image}
 
           <Box component='form' sx={styles.form}>
             <Autocomplete
               disablePortal
-              id='combo-box-demo'
               getOptionLabel={(option) => option.name}
-              options={categoriesMock}
+              id='combo-box-demo'
               onChange={handleChangeCategory}
+              options={categoriesMock}
               renderInput={(params) => (
-                <TextField {...params} label={t('becomeTutor.categories.mainSubjectsLabel')} />
+                <TextField
+                  {...params}
+                  label={t('becomeTutor.categories.mainSubjectsLabel')}
+                />
               )}
               sx={styles.inputField}
             />
             <Autocomplete
               disablePortal
-              id='combo-box-demo'
               getOptionLabel={(option) => option.name}
-              options={languagesMock}
+              id='combo-box-demo'
               onChange={handleChangeSubject}
+              options={languagesMock}
               renderInput={(params) => (
-                <TextField {...params} label={t('becomeTutor.categories.subjectLabel')} />
+                <TextField
+                  {...params}
+                  label={t('becomeTutor.categories.subjectLabel')}
+                />
               )}
               sx={styles.inputField}
             />
-            <AppButton 
+            <AppButton
               disabled={subject === null ? true : false}
-              onClick={handleAddSubject} 
+              onClick={handleAddSubject}
               variant={'tonal'}
             >
               {t('becomeTutor.categories.btnText')}
             </AppButton>
+
+            <AppChipList
+              defaultQuantity={2}
+              handleChipDelete={handleDeleteSubject}
+              items={selectedSubjects.map((subject) => subject.name)}
+            />
           </Box>
         </Box>
         {btnsBox}
