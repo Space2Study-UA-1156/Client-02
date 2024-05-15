@@ -32,8 +32,8 @@ const UserStepsWrapper = ({ userRole }) => {
       key='1'
       setIsUserFetched={setIsUserFetched}
     />,
-    <SubjectsStep key='2' />,
-    <LanguageStep key='3' userRole={userRole} />,
+    <SubjectsStep key='2' userRole={userRole}/>,
+    <LanguageStep key='3' userRole={userRole}/>,
     <AddPhotoStep key='4' />
   ]
 
