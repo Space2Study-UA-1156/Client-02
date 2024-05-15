@@ -23,7 +23,7 @@ jobs:
           node-version: 18
 
       - name : Npm Install
-        run: npm install
+        run: npm run reinstall
         
       - name : Lint
         run : npm run lint

@@ -6,7 +6,7 @@ export const styles = {
     border: '1px solid',
     borderColor: 'primary.200',
     borderRadius: '5px',
-    maxWidth: '270px',
+    maxWidth: { sm: '270px' },
     overflow: 'auto'
   },
   rootDrag: {

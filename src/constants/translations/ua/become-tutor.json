@@ -1,14 +1,19 @@
 {
   "stepLabels": {
-    "generalInfo": "Загальне", 
-    "language": "Мова", 
+    "generalInfo": "Загальне",
+    "language": "Мова",
     "subjects": "Предмети",
     "photo": "Фото"
   },
   "generalInfo": {
     "title": "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint.",
     "textFieldLabel": "Коротко опишіть свій професійний статус",
-    "helperText": "Поля зі знаком * є обов'язковими"
+    "helperText": "Поля зі знаком * є обов'язковими",
+    "inputFirstName": "Ім'я",
+    "inputLastName": "Прізвище",
+    "selectCountry": "Країна",
+    "selectCity": "Місто",
+    "checkboxAgeVerification": "Підтверджую, що мені виповнилося 18 років"
   },
   "experience": {
     "title": "Опишіть свій професійний досвід. Максимум 70 символів.",
@@ -27,12 +32,12 @@
     "sameSubject": "Ви вже маєте такий предмет"
   },
   "photo": {
-	"imageAlt": "Ваша фотографія",
-	"button": "Завантажте свою фотографію профілю",
-	"placeholder":"Попередній перегляд фотографій",
-	"description":"Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.",
-	"typeError": "Неправильний тип файлу. Дозволяються лише файли .png/.jpg/.jpeg.",
-	"fileSizeError": "Розмір одного файлу не може перевищувати 10 Мб."
+    "imageAlt": "Ваша фотографія",
+    "button": "Завантажте свою фотографію профілю",
+    "placeholder": "Попередній перегляд фотографій",
+    "description": "Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.",
+    "typeError": "Неправильний тип файлу. Дозволяються лише файли .png/.jpg/.jpeg.",
+    "fileSizeError": "Розмір одного файлу не може перевищувати 10 Мб."
   },
   "successMessage": "Успішно! Ваші дані додано."
 }
