@@ -18,6 +18,9 @@ import { parseJwt } from '~/utils/helper-functions'
 const initialState = {
   userId: '',
   userRole: '',
+  firstName: '',
+  lastName: '',
+  email: '',
   authLoading: false,
   loading: true,
   pageLoad: false,
@@ -114,11 +117,17 @@ export const mainSlice = createSlice({
       const userData = parseJwt(action.payload)
       state.userId = userData.id
       state.userRole = userData.role
+      state.firstName = userData.firstName
+      state.lastName = userData.lastName
+      state.email = userData.email
       state.isFirstLogin = userData.isFirstLogin
     },
     logout(state) {
       state.userId = initialState.userId
       state.userRole = initialState.userRole
+      state.firstName = initialState.firstName
+      state.lastName = initialState.lastName
+      state.email = initialState.email
       state.isFirstLogin = initialState.isFirstLogin
     },
     markFirstLoginComplete(state) {
