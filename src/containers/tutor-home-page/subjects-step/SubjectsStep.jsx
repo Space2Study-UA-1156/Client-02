@@ -20,10 +20,9 @@ const SubjectsStep = ({ btnsBox, userRole }) => {
   const { isMobile, isLaptopAndAbove } = useBreakpoints()
   const [selectedCategory, setSelectedCategory] = useState(null)
   const [selectedSubject, setSelectedSubject] = useState(null)
-  const subjectLabel = userRole === 'student' ? 'interests' : 'subjects'
   const isTutor = userRole === 'tutor'
 
-  const { stepData, handleStepData } = useStepContext()
+  const { subjectLabel, stepData, handleStepData } = useStepContext()
   const getOptionLabel = useCallback((option) => option.name, [])
   const categoriesOptions = useMemo(
     () => ({
