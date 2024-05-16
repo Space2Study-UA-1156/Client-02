@@ -33,6 +33,7 @@ const UserStepsWrapper = ({ userRole }) => {
       firstName,
       lastName
     }),
+    /* eslint-disable-next-line */
     [userId]
   )
 
