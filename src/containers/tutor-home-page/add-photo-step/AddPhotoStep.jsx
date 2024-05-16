@@ -17,14 +17,14 @@ import { style } from '~/containers/tutor-home-page/add-photo-step/AddPhotoStep.
 const AddPhotoStep = ({ btnsBox }) => {
   const { t } = useTranslation()
   const { isMobile, isTablet, isLaptopAndAbove } = useBreakpoints()
-  const { stepData, handleStepData } = useStepContext()
+  const { photoLabel, stepData, handleStepData } = useStepContext()
   const { photo } = stepData
   const initialState = []
   const [uploadPhotoError, setUploadPhotoError] = useState('')
 
   const emitter = ({ files, error }) => {
     if (!error && files.length) {
-      handleStepData('photo', files[0], null)
+      handleStepData(photoLabel, files[0], null)
       setUploadPhotoError('')
     }
     if (error) {
@@ -33,7 +33,7 @@ const AddPhotoStep = ({ btnsBox }) => {
   }
 
   const photoPreviewContainer = (testId) => (
-    <Box data-testId={testId}>
+    <Box data-testid={testId}>
       <DragAndDrop
         emitter={emitter}
         initialState={initialState}
@@ -59,26 +59,29 @@ const AddPhotoStep = ({ btnsBox }) => {
   return (
     <Box sx={style.root}>
       {isLaptopAndAbove && photoPreviewContainer('photo-preview-large')}
-      <Box>
-        <Typography sx={style.title}>
-          {t('becomeTutor.photo.description')}
-        </Typography>
-        <Box sx={style.fileUploader.root}>
-          <Box sx={style.fileUploader.containerBtn}>
-            <FileUploader
-              buttonText={t('becomeTutor.photo.button')}
-              emitter={emitter}
-              initialError={t(uploadPhotoError)}
-              initialState={initialState}
-              validationData={validationData}
-            ></FileUploader>
+      <Box sx={style.formContainer}>
+        <Box>
+          <Typography sx={style.title}>
+            {t('becomeTutor.photo.description')}
+          </Typography>
+          <Box sx={style.fileUploader.root}>
+            <Box sx={style.fileUploader.containerBtn}>
+              <FileUploader
+                buttonText={t('becomeTutor.photo.button')}
+                emitter={emitter}
+                initialError={t(uploadPhotoError)}
+                initialState={initialState}
+                validationData={validationData}
+              ></FileUploader>
+            </Box>
+            {photo.size && !uploadPhotoError && (
+              <DoneRoundedIcon color='success' sx={{ mt: '10px' }} />
+            )}
           </Box>
-          {photo.size && !uploadPhotoError && (
-            <DoneRoundedIcon color='success' sx={{ mt: '10px' }} />
-          )}
+          {(isMobile || isTablet) &&
+            photoPreviewContainer('photo-preview-small')}
         </Box>
-        {(isMobile || isTablet) && photoPreviewContainer('photo-preview-small')}
-        <Box sx={style.navigationBtn}>{btnsBox}</Box>
+        {btnsBox}
       </Box>
     </Box>
   )
