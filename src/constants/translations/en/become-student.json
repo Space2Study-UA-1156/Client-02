@@ -1,0 +1,16 @@
+{
+  "languages": {
+    "title": "Velit officia consequat duis enim velit mollit. Other categories you can add in your account settings later.",
+    "autocompleteLabel": "Language spoken",
+    "emptyFields": "All fields must be filled",
+    "sameLanguage": "You have the same language"
+  },
+  "categories": {
+    "title": "Velit officia consequat duis enim velit mollit. Other categories you can add in your account settings later.",
+    "mainSubjectsLabel": "Study Category",
+    "subjectLabel": "Subject",
+    "btnText": "Add one more subject",
+    "emptyFields": "All fields must be filled",
+    "sameSubject": "You have the same subject"
+  }
+}
