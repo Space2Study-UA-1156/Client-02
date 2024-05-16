@@ -12,9 +12,10 @@ import { styles } from '~/components/step-wrapper/StepWrapper.styles'
 import useSteps from '~/hooks/use-steps'
 
 const StepWrapper = ({ children, steps }) => {
-  const { activeStep, isLastStep, loading, stepOperation } = useSteps({
-    steps
-  })
+  const { activeStep, isFirstStep, isLastStep, loading, stepOperation } =
+    useSteps({
+      steps
+    })
   const { next, back, setActiveStep, handleSubmit } = stepOperation
   const { t } = useTranslation()
 
@@ -47,17 +48,23 @@ const StepWrapper = ({ children, steps }) => {
   )
 
   const btnsBox = (
-    <Box sx={styles.btnWrapper}>
-      <AppButton
-        disabled={activeStep === 0}
-        onClick={back}
-        size='small'
-        sx={styles.btn}
-        variant='outlined'
-      >
-        <WestIcon fontSize='small' />
-        {t('common.back')}
-      </AppButton>
+    <Box
+      sx={{
+        ...styles.btnWrapper,
+        justifyContent: isFirstStep ? 'flex-end' : 'space-between'
+      }}
+    >
+      {!isFirstStep && (
+        <AppButton
+          onClick={back}
+          size='small'
+          sx={styles.btn}
+          variant='outlined'
+        >
+          <WestIcon fontSize='small' />
+          {t('common.back')}
+        </AppButton>
+      )}
       {nextButton}
     </Box>
   )
