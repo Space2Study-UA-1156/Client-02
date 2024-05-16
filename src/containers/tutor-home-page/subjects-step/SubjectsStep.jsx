@@ -81,7 +81,7 @@ const SubjectsStep = ({ btnsBox, userRole }) => {
   return (
     <Box sx={styles.container}>
       {isLaptopAndAbove && image}
-      <Box sx={styles.rigthBox}>
+      <Box sx={styles.rightBox}>
         <Box sx={styles.titleWithForm}>
           <Typography>
             {isTutor

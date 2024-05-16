@@ -9,7 +9,7 @@ export const styles = {
     paddingBottom: { xs: '30px', sm: '0px' },
     ...fadeAnimation
   },
-  rigthBox: {
+  rightBox: {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
