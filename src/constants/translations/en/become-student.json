@@ -2,6 +2,7 @@
   "languages": {
     "title": "Velit officia consequat duis enim velit mollit. Other categories you can add in your account settings later.",
     "autocompleteLabel": "Language spoken",
+    "btnText": "Add one more language",
     "emptyFields": "All fields must be filled",
     "sameLanguage": "You have the same language"
   },
