@@ -39,7 +39,7 @@ const UserStepsWrapper = ({ userRole }) => {
 
   const childrenArr = [
     <GeneralInfoStep key='1' />,
-    <SubjectsStep key='2' />,
+    <SubjectsStep key='2' userRole={userRole} />,
     <LanguageStep key='3' userRole={userRole} />,
     <AddPhotoStep key='4' />
   ]
