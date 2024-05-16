@@ -7,7 +7,7 @@ import {
   FormControlLabel,
   Checkbox
 } from '@mui/material'
-import AsyncAutocomplete from '~/components/async-autocomlete/AsyncAutocomplete'
+import AsyncAutocomplete from '~/components/async-autocomplete/AsyncAutocomplete'
 import AppTextField from '~/components/app-text-field/AppTextField'
 
 import { LocationService } from '~/services/location-service'
