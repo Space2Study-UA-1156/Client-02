@@ -1,12 +1,103 @@
 import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
+import { useState } from 'react'
+
+import Autocomplete from '@mui/material/Autocomplete'
+import TextField from '@mui/material/TextField'
+import SubjectsStepImage from '~/assets/img/subjects-step/image.svg'
+import AppButton from '~/components/app-button/AppButton'
 
 import { styles } from '~/containers/tutor-home-page/subjects-step/SubjectsStep.styles'
+import {
+  categoriesMock,
+  languagesMock
+} from '~/containers/tutor-home-page/subjects-step/constants'
+import { useStepContext } from '~/context/step-context'
+import useBreakpoints from '~/hooks/use-breakpoints'
+import { useTranslation } from 'react-i18next'
 
-const SubjectsStep = ({ btnsBox }) => {
+const SubjectsStep = ({ btnsBox, userRole }) => {
+  const { t } = useTranslation()
+  const { isMobile, isLaptopAndAbove } = useBreakpoints()
+  const [, setCategory] = useState(null)
+  const [subject, setSubject] = useState(null)
+  const { stepData, handleStepData } = useStepContext()
+  const subjectLabel = userRole === 'student' ? 'interests' : 'subjects'
+  const selectedSubjects = stepData[subjectLabel] ?? []
+
+  const handleChangeCategory = (e, categoryValue) => {
+    setCategory(categoryValue)
+  }
+
+  const handleChangeSubject = (e, subjectValue) => {
+    setSubject(subjectValue)
+  }
+
+  const handleAddSubject = () => {
+    if (selectedSubjects.find((item) => item.name === subject.name)) {
+      setSubject(null)
+      return
+    }
+    handleStepData(subjectLabel, [...selectedSubjects, subject])
+    setSubject(null)
+  }
+
+  const image = (
+    <Box
+      alt='Girl studying'
+      component='img'
+      src={SubjectsStepImage}
+      sx={styles.image}
+    />
+  )
+
   return (
     <Box sx={styles.container}>
+      {isLaptopAndAbove && image}
+
       <Box sx={styles.rigthBox}>
-        Subjects step
+        <Box sx={styles.titleWithForm}>
+          <Typography>{t('becomeTutor.categories.title')}</Typography>
+          {isMobile && image}
+
+          <Box component='form' sx={styles.form}>
+            <Autocomplete
+              disablePortal
+              getOptionLabel={(option) => option.name}
+              id='combo-box-demo'
+              onChange={handleChangeCategory}
+              options={categoriesMock}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  label={t('becomeTutor.categories.mainSubjectsLabel')}
+                />
+              )}
+              sx={styles.inputField}
+            />
+            <Autocomplete
+              disablePortal
+              getOptionLabel={(option) => option.name}
+              id='combo-box-demo'
+              onChange={handleChangeSubject}
+              options={languagesMock}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  label={t('becomeTutor.categories.subjectLabel')}
+                />
+              )}
+              sx={styles.inputField}
+            />
+            <AppButton
+              disabled={subject === null ? true : false}
+              onClick={handleAddSubject}
+              variant={'tonal'}
+            >
+              {t('becomeTutor.categories.btnText')}
+            </AppButton>
+          </Box>
+        </Box>
         {btnsBox}
       </Box>
     </Box>
