@@ -48,7 +48,7 @@ export const styles = {
     ml: '24px',
     display: { xs: 'none', sm: 'flex' }
   },
-  iconButton: {
+  isMobile: {
     backgroundColor: '#607D8B',
     display: { xs: 'flex', sm: 'none' },
     ml: '24px'
