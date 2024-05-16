@@ -7,7 +7,7 @@ import {
   FormControlLabel,
   Checkbox
 } from '@mui/material'
-import AsyncAutocomplete from '~/components/async-autocomlete/AsyncAutocomplete'
+import AsyncAutocomplete from '~/components/async-autocomplete/AsyncAutocomplete'
 import AppTextField from '~/components/app-text-field/AppTextField'
 
 import { LocationService } from '~/services/location-service'
@@ -20,17 +20,18 @@ import { styles } from '~/containers/tutor-home-page/general-info-step/GeneralIn
 const GeneralInfoStep = ({ btnsBox }) => {
   const { t } = useTranslation()
   const {
+    generalLabel,
+    data,
+    handleStepData,
     handleInputChange,
     handleSelectChange,
     handleBlur,
-    errors,
-    data,
-    handleStepData
+    errors
   } = useStepContext()
 
   useEffect(() => {
-    handleStepData('generalInfo', data, errors)
-  }, [handleStepData, data, errors])
+    handleStepData(generalLabel, data, errors)
+  }, [generalLabel, handleStepData, data, errors])
 
   const countriesOptions = useMemo(
     () => ({

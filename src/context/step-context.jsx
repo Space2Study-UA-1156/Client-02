@@ -34,7 +34,7 @@ const StepProvider = ({ children, initialValues, validations, stepLabels }) => {
     errors
   })
   const [subject, setSubject] = useState([])
-  const [language, setLanguage] = useState(null)
+  const [language, setLanguage] = useState([])
   const [photo, setPhoto] = useState([])
   const [generalLabel, subjectLabel, languageLabel, photoLabel] = stepLabels
 
@@ -81,24 +81,32 @@ const StepProvider = ({ children, initialValues, validations, stepLabels }) => {
 
   const contextValue = useMemo(
     () => ({
+      generalLabel,
+      subjectLabel,
+      languageLabel,
+      photoLabel,
+      initialValues,
+      data,
+      stepData,
+      handleStepData,
       handleInputChange,
       handleSelectChange,
       handleBlur,
-      errors,
-      data,
-      initialValues,
-      stepData,
-      handleStepData
+      errors
     }),
     [
+      generalLabel,
+      subjectLabel,
+      languageLabel,
+      photoLabel,
+      initialValues,
+      data,
+      stepData,
+      handleStepData,
       handleInputChange,
       handleSelectChange,
       handleBlur,
-      errors,
-      data,
-      initialValues,
-      stepData,
-      handleStepData
+      errors
     ]
   )
 
