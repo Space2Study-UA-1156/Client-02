@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo } from 'react'
 import StepWrapper from '~/components/step-wrapper/StepWrapper'
 import { markFirstLoginComplete } from '~/redux/reducer'
 
 import { StepProvider } from '~/context/step-context'
+import { useSelector } from 'react-redux'
 
 import AddPhotoStep from '~/containers/tutor-home-page/add-photo-step/AddPhotoStep'
 import GeneralInfoStep from '~/containers/tutor-home-page/general-info-step/GeneralInfoStep'
@@ -19,21 +20,27 @@ import {
 import { student } from '~/constants'
 
 const UserStepsWrapper = ({ userRole }) => {
-  const [isUserFetched, setIsUserFetched] = useState(false)
+  const { userId, firstName, lastName } = useSelector((state) => state.appMain)
   const dispatch = useDispatch()
 
   useEffect(() => {
     dispatch(markFirstLoginComplete())
   }, [dispatch])
 
+  const defaultValues = useMemo(
+    () => ({
+      ...initialValues,
+      firstName,
+      lastName
+    }),
+    /* eslint-disable-next-line */
+    [userId]
+  )
+
   const childrenArr = [
-    <GeneralInfoStep
-      isUserFetched={isUserFetched}
-      key='1'
-      setIsUserFetched={setIsUserFetched}
-    />,
-    <SubjectsStep key='2' userRole={userRole}/>,
-    <LanguageStep key='3' userRole={userRole}/>,
+    <GeneralInfoStep key='1' />,
+    <SubjectsStep key='2' />,
+    <LanguageStep key='3' userRole={userRole} />,
     <AddPhotoStep key='4' />
   ]
 
@@ -41,7 +48,7 @@ const UserStepsWrapper = ({ userRole }) => {
 
   return (
     <StepProvider
-      initialValues={initialValues}
+      initialValues={defaultValues}
       stepLabels={stepLabels}
       validations={validations}
     >
