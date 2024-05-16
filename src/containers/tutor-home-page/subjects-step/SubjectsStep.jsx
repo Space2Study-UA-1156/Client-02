@@ -21,21 +21,26 @@ const SubjectsStep = ({ btnsBox, userRole }) => {
   const [selectedCategory, setSelectedCategory] = useState(null)
   const [selectedSubject, setSelectedSubject] = useState(null)
   const subjectLabel = userRole === 'student' ? 'interests' : 'subjects'
+  const isTutor = userRole === 'tutor'
 
   const { stepData, handleStepData } = useStepContext()
   const getOptionLabel = useCallback((option) => option.name, [])
   const categoriesOptions = useMemo(
     () => ({
-      label: t('becomeTutor.categories.mainSubjectsLabel')
+      label: isTutor
+        ? t('becomeTutor.categories.mainSubjectsLabel')
+        : t('becomeStudent.categories.mainSubjectsLabel')
     }),
-    [t]
+    [t, isTutor]
   )
 
   const subjectsOptions = useMemo(
     () => ({
-      label: t('becomeTutor.categories.subjectLabel')
+      label: isTutor
+        ? t('becomeTutor.categories.subjectLabel')
+        : t('becomeStudent.categories.subjectLabel')
     }),
-    [t]
+    [t, isTutor]
   )
 
   const handleSelectedValue = useCallback(
@@ -79,7 +84,11 @@ const SubjectsStep = ({ btnsBox, userRole }) => {
       {isLaptopAndAbove && image}
       <Box sx={styles.rigthBox}>
         <Box sx={styles.titleWithForm}>
-          <Typography>{t('becomeTutor.categories.title')}</Typography>
+          <Typography>
+            {isTutor
+              ? t('becomeTutor.categories.title')
+              : t('becomeStudent.categories.title')}
+          </Typography>
           {isMobile && image}
           <Box component='form' sx={styles.form}>
             <AsyncAutocomplete
@@ -108,7 +117,9 @@ const SubjectsStep = ({ btnsBox, userRole }) => {
               onClick={handleAddSubject}
               variant={'tonal'}
             >
-              {t('becomeTutor.categories.btnText')}
+              {isTutor
+                ? t('becomeTutor.categories.btnText')
+                : t('becomeStudent.categories.btnText')}
             </AppButton>
             <AppChipList
               defaultQuantity={3}
