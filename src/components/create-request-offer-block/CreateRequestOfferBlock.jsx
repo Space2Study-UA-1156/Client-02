@@ -35,9 +35,9 @@ const CreateRequestOfferBlock = () => {
         </AppButton>
       </Box>
       <Box
-        alt={userRole === 'tutor' ? images[0].alt : images[1].alt}
+        alt={userRole === 'student' ? images[0].alt : images[1].alt}
         component='img'
-        src={userRole === 'tutor' ? images[0].image : images[1].image}
+        src={userRole === 'student' ? images[0].image : images[1].image}
         sx={styles.image}
       />
     </Box>
