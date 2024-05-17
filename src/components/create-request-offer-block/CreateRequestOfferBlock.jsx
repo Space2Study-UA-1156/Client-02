@@ -1,30 +1,35 @@
+import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
+import { useModalContext } from '~/context/modal-context'
 
 import Box from '@mui/material/Box'
 import { Typography } from '@mui/material'
 
+import CreateOfferDialog from '~/containers/student-home-page/create-offer-dialog/CreateOfferDialog'
 import AppButton from '~/components/app-button/AppButton'
 
 import { images } from '~/components/create-request-offer-block/create-request-offer-block.constants'
 import { styles } from '~/components/create-request-offer-block/CreateRequestOfferBlock.styles'
 
 const CreateRequestOfferBlock = () => {
+  const { openModal } = useModalContext()
+  const { t } = useTranslation()
   const { userRole } = useSelector((state) => state.appMain)
 
   return (
     <Box sx={styles.box}>
       <Box component={'div'}>
         <Typography sx={styles.title} variant='h2'>
-          {userRole === 'tutor'
-            ? 'Tutors for private lessons'
-            : 'Students for private lessons'}
+          {t(`findOffers.offerRequestBlock.title.${userRole}`)}
         </Typography>
         <Typography sx={styles.paragraph}>
-          It is a long established fact that a reader will be distracted by the
-          readable content of a page when looking at its layout.
+          {t('findOffers.offerRequestBlock.description')}
         </Typography>
-        <AppButton sx={styles.btn}>
-          {userRole === 'tutor' ? 'Create request' : 'Create offer'}
+        <AppButton
+          onClick={() => openModal({ component: <CreateOfferDialog /> })}
+          sx={styles.btn}
+        >
+          {t(`offerPage.createOffer.buttonTitles.${userRole}`)}
         </AppButton>
       </Box>
       <Box
