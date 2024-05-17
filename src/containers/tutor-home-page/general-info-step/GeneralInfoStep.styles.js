@@ -32,7 +32,8 @@ export const styles = {
   form: {
     display: 'grid',
     gridTemplateColumns: { sm: '1fr 1fr' },
-    gap: '20px',
+    columnGap: { xs: '0px', sm: '20px' },
+    rowGap: { xs: '10px', sm: '0px' },
     marginBottom: '20px'
   },
   requiredLabel: {

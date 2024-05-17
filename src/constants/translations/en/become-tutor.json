@@ -15,7 +15,8 @@
   },
   "languages": {
     "title": "Velit officia consequat duis enim velit mollit. Other categories you can add in your account settings later.",
-    "autocompleteLabel": "Your native language"
+    "autocompleteLabel": "Your native language",
+    "emptyFields": "All fields must be filled"
   },
   "categories": {
     "title": "Velit officia consequat duis enim velit mollit. Other categories you can add in your account settings later.",

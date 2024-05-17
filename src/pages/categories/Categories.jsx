@@ -1,4 +1,5 @@
 import PageWrapper from '~/components/page-wrapper/PageWrapper'
+import CreateRequestOfferBlock from '~/components/create-request-offer-block/CreateRequestOfferBlock'
 import { Box, Typography, Paper, InputBase, Autocomplete } from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search'
 import { useTranslation } from 'react-i18next'
@@ -67,6 +68,7 @@ const Categories = () => {
 
   return (
     <PageWrapper>
+      <CreateRequestOfferBlock />
       <Box sx={styles.container}>
         <Typography sx={styles.title}>{t('categoriesPage.title')}</Typography>
         <Typography>{t('categoriesPage.description')}</Typography>
