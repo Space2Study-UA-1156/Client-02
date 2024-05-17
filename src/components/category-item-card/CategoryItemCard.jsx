@@ -5,10 +5,10 @@ import ImgTitleDescription from '~/components/img-title-description/ImgTitleDesc
 import { authRoutes } from '~/router/constants/authRoutes'
 import { styles } from '~/components/category-item-card/CategoryItemCard.styles'
 
-const CategoryItemCard = ({ bg, category, id, image = 'test', offers }) => {
+const CategoryItemCard = ({ bg, category, image = 'test', offers }) => {
   const { t } = useTranslation()
 
-  const subjectPath = `${authRoutes.subjects.path}/${id}`
+  const subjectPath = `${authRoutes.categories.path}/${category.toLowerCase()}`
   const description = `${offers} ${t('categoriesPage.offers')}`
   const urlImg = `/src/assets/img/categories/${image}`
   const bgWithOpacity = `${bg}33`

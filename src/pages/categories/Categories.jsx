@@ -13,9 +13,12 @@ import CategoryItemCard from '~/components/category-item-card/CategoryItemCard'
 
 const Categories = () => {
   const [categoriesData, setCategoriesData] = useState([])
+  const [showMore, setShowMore] = useState(6)
   const [inputValue, setInputValue] = useState('')
   const [selectedCategory, setSelectedCategory] = useState(null)
   const [actualSearch, setActualSearch] = useState(null)
+
+  const addCategories = 6
 
   const { t } = useTranslation()
 
@@ -46,6 +49,10 @@ const Categories = () => {
 
   const handleCategorySearch = () => {
     setActualSearch(inputValue)
+  }
+
+  const handleShowMore = () => {
+    setShowMore((prev) => prev + addCategories)
   }
 
   const handleCategoryChange = (event, value) => {
@@ -108,7 +115,7 @@ const Categories = () => {
             value={selectedCategory}
           />
           <AppButton onClick={handleCategorySearch} sx={styles.searchButton}>
-            Search
+            {t('categoriesPage.search')}
           </AppButton>
           <AppButton sx={styles.isMobile}>
             <SearchIcon />
@@ -134,18 +141,26 @@ const Categories = () => {
         </Typography>
         <Typography>{t('categoriesPage.exclmMark')}</Typography>
       </Box>
-      <Box>
+      <Box sx={styles.gridBox}>
         {searchedCategories.length > 0 &&
-          searchedCategories.map((category, index) => (
-            <CategoryItemCard
-              category={category.name}
-              id={category._id}
-              image={category.name}
-              key={`${category.id}-${index}`}
-              offers={category?.totalOffers[0]}
-            />
-          ))}
+          searchedCategories
+            .filter((_, i) => i < showMore)
+            .map((category, index) => (
+              <CategoryItemCard
+                bg={category.appearance.color}
+                category={category.name}
+                id={category._id}
+                image={category.appearance.icon_path}
+                key={`${category.id}-${index}`}
+                offers={category?.totalOffers.student}
+              />
+            ))}
       </Box>
+      {showMore < searchedCategories.length && (
+        <AppButton onClick={handleShowMore} sx={styles.viewMoreButton}>
+          {t('categoriesPage.viewMore')}
+        </AppButton>
+      )}
     </PageWrapper>
   )
 }

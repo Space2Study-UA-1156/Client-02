@@ -1,7 +1,11 @@
 export const styles = {
   wrapper: {
     boxSizing: 'border-box',
-    width: '360px',
+    width: {
+      lg: '360px',
+      md: '328px',
+      sm: '288px'
+    },
     padding: { xs: '20px 30px', lg: '25px 32px' }
   },
   content: {
