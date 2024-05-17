@@ -5,7 +5,7 @@ import styles from '~/containers/student-home-page/create-offer-dialog/CreateOff
 const CreateOfferDialog = () => {
   return (
     <Box sx={styles.root}>
-      <Box sx={styles.formContainer}>Create offer dialog</Box>
+      <Box sx={styles.formContainer}>Create request dialog</Box>
     </Box>
   )
 }

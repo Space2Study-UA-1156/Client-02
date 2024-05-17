@@ -30,7 +30,8 @@ export const style = {
   },
   dragAndDrop: {
     root: {
-      marginTop: { xs: '22px', sm: '22px', md: '0px' },
+      marginTop: { xs: '22px', sm: '15px', md: '0px' },
+      marginBottom: '10px',
       width: { sm: '100%', md: '440px' },
       height: { xs: '270px', sm: '280px', md: '440px' },
       maxWidth: { sm: '280px', md: '440px' },
@@ -66,7 +67,11 @@ export const style = {
       flex: { xs: '3', sm: '1' }
     }
   },
-  navigationBtn: {
-    marginTop: { xs: '138px', sm: '25px', md: '320px' }
+  formContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    width: { sm: '100%', md: '430px' },
+    margin: { sm: '0 auto', md: '0' }
   }
 }

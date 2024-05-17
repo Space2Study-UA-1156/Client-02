@@ -1,0 +1,17 @@
+{
+  "languages": {
+    "title": "Velit officia consequat duis enim velit mollit. Other categories you can add in your account settings later.",
+    "autocompleteLabel": "Розмовна мова",
+    "btnText": "Додати ще одну мову",
+    "emptyFields": "Усі поля мають бути заповнені",
+    "sameLanguage": "Ви вже маєте таку мову"
+  },
+  "categories": {
+    "title": "Velit officia consequat duis enim velit mollit. Other categories you can add in your account settings later.",
+    "mainSubjectsLabel": "Категорія предмету",
+    "subjectLabel": "Предмет",
+    "btnText": "Додати ще один предмет",
+    "emptyFields": "Усі поля мають бути заповнені",
+    "sameSubject": "Ви вже маєте такий предмет"
+  }
+}

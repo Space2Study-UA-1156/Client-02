@@ -32,8 +32,5 @@ export const styles = {
     display: 'flex',
     flexDirection: 'column',
     gap: { xs: '16px', sm: '20px' }
-  },
-  inputField: {
-    width: '100%'
   }
 }

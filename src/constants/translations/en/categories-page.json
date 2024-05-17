@@ -3,6 +3,11 @@
   "description": "Explore categories you're passionate about.",
   "showAllOffers": "Show all offers",
   "searchLabel": "What would you like to learn?",
+  "cantFindLabel": "Can't find what you're looking for? Request a new",
+  "category": "category",
+  "and": "and",
+  "subject": "subject",
+  "exclmMark": "!",
   "viewMore": "View more",
   "offers": "offers",
   "newSubject": {

@@ -16,6 +16,8 @@ const CreateRequestOfferBlock = () => {
   const { t } = useTranslation()
   const { userRole } = useSelector((state) => state.appMain)
 
+  console.log(userRole)
+
   return (
     <Box sx={styles.box}>
       <Box component={'div'}>

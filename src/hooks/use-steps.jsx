@@ -51,6 +51,7 @@ const useSteps = ({ steps }) => {
   }
 
   const isLastStep = activeStep === steps.length - 1
+  const isFirstStep = activeStep === 0
 
   const handleSubmit = () => {
     handleResponse()
@@ -63,7 +64,7 @@ const useSteps = ({ steps }) => {
     setActiveStep
   }
 
-  return { activeStep, isLastStep, stepOperation, loading }
+  return { activeStep, isFirstStep, isLastStep, stepOperation, loading }
 }
 
 export default useSteps

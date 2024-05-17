@@ -5,6 +5,7 @@ export const styles = {
     display: { md: 'flex' },
     flexWrap: { md: 'no-wrap' },
     justifyContent: { md: 'space-between' },
+    mb: { md: '30px', xs: '40px' },
     backgroundColor: 'companyBlue',
     borderRadius: '16px',
     padding: { lg: '60px 50px', md: '40px 35px', xs: '20px' }
@@ -16,7 +17,7 @@ export const styles = {
   paragraph: {
     typography: { sm: 'body1', xs: 'body2' },
     marginBottom: { md: '20px', xs: '14px' },
-    maxWidth: { lg: '750px', md: '600px' }
+    maxWidth: { lg: '750px', md: '440px' }
   },
   btn: {
     width: { md: 'fit-content', xs: '100%' },

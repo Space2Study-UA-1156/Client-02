@@ -34,5 +34,14 @@ export const styles = {
     width: '60%',
     margin: 'auto',
     marginBottom: '20px'
+  },
+  button: {
+    width: '100%',
+    padding: '14px 0px',
+    mt: '16px',
+    mb: '10px'
+  },
+  chosenLanguages: {
+    display: 'flex'
   }
 }
