@@ -17,7 +17,7 @@ const StudentHome = () => {
         component: <UserStepsWrapper userRole={userRole} />,
         paperProps: {
           sx: {
-            maxHeight: { sm: '652px' },
+            maxHeight: { sm: '670px', lg: '690px' },
             height: '100%',
             maxWidth: '1130px',
             width: '100%'

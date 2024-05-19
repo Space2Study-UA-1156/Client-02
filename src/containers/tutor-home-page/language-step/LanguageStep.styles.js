@@ -2,10 +2,10 @@ import { fadeAnimation } from '~/styles/app-theme/custom-animations'
 
 export const styles = {
   container: {
-    height: { sm: '485px' },
     display: 'flex',
     justifyContent: 'space-between',
     gap: { md: '40px', lg: '43px' },
+    height: { sm: '520px' },
     ...fadeAnimation
   },
   formContainer: {
@@ -40,8 +40,5 @@ export const styles = {
     padding: '14px 0px',
     mt: '16px',
     mb: '10px'
-  },
-  chosenLanguages: {
-    display: 'flex'
   }
 }
