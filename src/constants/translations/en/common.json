@@ -55,7 +55,10 @@
     "shortText": "This text is too short",
     "longText": "This text is too long",
     "numbersOnly": "Please enter a valid number",
-    "positiveNumbersOnly": "Please enter a positive number"
+    "positiveNumbersOnly": "Please enter a positive number",
+    "required": "Please select a value",
+    "is18yo": "Please confirm that you are at least 18 years old",
+    "photoUploaded": "Please upload a photo"
   },
   "levels": {
     "beginner": "Beginner",
