@@ -17,13 +17,19 @@ import { style } from '~/containers/tutor-home-page/add-photo-step/AddPhotoStep.
 const AddPhotoStep = ({ btnsBox }) => {
   const { t } = useTranslation()
   const { isMobile, isTablet, isLaptopAndAbove } = useBreakpoints()
-  const { photoLabel, stepData, handleStepData } = useStepContext()
-  const { photo } = stepData
+  const {
+    photoLabel,
+    data,
+    handleStepData,
+    handleNonInputValueChange,
+    errors
+  } = useStepContext()
   const initialState = []
   const [uploadPhotoError, setUploadPhotoError] = useState('')
 
   const emitter = ({ files, error }) => {
     if (!error && files.length) {
+      handleNonInputValueChange('photo', files[0])
       handleStepData(photoLabel, files[0], null)
       setUploadPhotoError('')
     }
@@ -33,18 +39,21 @@ const AddPhotoStep = ({ btnsBox }) => {
   }
 
   const photoPreviewContainer = (testId) => (
-    <Box data-testid={testId}>
+    <Box data-testid={testId} sx={{ flex: '1' }}>
       <DragAndDrop
         emitter={emitter}
+        error={Boolean(errors.photo)}
+        helperText={t(errors.photo)}
         initialState={initialState}
+        required
         style={style.dragAndDrop}
         validationData={validationData}
       >
-        {photo.size ? (
+        {data.photo.size ? (
           <Box
             alt={t('becomeTutor.photo.imageAlt')}
             component={'img'}
-            src={createObjectURL(photo)}
+            src={createObjectURL(data.photo)}
             sx={style.previewImg}
           />
         ) : (
@@ -67,14 +76,18 @@ const AddPhotoStep = ({ btnsBox }) => {
           <Box sx={style.fileUploader.root}>
             <Box sx={style.fileUploader.containerBtn}>
               <FileUploader
-                buttonText={t('becomeTutor.photo.button')}
+                buttonText={
+                  data.photo.size
+                    ? data.photo.name
+                    : t('becomeTutor.photo.button')
+                }
                 emitter={emitter}
                 initialError={t(uploadPhotoError)}
                 initialState={initialState}
                 validationData={validationData}
               ></FileUploader>
             </Box>
-            {photo.size && !uploadPhotoError && (
+            {data.photo.size && !uploadPhotoError && (
               <DoneRoundedIcon color='success' sx={{ mt: '10px' }} />
             )}
           </Box>
