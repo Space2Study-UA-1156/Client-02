@@ -1,6 +1,6 @@
 import PageWrapper from '~/components/page-wrapper/PageWrapper'
 import CreateRequestOfferBlock from '~/components/create-request-offer-block/CreateRequestOfferBlock'
-import { Box, Typography, Paper, InputBase, Autocomplete } from '@mui/material'
+import { Box, Typography, Paper, Autocomplete, TextField } from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search'
 import { useTranslation } from 'react-i18next'
 import { styles } from '~/pages/categories/Categories.styles.js'
@@ -11,13 +11,19 @@ import { categoryService } from '~/services/category-service'
 import { useEffect, useState, useMemo } from 'react'
 import { authRoutes } from '~/router/constants/authRoutes'
 import CategoryItemCard from '~/components/category-item-card/CategoryItemCard'
+import { useNavigate, useLocation } from 'react-router-dom'
 
 const Categories = () => {
   const [categoriesData, setCategoriesData] = useState([])
   const [showMore, setShowMore] = useState(6)
   const [inputValue, setInputValue] = useState('')
   const [selectedCategory, setSelectedCategory] = useState(null)
-  const [actualSearch, setActualSearch] = useState(null)
+
+  const navigateTo = useNavigate()
+  const location = useLocation()
+
+  const queryParams = new URLSearchParams(location.search)
+  const search = queryParams.get('search') || ''
 
   const addCategories = 6
 
@@ -26,14 +32,18 @@ const Categories = () => {
   const { categories, subjects, findOffers } = authRoutes
 
   const searchedCategories = useMemo(() => {
-    if (!actualSearch) return categoriesData
+    if (!search) return categoriesData
 
-    const normilizedSearch = normilizeString(actualSearch)
+    const normilizedSearch = normalizeString(search)
 
     return categoriesData.filter((category) =>
-      normilizeString(category.name).includes(normilizedSearch)
+      normalizeString(category.name).includes(normilizedSearch)
     )
-  }, [categoriesData, actualSearch])
+  }, [categoriesData, search])
+
+  useEffect(() => {
+    setInputValue(search)
+  }, [])
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -48,9 +58,13 @@ const Categories = () => {
     fetchCategories()
   }, [])
 
-  const handleCategorySearch = () => {
-    setActualSearch(inputValue)
-  }
+  useEffect(() => {
+    const params = new URLSearchParams(location.search)
+
+    if (!search) params.delete('search')
+
+    navigateTo({ search: params.toString() }, { replace: true })
+  }, [search, navigateTo, location.search])
 
   const handleShowMore = () => {
     setShowMore((prev) => prev + addCategories)
@@ -59,11 +73,19 @@ const Categories = () => {
   const handleCategoryChange = (event, value) => {
     setSelectedCategory(value)
     setInputValue(value?.name || '')
-    setActualSearch(value?.name)
+    navigateTo(`/categories?search=${value?.name || ''}`)
   }
 
-  function normilizeString(v) {
-    return v?.trim().toLowerCase()
+  const handleInputChange = (event, newValue) => {
+    setInputValue(newValue)
+    navigateTo(`/categories?search=${newValue}`)
+  }
+
+  function normalizeString(v) {
+    if (typeof v !== 'string') {
+      return ''
+    }
+    return v.trim().toLowerCase()
   }
 
   return (
@@ -91,23 +113,20 @@ const Categories = () => {
             getOptionLabel={(option) => option.name}
             inputValue={inputValue}
             isOptionEqualToValue={(option, value) =>
-              normilizeString(option.name)?.includes(normilizeString(value))
+              normalizeString(option.name)?.includes(normalizeString(value))
             }
             onChange={handleCategoryChange}
-            onInputChange={(e, newValue) => setInputValue(newValue)}
+            onInputChange={handleInputChange}
             onKeyDown={(event) => {
               if (event.key === 'Enter') {
                 event.defaultMuiPrevented = true
-                handleCategorySearch()
               }
             }}
             options={categoriesData}
             renderInput={(params) => {
-              const { ...rest } = params
               return (
-                <InputBase
-                  {...params.InputProps}
-                  {...rest}
+                <TextField
+                  {...params}
                   placeholder={t('categoriesPage.searchLabel')}
                   sx={styles.searchInput}
                 />
@@ -116,12 +135,6 @@ const Categories = () => {
             sx={styles.searchBox}
             value={selectedCategory}
           />
-          <AppButton onClick={handleCategorySearch} sx={styles.searchButton}>
-            {t('categoriesPage.search')}
-          </AppButton>
-          <AppButton sx={styles.isMobile}>
-            <SearchIcon />
-          </AppButton>
         </Box>
       </Paper>
       <Box sx={styles.underSearchBoxText}>
