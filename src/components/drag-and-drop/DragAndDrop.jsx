@@ -1,12 +1,14 @@
 import useUpload from '~/hooks/use-upload'
-import { Box } from '@mui/material'
+import { Box, Typography, Tooltip } from '@mui/material'
 
 const DragAndDrop = ({
   emitter,
   initialState = [],
   validationData,
   children,
-  style
+  style,
+  error,
+  helperText
 }) => {
   const { dragStart, dragLeave, dragDrop, isDrag } = useUpload({
     files: initialState,
@@ -14,15 +16,34 @@ const DragAndDrop = ({
     validationData
   })
 
+  const errorTooltip = error ? (
+    <Tooltip title={helperText}>
+      <Typography color='error' sx={{ ml: { md: '44px' } }} variant='caption'>
+        {helperText}
+      </Typography>
+    </Tooltip>
+  ) : null
+
   return (
-    <Box
-      onDragLeave={dragLeave}
-      onDragOver={dragStart}
-      onDragStart={dragStart}
-      onDrop={dragDrop}
-      sx={style.root}
-    >
-      <Box sx={[style.uploadBox, isDrag && style.activeDrag]}>{children}</Box>
+    <Box>
+      <Box
+        onDragLeave={dragLeave}
+        onDragOver={dragStart}
+        onDragStart={dragStart}
+        onDrop={dragDrop}
+        sx={style.root}
+      >
+        <Box
+          sx={[
+            style.uploadBox,
+            isDrag && style.activeDrag,
+            error && { border: '2px dashed red' }
+          ]}
+        >
+          {children}
+        </Box>
+      </Box>
+      {errorTooltip}
     </Box>
   )
 }
