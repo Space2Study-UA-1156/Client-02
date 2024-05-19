@@ -5,7 +5,7 @@ export const styles = {
     display: 'flex',
     justifyContent: 'space-between',
     gap: { md: '40px', lg: '43px' },
-    height: { sm: '485px' },
+    height: { sm: '520px' },
     ...fadeAnimation
   },
   imgContainer: {
@@ -22,6 +22,9 @@ export const styles = {
     width: '100%'
   },
   formWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
     width: { sm: '100%', md: '430px' },
     margin: { sm: '0 auto', md: '0' }
   },
@@ -42,5 +45,23 @@ export const styles = {
   summaryLength: {
     marginTop: '5px',
     fontSize: '14px'
+  },
+  checkbox: {
+    '&.Mui-checked': {
+      color: 'default'
+    }
+  },
+  errorCheckbox: {
+    color: 'red',
+    '&.Mui-checked': {
+      color: 'red'
+    }
+  },
+  formControlLabel: {
+    marginBottom: 0
+  },
+  errorHelperText: {
+    color: 'red',
+    marginTop: '0px'
   }
 }

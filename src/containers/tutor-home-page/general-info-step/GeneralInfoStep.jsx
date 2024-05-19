@@ -5,6 +5,7 @@ import {
   Box,
   FormControl,
   FormControlLabel,
+  FormHelperText,
   Checkbox
 } from '@mui/material'
 import AsyncAutocomplete from '~/components/async-autocomplete/AsyncAutocomplete'
@@ -35,16 +36,24 @@ const GeneralInfoStep = ({ btnsBox }) => {
 
   const countriesOptions = useMemo(
     () => ({
-      label: t('becomeTutor.generalInfo.selectCountry')
+      label: t('becomeTutor.generalInfo.selectCountry'),
+      required: true,
+      error: Boolean(errors.country),
+      helperText: t(errors.country)
     }),
-    [t]
+    /* eslint-disable-next-line */
+    [errors.country]
   )
 
   const citiesOptions = useMemo(
     () => ({
-      label: t('becomeTutor.generalInfo.selectCity')
+      label: t('becomeTutor.generalInfo.selectCity'),
+      required: true,
+      error: Boolean(errors.city),
+      helperText: t(errors.city)
     }),
-    [t]
+    /* eslint-disable-next-line */
+    [errors.city]
   )
 
   const getCities = useCallback(
@@ -122,17 +131,27 @@ const GeneralInfoStep = ({ btnsBox }) => {
         <Typography
           sx={styles.summaryLength}
         >{`${data.professionalSummary?.length}/${maxLengthTextField}`}</Typography>
-        <FormControlLabel
-          control={
-            <Checkbox
-              checked={data.legalAge}
-              onBlur={handleBlur('legalAge')}
-              onChange={handleInputChange('legalAge')}
-              type='checkbox'
-            />
-          }
-          label={t('becomeTutor.generalInfo.checkboxAgeVerification')}
-        />
+        <FormControl error={!!errors.legalAge}>
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={data.legalAge}
+                onBlur={handleBlur('legalAge')}
+                onChange={handleInputChange('legalAge')}
+                sx={errors.legalAge ? styles.errorCheckbox : styles.checkbox}
+                type='checkbox'
+              />
+            }
+            label={t('becomeTutor.generalInfo.checkboxAgeVerification')}
+            required
+            sx={styles.formControlLabel}
+          />
+          {errors.legalAge && (
+            <FormHelperText sx={styles.errorHelperText}>
+              {t(errors.legalAge)}
+            </FormHelperText>
+          )}
+        </FormControl>
         <Typography sx={styles.requiredLabel}>
           {t('becomeTutor.generalInfo.helperText')}
         </Typography>
