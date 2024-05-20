@@ -34,5 +34,6 @@
     "typeError": "Wrong file type. Only .png/.jpg/.jpeg files are allowed.",
     "fileSizeError": "Size for one file cannot be more than 10MB."
   },
-  "successMessage": "Success! Your data were added."
+  "successMessage": "Success! Your data were added.",
+  "errorMessage": "Error! Please complete all required fields before submitting."
 }
