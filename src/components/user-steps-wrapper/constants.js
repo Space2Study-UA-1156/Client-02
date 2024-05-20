@@ -36,16 +36,24 @@ export const initialValues = {
 
 export const maxLengthTextField = 100
 
-export const validations = {
-  firstName: nameField,
-  lastName: nameField,
-  country: required,
-  city: required,
-  professionalSummary: textField(0, maxLengthTextField),
-  legalAge: is18yo,
-  subjects: required,
-  languages: required,
-  photo: photoUploaded
+export const validations = (userRole) => {
+  const commonValidations = {
+    firstName: nameField,
+    lastName: nameField,
+    country: required,
+    city: required,
+    professionalSummary: textField(0, maxLengthTextField),
+    legalAge: is18yo,
+    subjects: required,
+    languages: required
+  }
+  if (userRole === 'tutor') {
+    return {
+      ...commonValidations,
+      photo: photoUploaded
+    }
+  }
+  return commonValidations
 }
 
 export const tutorStepLabels = ['generalInfo', 'subjects', 'language', 'photo']
