@@ -1,17 +1,15 @@
 import PageWrapper from '~/components/page-wrapper/PageWrapper'
 import CreateRequestOfferBlock from '~/components/create-request-offer-block/CreateRequestOfferBlock'
-import { Box, Typography, Paper, Autocomplete, TextField } from '@mui/material'
-import SearchIcon from '@mui/icons-material/Search'
+import { Box } from '@mui/material'
 import { useTranslation } from 'react-i18next'
-import { styles } from '~/pages/categories/Categories.styles.js'
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
+import { styles } from '~/components/category-search-section/CategorySearchSection.styles.js'
 import AppButton from '~/components/app-button/AppButton'
-import HashLink from '~/components/hash-link/HashLink'
 import { categoryService } from '~/services/category-service'
 import { useEffect, useState, useMemo } from 'react'
 import { authRoutes } from '~/router/constants/authRoutes'
 import CategoryItemCard from '~/components/category-item-card/CategoryItemCard'
 import { useNavigate, useLocation } from 'react-router-dom'
+import CategorySearchSection from '~/components/category-search-section/CategorySearchSection'
 
 const Categories = () => {
   const [categoriesData, setCategoriesData] = useState([])
@@ -91,71 +89,18 @@ const Categories = () => {
   return (
     <PageWrapper>
       <CreateRequestOfferBlock />
-      <Box sx={styles.container}>
-        <Typography sx={styles.title}>{t('categoriesPage.title')}</Typography>
-        <Typography>{t('categoriesPage.description')}</Typography>
-      </Box>
-      <Box sx={styles.showOffersBox}>
-        <Typography
-          component={HashLink}
-          sx={styles.showOffers}
-          to={findOffers.path}
-        >
-          {t('categoriesPage.showAllOffers')}
-          <ArrowForwardIcon sx={styles.arrowIcon} />
-        </Typography>
-      </Box>
-      <Paper elevation={0} sx={styles.searchContainer}>
-        <Box sx={styles.searchBox}>
-          <SearchIcon sx={styles.searchIcon} />
-          <Autocomplete
-            freeSolo
-            getOptionLabel={(option) => option.name}
-            inputValue={inputValue}
-            isOptionEqualToValue={(option, value) =>
-              normalizeString(option.name)?.includes(normalizeString(value))
-            }
-            onChange={handleCategoryChange}
-            onInputChange={handleInputChange}
-            onKeyDown={(event) => {
-              if (event.key === 'Enter') {
-                event.defaultMuiPrevented = true
-              }
-            }}
-            options={categoriesData}
-            renderInput={(params) => {
-              return (
-                <TextField
-                  {...params}
-                  placeholder={t('categoriesPage.searchLabel')}
-                  sx={styles.searchInput}
-                />
-              )
-            }}
-            sx={styles.searchBox}
-            value={selectedCategory}
-          />
-        </Box>
-      </Paper>
-      <Box sx={styles.underSearchBoxText}>
-        <Typography>{t('categoriesPage.cantFindLabel')}</Typography>
-        <Typography
-          component={HashLink}
-          sx={styles.underlineText}
-          to={categories.path}
-        >
-          {t('categoriesPage.category')}
-        </Typography>
-        <Typography>{t('categoriesPage.and')}</Typography>
-        <Typography
-          component={HashLink}
-          sx={styles.underlineText}
-          to={subjects.path}
-        >
-          {t('categoriesPage.subject')}
-        </Typography>
-        <Typography>{t('categoriesPage.exclmMark')}</Typography>
-      </Box>
+      <CategorySearchSection
+        categoriesData={categoriesData}
+        categoriesPath={categories.path}
+        findOffersPath={findOffers.path}
+        handleCategoryChange={handleCategoryChange}
+        handleInputChange={handleInputChange}
+        inputValue={inputValue}
+        normalizeString={normalizeString}
+        selectedCategory={selectedCategory}
+        styles={styles}
+        subjectsPath={subjects.path}
+      />
       <Box sx={styles.gridBox}>
         {searchedCategories.length > 0 &&
           searchedCategories
