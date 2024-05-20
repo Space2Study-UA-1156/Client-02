@@ -8,6 +8,12 @@ import {
 } from 'react'
 import useForm from '~/hooks/use-form'
 import useConfirm from '~/hooks/use-confirm'
+import {
+  generalInfoInitialValues,
+  subjectsInitialValues,
+  languagesInitialValues,
+  photoInitialValues
+} from '~/components/user-steps-wrapper/constants'
 
 const StepContext = createContext()
 
@@ -16,10 +22,12 @@ const StepProvider = ({ children, initialValues, validations, stepLabels }) => {
   const {
     handleInputChange,
     handleSelectChange,
+    handleNonInputValueChange,
     handleBlur,
     errors,
     data,
-    isDirty
+    isDirty,
+    markAsValidated
   } = useForm({
     initialValues,
     validations
@@ -30,7 +38,7 @@ const StepProvider = ({ children, initialValues, validations, stepLabels }) => {
   }, [isDirty, setNeedConfirmation])
 
   const [generalData, setGeneralData] = useState({
-    data: initialValues,
+    data: generalInfoInitialValues,
     errors
   })
   const [subject, setSubject] = useState([])
@@ -61,7 +69,17 @@ const StepProvider = ({ children, initialValues, validations, stepLabels }) => {
     (stepLabel, data, errors) => {
       switch (stepLabel) {
         case generalLabel:
-          setGeneralData({ data, errors })
+          setGeneralData({
+            data: {
+              firstName: data.firstName,
+              lastName: data.lastName,
+              city: data.city,
+              country: data.country,
+              professionalSummary: data.professionalSummary,
+              legalAge: data.legalAge
+            },
+            errors
+          })
           break
         case subjectLabel:
           setSubject(data)
@@ -79,6 +97,36 @@ const StepProvider = ({ children, initialValues, validations, stepLabels }) => {
     [generalLabel, subjectLabel, languageLabel, photoLabel]
   )
 
+  const markGeneralInfoAsValidated = useCallback(() => {
+    Object.keys(generalInfoInitialValues).forEach((key) => markAsValidated(key))
+  }, [markAsValidated])
+
+  const markSubjectsAsValidated = useCallback(() => {
+    Object.keys(subjectsInitialValues).forEach((key) => markAsValidated(key))
+  }, [markAsValidated])
+
+  const markLanguagesAsValidated = useCallback(() => {
+    Object.keys(languagesInitialValues).forEach((key) => markAsValidated(key))
+  }, [markAsValidated])
+
+  const markPhotoAsValidated = useCallback(() => {
+    Object.keys(photoInitialValues).forEach((key) => markAsValidated(key))
+  }, [markAsValidated])
+
+  function hasErrors(fields) {
+    return Object.keys(fields).some((field) => errors[field] !== '')
+  }
+
+  const validTabs = useMemo(() => {
+    return {
+      0: hasErrors(generalInfoInitialValues),
+      1: hasErrors(subjectsInitialValues),
+      2: hasErrors(languagesInitialValues),
+      3: hasErrors(photoInitialValues)
+    }
+    /* eslint-disable-next-line */
+  }, [errors])
+
   const contextValue = useMemo(
     () => ({
       generalLabel,
@@ -91,8 +139,14 @@ const StepProvider = ({ children, initialValues, validations, stepLabels }) => {
       handleStepData,
       handleInputChange,
       handleSelectChange,
+      handleNonInputValueChange,
       handleBlur,
-      errors
+      validTabs,
+      errors,
+      markGeneralInfoAsValidated,
+      markSubjectsAsValidated,
+      markLanguagesAsValidated,
+      markPhotoAsValidated
     }),
     [
       generalLabel,
@@ -105,8 +159,14 @@ const StepProvider = ({ children, initialValues, validations, stepLabels }) => {
       handleStepData,
       handleInputChange,
       handleSelectChange,
+      handleNonInputValueChange,
       handleBlur,
-      errors
+      validTabs,
+      errors,
+      markGeneralInfoAsValidated,
+      markSubjectsAsValidated,
+      markLanguagesAsValidated,
+      markPhotoAsValidated
     ]
   )
 

@@ -69,3 +69,17 @@ export const textField = (min, max) => (value) => {
 export const helperTextHandler = (value, marker, emptyMessage) => {
   return emptyField(value, emptyMessage, validations[marker](value))
 }
+
+export const required = (value) => {
+  if ((Array.isArray(value) && value.length === 0) || !value) {
+    return 'common.errorMessages.required'
+  }
+}
+
+export const is18yo = (value) => {
+  if (!value) return 'common.errorMessages.is18yo'
+}
+
+export const photoUploaded = (value) => {
+  if (!value.size) return 'common.errorMessages.photoUploaded'
+}
