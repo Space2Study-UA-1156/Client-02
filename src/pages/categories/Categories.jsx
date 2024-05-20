@@ -61,7 +61,7 @@ const Categories = () => {
 
     if (!search) params.delete('search')
 
-    navigateTo({ search: params.toString() }, { replace: true })
+    navigateTo({ search: params.toString().toLowerCase() }, { replace: true })
   }, [search, navigateTo, location.search])
 
   const handleShowMore = () => {
