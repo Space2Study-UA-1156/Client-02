@@ -41,17 +41,8 @@ export const styles = {
   },
   searchInput: {
     ml: '20px',
-    flex: 1
-  },
-  searchButton: {
-    backgroundColor: '#607D8B',
-    ml: '24px',
-    display: { xs: 'none', sm: 'flex' }
-  },
-  isMobile: {
-    backgroundColor: '#607D8B',
-    display: { xs: 'flex', sm: 'none' },
-    ml: '24px'
+    flex: 1,
+    '& fieldset': { border: 'none' }
   },
   underSearchBoxText: {
     display: 'flex',
