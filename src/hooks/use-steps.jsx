@@ -3,11 +3,13 @@ import { useCallback, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import useAxios from '~/hooks/use-axios'
 
+import { useDispatch } from 'react-redux'
+import { checkAuth } from '~/redux/reducer'
 import { snackbarVariants } from '~/constants'
+import { userService } from '~/services/user-service'
 import { useModalContext } from '~/context/modal-context'
 import { useStepContext } from '~/context/step-context'
 import { useSnackBarContext } from '~/context/snackbar-context'
-import { userService } from '~/services/user-service'
 
 const useSteps = ({ steps }) => {
   const [activeStep, setActiveStep] = useState(0)
@@ -23,7 +25,39 @@ const useSteps = ({ steps }) => {
     markPhotoAsValidated
   } = useStepContext()
   const { setAlert } = useSnackBarContext()
-  const { userId } = useSelector((state) => state.appMain)
+  const dispatch = useDispatch()
+
+  const { userId, userRole } = useSelector((state) => state.appMain)
+  const isTutor = userRole === 'tutor'
+
+  const mapDataToAPIObject = () => {
+    const {
+      firstName,
+      lastName,
+      country,
+      city,
+      professionalSummary,
+      subjects,
+      languages
+      // photo
+    } = data
+
+    const address = { country, city }
+    const mainSubjects = subjects
+    const languageData = isTutor
+      ? { nativeLanguage: languages.name }
+      : { spokenLanguages: languages.map((language) => language.name) }
+
+    return {
+      firstName,
+      lastName,
+      address,
+      professionalSummary,
+      mainSubjects,
+      ...languageData
+      // photo
+    }
+  }
 
   const handleSubmitError = () => {
     setAlert({
@@ -49,6 +83,7 @@ const useSteps = ({ steps }) => {
       severity: snackbarVariants.success,
       message: 'becomeTutor.successMessage'
     })
+    dispatch(checkAuth())
     closeModal()
   }
 
@@ -119,9 +154,11 @@ const useSteps = ({ steps }) => {
       if (hasErrors) {
         handleSubmitError()
       } else {
-        fetchData()
+        fetchData(mapDataToAPIObject())
       }
-      setSubmitted(false)
+      return () => {
+        setSubmitted(false)
+      }
     }
     /* eslint-disable-next-line */
   }, [submitted, data, errors])
