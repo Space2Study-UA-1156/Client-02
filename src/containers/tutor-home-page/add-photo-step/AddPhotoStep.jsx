@@ -49,11 +49,11 @@ const AddPhotoStep = ({ btnsBox }) => {
         style={style.dragAndDrop}
         validationData={validationData}
       >
-        {data.photo.size ? (
+        {data?.photo?.size ? (
           <Box
             alt={t('becomeTutor.photo.imageAlt')}
             component={'img'}
-            src={createObjectURL(data.photo)}
+            src={createObjectURL(data?.photo)}
             sx={style.previewImg}
           />
         ) : (
@@ -77,8 +77,8 @@ const AddPhotoStep = ({ btnsBox }) => {
             <Box sx={style.fileUploader.containerBtn}>
               <FileUploader
                 buttonText={
-                  data.photo.size
-                    ? data.photo.name
+                  data?.photo?.size
+                    ? data?.photo?.name
                     : t('becomeTutor.photo.button')
                 }
                 emitter={emitter}
@@ -87,7 +87,7 @@ const AddPhotoStep = ({ btnsBox }) => {
                 validationData={validationData}
               ></FileUploader>
             </Box>
-            {data.photo.size && !uploadPhotoError && (
+            {data?.photo?.size && !uploadPhotoError && (
               <DoneRoundedIcon color='success' sx={{ mt: '10px' }} />
             )}
           </Box>
