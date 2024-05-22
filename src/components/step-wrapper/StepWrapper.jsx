@@ -1,29 +1,47 @@
-import { cloneElement } from 'react'
+import { cloneElement, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import Box from '@mui/material/Box'
 import Container from '@mui/material/Container'
-
 import EastIcon from '@mui/icons-material/East'
 import WestIcon from '@mui/icons-material/West'
 
 import AppButton from '~/components/app-button/AppButton'
 import { styles } from '~/components/step-wrapper/StepWrapper.styles'
+
 import useSteps from '~/hooks/use-steps'
 
 const StepWrapper = ({ children, steps }) => {
-  const { activeStep, isFirstStep, isLastStep, loading, stepOperation } =
-    useSteps({
-      steps
-    })
+  const {
+    validTabs,
+    activeStep,
+    isFirstStep,
+    isLastStep,
+    loading,
+    stepOperation
+  } = useSteps({
+    steps
+  })
+
   const { next, back, setActiveStep, handleSubmit } = stepOperation
   const { t } = useTranslation()
+
+  const stepLabelStyles = useMemo(
+    () =>
+      steps.map((_, index) => [
+        styles.defaultTab,
+        index === activeStep && styles.activeTab,
+        validTabs[index] && styles.errorTab,
+        index === activeStep && validTabs[index] && styles.activeErrorTab
+      ]),
+    [validTabs, activeStep, steps]
+  )
 
   const stepLabels = steps.map((step, index) => (
     <Box
       key={step}
       onClick={() => setActiveStep(index)}
-      sx={[styles.defaultTab, index === activeStep && styles.activeTab]}
+      sx={stepLabelStyles[index]}
       typography='caption'
     >
       {t(`step.stepLabels.${step}`)}

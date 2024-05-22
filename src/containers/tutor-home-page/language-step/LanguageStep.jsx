@@ -16,20 +16,32 @@ import { styles } from '~/containers/tutor-home-page/language-step/LanguageStep.
 
 const LanguageStep = ({ btnsBox, userRole }) => {
   const { t } = useTranslation()
-  const isTutor = userRole === 'tutor'
   const [selectedLanguage, setSelectedLanguage] = useState(null)
+  const isTutor = userRole === 'tutor'
 
-  const { languageLabel, stepData, handleStepData, errors } = useStepContext()
+  const {
+    languageLabel,
+    data,
+    handleStepData,
+    handleNonInputValueChange,
+    handleBlur,
+    errors
+  } = useStepContext()
 
   const getOptionLabel = useCallback((option) => option.name, [])
   const languageOptions = useMemo(
     () => ({
       label: isTutor
         ? t('becomeTutor.languages.autocompleteLabel')
-        : t('becomeStudent.languages.autocompleteLabel')
+        : t('becomeStudent.languages.autocompleteLabel'),
+      required: true,
+      error: Boolean(errors.languages),
+      helperText: t(errors.languages)
     }),
-    [t, isTutor]
+    /* eslint-disable-next-line */
+    [isTutor, errors.languages]
   )
+
   const handleSelectedValue = useCallback(
     () => (event, selectedValue) => {
       setSelectedLanguage(selectedValue)
@@ -50,24 +62,27 @@ const LanguageStep = ({ btnsBox, userRole }) => {
     return subjectService.getSubjectsNames(idLanguageCategory)
   }, [getIdLanguageCategory])
 
-  const languageData = stepData[languageLabel]
-
   const handleAddLanguage = () => {
-    handleStepData(languageLabel, [...languageData, selectedLanguage], null)
+    const updatedLanguages = [...data.languages, selectedLanguage]
+    handleNonInputValueChange('languages', updatedLanguages)
+    handleStepData(languageLabel, updatedLanguages, errors)
     setSelectedLanguage(null)
   }
 
-  const handleDeleteLanguage = (index) => {
-    const updatedLanguages = [...languageData]
-    updatedLanguages.splice(index, 1)
+  const handleDeleteLanguage = (itemName) => {
+    const updatedLanguages = data.languages.filter(
+      (language) => language.name !== itemName
+    )
+    handleNonInputValueChange('languages', updatedLanguages)
     handleStepData(languageLabel, updatedLanguages, null)
   }
 
   const handleAddTutorLanguage = useCallback(
     () => (event, selectedValue) => {
+      handleNonInputValueChange('languages', selectedValue)
       handleStepData(languageLabel, selectedValue, null)
     },
-    [languageLabel, handleStepData]
+    [languageLabel, handleNonInputValueChange, handleStepData]
   )
 
   return (
@@ -89,21 +104,24 @@ const LanguageStep = ({ btnsBox, userRole }) => {
             sx={styles.imgMobile}
           />
           <AsyncAutocomplete
-            fetchOnFocus={isTutor ? !languageData : !selectedLanguage}
+            fetchOnFocus={isTutor ? !data.languages : !selectedLanguage}
             getOptionLabel={getOptionLabel}
+            onBlur={handleBlur('languages')}
             onChange={
               isTutor ? handleAddTutorLanguage() : handleSelectedValue()
             }
             service={getLanguages}
             textFieldProps={languageOptions}
-            value={isTutor ? languageData : selectedLanguage}
+            value={isTutor ? data.languages : selectedLanguage}
           />
           {!isTutor && (
             <>
               <AppButton
                 disabled={
                   selectedLanguage === null ||
-                  languageData.some((item) => item._id === selectedLanguage._id)
+                  data.languages.some(
+                    (item) => item._id === selectedLanguage._id
+                  )
                 }
                 onClick={handleAddLanguage}
                 sx={styles?.button}
@@ -116,7 +134,7 @@ const LanguageStep = ({ btnsBox, userRole }) => {
               <AppChipList
                 defaultQuantity={3}
                 handleChipDelete={handleDeleteLanguage}
-                items={languageData.map((language) => language.name)}
+                items={data.languages.map((language) => language.name)}
               />
             </>
           )}

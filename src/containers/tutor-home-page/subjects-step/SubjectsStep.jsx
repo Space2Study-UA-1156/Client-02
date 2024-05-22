@@ -22,7 +22,15 @@ const SubjectsStep = ({ btnsBox, userRole }) => {
   const [selectedSubject, setSelectedSubject] = useState(null)
   const isTutor = userRole === 'tutor'
 
-  const { subjectLabel, stepData, handleStepData } = useStepContext()
+  const {
+    subjectLabel,
+    data,
+    handleStepData,
+    handleNonInputValueChange,
+    handleBlur,
+    errors
+  } = useStepContext()
+
   const getOptionLabel = useCallback((option) => option.name, [])
   const categoriesOptions = useMemo(
     () => ({
@@ -30,16 +38,21 @@ const SubjectsStep = ({ btnsBox, userRole }) => {
         ? t('becomeTutor.categories.mainSubjectsLabel')
         : t('becomeStudent.categories.mainSubjectsLabel')
     }),
-    [t, isTutor]
+    /* eslint-disable-next-line */
+    [isTutor]
   )
 
   const subjectsOptions = useMemo(
     () => ({
       label: isTutor
         ? t('becomeTutor.categories.subjectLabel')
-        : t('becomeStudent.categories.subjectLabel')
+        : t('becomeStudent.categories.subjectLabel'),
+      required: true,
+      error: Boolean(errors.subjects),
+      helperText: t(errors.subjects)
     }),
-    [t, isTutor]
+    /* eslint-disable-next-line */
+    [isTutor, errors.subjects]
   )
 
   const handleSelectedValue = useCallback(
@@ -56,45 +69,50 @@ const SubjectsStep = ({ btnsBox, userRole }) => {
     []
   )
 
-  const subjectData = stepData[subjectLabel]
-
   const handleAddSubject = () => {
-    handleStepData(subjectLabel, [...subjectData, selectedSubject], null)
+    const updatedSubjects = [...data.subjects, selectedSubject]
+    handleNonInputValueChange('subjects', updatedSubjects)
+    handleStepData(subjectLabel, updatedSubjects, errors)
     setSelectedSubject(null)
   }
 
-  const handleDeleteSubject = (index) => {
-    const updatedSubjects = [...subjectData]
-    updatedSubjects.splice(index, 1)
+  const handleDeleteSubject = (itemName) => {
+    const updatedSubjects = data.subjects.filter(
+      (subject) => subject.name !== itemName
+    )
+    handleNonInputValueChange('subjects', updatedSubjects)
     handleStepData(subjectLabel, updatedSubjects, null)
   }
 
   const image = (
-    <Box
-      alt='Girl studying'
-      component='img'
-      src={SubjectsStepImage}
-      sx={styles.image}
-    />
+    <Box sx={styles.imgContainer}>
+      <Box
+        alt='Girl studying'
+        component='img'
+        src={SubjectsStepImage}
+        sx={styles.img}
+      />
+    </Box>
   )
 
   return (
     <Box sx={styles.container}>
       {isLaptopAndAbove && image}
-      <Box sx={styles.rigthBox}>
-        <Box sx={styles.titleWithForm}>
-          <Typography>
+      <Box id='formContainer' sx={styles.formContainer}>
+        <Box>
+          <Typography sx={styles.title}>
             {isTutor
               ? t('becomeTutor.categories.title')
               : t('becomeStudent.categories.title')}
           </Typography>
           {isMobile && image}
-          <Box component='form' sx={styles.form}>
+          <Box component='form'>
             <AsyncAutocomplete
               fetchOnFocus
               getOptionLabel={getOptionLabel}
               onChange={handleSelectedValue(setSelectedCategory)}
               service={categoryService.getCategoriesNames}
+              sx={styles.autocomplete}
               textFieldProps={categoriesOptions}
               value={selectedCategory}
             />
@@ -102,8 +120,10 @@ const SubjectsStep = ({ btnsBox, userRole }) => {
               fetchCondition={selectedCategory}
               fetchOnFocus
               getOptionLabel={getOptionLabel}
+              onBlur={handleBlur('subjects')}
               onChange={handleSelectedValue(setSelectedSubject)}
               service={getSubjects(selectedCategory?._id)}
+              sx={styles.autocomplete}
               textFieldProps={subjectsOptions}
               value={selectedSubject}
             />
@@ -111,9 +131,10 @@ const SubjectsStep = ({ btnsBox, userRole }) => {
               disabled={
                 selectedCategory === null ||
                 selectedSubject === null ||
-                subjectData.some((item) => item._id === selectedSubject._id)
+                data.subjects.some((item) => item._id === selectedSubject._id)
               }
               onClick={handleAddSubject}
+              sx={styles?.button}
               variant={'tonal'}
             >
               {isTutor
@@ -123,7 +144,7 @@ const SubjectsStep = ({ btnsBox, userRole }) => {
             <AppChipList
               defaultQuantity={3}
               handleChipDelete={handleDeleteSubject}
-              items={subjectData.map((subject) => subject.name)}
+              items={data.subjects.map((subject) => subject.name)}
             />
           </Box>
         </Box>

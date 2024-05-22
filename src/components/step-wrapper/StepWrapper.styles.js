@@ -6,6 +6,16 @@ const btnStyle = {
   columnGap: 1
 }
 
+const baseTab = {
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: { xs: 'center', sm: 'flex-start' },
+  width: { sm: '107px' },
+  borderBottom: { sm: '1px solid' },
+  cursor: 'pointer',
+  p: { xs: '6px 8px', sm: '0 0 14px 0' }
+}
+
 export const styles = {
   root: {
     display: { xs: 'flex' },
@@ -14,14 +24,8 @@ export const styles = {
     p: { lg: '50px 90px', sm: '40px 50px', xs: '40px 15px' }
   },
   defaultTab: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: { xs: 'center', sm: 'flex-start' },
-    width: { sm: '107px' },
-    borderBottom: { sm: '1px solid' },
-    borderColor: { sm: 'primary.500' },
-    cursor: 'pointer',
-    p: { xs: '6px 8px', sm: '0 0 14px 0' }
+    ...baseTab,
+    borderColor: { sm: 'primary.500' }
   },
   activeTab: {
     color: 'text',
@@ -32,6 +36,17 @@ export const styles = {
     backgroundColor: { xs: 'basic.grey', sm: 'transparent' },
     borderRadius: { xs: '5px', sm: '0' },
     ...fadeAnimation
+  },
+  errorTab: {
+    ...baseTab,
+    color: 'red',
+    borderColor: { sm: 'primary.500' }
+  },
+  activeErrorTab: {
+    ...baseTab,
+    color: 'red',
+    borderColor: { sm: 'red' },
+    borderBottom: { sm: '3px solid' }
   },
   steps: {
     display: 'flex',

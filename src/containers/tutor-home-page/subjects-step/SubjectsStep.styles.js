@@ -4,33 +4,44 @@ export const styles = {
   container: {
     display: 'flex',
     justifyContent: 'space-between',
-    gap: '40px',
-    height: { sm: '485px' },
-    paddingBottom: { xs: '30px', sm: '0px' },
+    gap: { md: '40px', lg: '43px' },
+    height: { sm: '520px' },
     ...fadeAnimation
   },
-  rigthBox: {
+  formContainer: {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
-    maxWidth: '432px'
+    width: { sm: '100%', md: '430px' },
+    margin: { sm: '0 auto', md: '0' }
   },
-  image: {
-    img: {
-      margin: '0 auto',
-      display: 'block',
-      maxWidth: { xs: '180px', sm: '100%' }
-    }
+  title: {
+    mb: '20px',
+    width: { sm: '100%', md: '430px' }
   },
-  titleWithForm: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: { xs: '16px', sm: '20px' },
-    maxWidth: '432px'
+  imgContainer: {
+    width: '450px',
+    maxWidth: { md: '50%', lg: '450px' },
+    maxHeight: 'inherit',
+    display: { xs: 'none', md: 'flex' },
+    pl: { md: '30px' }
   },
-  form: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: { xs: '16px', sm: '20px' }
+  img: {
+    width: '100%'
+  },
+  imgMobile: {
+    display: { xs: 'block', sm: 'none' },
+    width: '60%',
+    margin: 'auto',
+    marginBottom: '20px'
+  },
+  button: {
+    width: '100%',
+    padding: '14px 0px',
+    mt: '16px',
+    mb: '10px'
+  },
+  autocomplete: {
+    mt: '16px'
   }
 }

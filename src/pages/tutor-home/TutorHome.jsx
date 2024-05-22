@@ -10,10 +10,12 @@ import { styles } from '~/pages/tutor-home/TutorHome.styles'
 
 const TutorHome = () => {
   const { openModal } = useModalContext()
-  const { isFirstLogin, userRole } = useSelector((state) => state.appMain)
+  const { isRegistrationCompleted, userRole } = useSelector(
+    (state) => state.appMain
+  )
 
   useEffect(() => {
-    if (isFirstLogin) {
+    if (!isRegistrationCompleted) {
       openModal({
         component: <UserStepsWrapper userRole={userRole} />,
         paperProps: {
@@ -21,7 +23,7 @@ const TutorHome = () => {
         }
       })
     }
-  }, [openModal, isFirstLogin, userRole])
+  }, [openModal, isRegistrationCompleted, userRole])
 
   return <PageWrapper data-testid='tutorHome'>TutorHome Page</PageWrapper>
 }

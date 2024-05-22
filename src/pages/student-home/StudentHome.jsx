@@ -9,15 +9,17 @@ import { useModalContext } from '~/context/modal-context'
 
 const StudentHome = () => {
   const { openModal } = useModalContext()
-  const { isFirstLogin, userRole } = useSelector((state) => state.appMain)
+  const { isRegistrationCompleted, userRole } = useSelector(
+    (state) => state.appMain
+  )
 
   useEffect(() => {
-    if (isFirstLogin) {
+    if (!isRegistrationCompleted) {
       openModal({
         component: <UserStepsWrapper userRole={userRole} />,
         paperProps: {
           sx: {
-            maxHeight: { sm: '652px' },
+            maxHeight: { sm: '670px', lg: '690px' },
             height: '100%',
             maxWidth: '1130px',
             width: '100%'
@@ -25,7 +27,7 @@ const StudentHome = () => {
         }
       })
     }
-  }, [openModal, isFirstLogin, userRole])
+  }, [openModal, isRegistrationCompleted, userRole])
 
   return (
     <Box

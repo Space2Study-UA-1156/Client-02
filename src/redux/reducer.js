@@ -25,7 +25,8 @@ const initialState = {
   loading: true,
   pageLoad: false,
   error: '',
-  isFirstLogin: true
+  isFirstLogin: true,
+  isRegistrationCompleted: false
 }
 
 export const loginUser = createAsyncThunk(
@@ -121,6 +122,7 @@ export const mainSlice = createSlice({
       state.lastName = userData.lastName
       state.email = userData.email
       state.isFirstLogin = userData.isFirstLogin
+      state.isRegistrationCompleted = userData.isRegistrationCompleted
     },
     logout(state) {
       state.userId = initialState.userId
@@ -129,9 +131,13 @@ export const mainSlice = createSlice({
       state.lastName = initialState.lastName
       state.email = initialState.email
       state.isFirstLogin = initialState.isFirstLogin
+      state.isRegistrationCompleted = initialState.isRegistrationCompleted
     },
     markFirstLoginComplete(state) {
       state.isFirstLogin = false
+    },
+    setIsRegistrationCompleted(state, action) {
+      state.isRegistrationCompleted = action.payload
     },
     setPageLoading(state, action) {
       state.pageLoad = action.payload
@@ -166,7 +172,12 @@ export const mainSlice = createSlice({
 
 const { actions, reducer } = mainSlice
 
-export const { setUser, logout, markFirstLoginComplete, setPageLoading } =
-  actions
+export const {
+  setUser,
+  logout,
+  markFirstLoginComplete,
+  setPageLoading,
+  setIsRegistrationCompleted
+} = actions
 
 export default reducer

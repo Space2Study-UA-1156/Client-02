@@ -121,6 +121,15 @@ export const useForm = ({
     isValid ? void onSubmit() : setErrors(newErrors)
   }
 
+  const markAsValidated = (key) => {
+    setTouched(true)
+    const valid = validateValue(key, data[key])
+    setErrors((prev) => ({
+      ...prev,
+      [key]: valid ?? ''
+    }))
+  }
+
   return {
     data,
     isDirty,
@@ -130,7 +139,8 @@ export const useForm = ({
     handleNonInputValueChange,
     handleBlur,
     handleErrors,
-    handleSubmit
+    handleSubmit,
+    markAsValidated
   }
 }
 

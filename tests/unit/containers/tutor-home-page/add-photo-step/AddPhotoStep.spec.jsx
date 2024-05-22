@@ -73,14 +73,33 @@ const stepDataMock = Object.defineProperty({}, 'photo', {
 })
 Object.getOwnPropertyDescriptor(stepDataMock, 'photo').get.mockReturnValue([])
 const handleStepDataMock = vi.fn()
+const handleNonInputValueChangeMock = vi.fn((key, value) => {
+  if (key === 'photo') {
+    return { photo: value }
+  }
+})
+const photoDataMock = Object.defineProperty({}, 'photo', {
+  get: vi.fn()
+})
+Object.getOwnPropertyDescriptor(photoDataMock, 'photo').get.mockReturnValue({
+  name: '',
+  size: null
+})
+const useStepContextMock = vi.hoisted(() => {
+  return vi.fn(() => ({
+    photoLabel: 'photo',
+    data: photoDataMock,
+    stepData: stepDataMock,
+    handleStepData: handleStepDataMock,
+    handleNonInputValueChange: handleNonInputValueChangeMock,
+    errors: { photo: 'some error' }
+  }))
+})
 vi.mock('~/context/step-context', async (importOriginal) => {
   const mod = await importOriginal()
   return {
     ...mod,
-    useStepContext: vi.fn(() => ({
-      stepData: stepDataMock,
-      handleStepData: handleStepDataMock
-    }))
+    useStepContext: useStepContextMock
   }
 })
 
@@ -161,6 +180,9 @@ describe('Test "AddPhotoStep" container - [ when photo has been successfully add
     Object.getOwnPropertyDescriptor(stepDataMock, 'photo').get.mockReturnValue(
       file
     )
+    Object.getOwnPropertyDescriptor(photoDataMock, 'photo').get.mockReturnValue(
+      file
+    )
     renderWithProviders(<AddPhotoStep />)
   })
 
@@ -202,6 +224,9 @@ describe('Test "AddPhotoStep" container - [ when an error occurs while adding a 
       files: [file]
     })
     Object.getOwnPropertyDescriptor(stepDataMock, 'photo').get.mockReturnValue(
+      []
+    )
+    Object.getOwnPropertyDescriptor(photoDataMock, 'photo').get.mockReturnValue(
       []
     )
     renderWithProviders(<AddPhotoStep />)
