@@ -1,6 +1,6 @@
 {
   "subjects": {
-    "title": " Subjects",
+    "title": "{{category}} Subjects",
     "description": "Explore subjects you're passionate about.",
     "showAllOffers": "Show offers",
     "backToAllCategories": "Categories",
