@@ -24,7 +24,7 @@ export const languagesInitialValues = {
 }
 
 export const photoInitialValues = {
-  photo: []
+  photo: null
 }
 
 export const initialValues = {
