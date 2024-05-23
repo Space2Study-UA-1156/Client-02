@@ -38,8 +38,9 @@ function SubjectsSearch({
     <>
       <Box sx={styles.container}>
         <Typography sx={styles.title}>
-          {selectedCategory ? categoryNameCapital : ''}
-          {t(`subjectsPage.subjects.title`)}
+          {t('subjectsPage.subjects.title', {
+            category: selectedCategory ? categoryNameCapital : ''
+          })}
         </Typography>
         <Typography>{t('subjectsPage.subjects.description')}</Typography>
       </Box>
