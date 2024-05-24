@@ -43,8 +43,7 @@ const Categories = () => {
 
   useEffect(() => {
     setInputValue(search)
-    // eslint-disable-next-line no-unused-vars
-  }, [])
+  }, [search])
 
   useEffect(() => {
     const fetchCategories = async () => {

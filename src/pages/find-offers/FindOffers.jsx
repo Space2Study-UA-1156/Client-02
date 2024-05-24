@@ -1,6 +1,7 @@
 import { useState } from 'react'
 
 import PageWrapper from '~/components/page-wrapper/PageWrapper'
+import PopularCategoriesBlock from '~/containers/popular-categories-block/PopularCategoriesBlock'
 import OffersBlock from '~/containers/offers-block/OffersBlock'
 import { Box } from '@mui/material'
 import ToggleLayoutView from '~/components/toggle-layout-view/ToggleLayoutView'
@@ -17,6 +18,7 @@ const FindOffers = () => {
         />
       </Box>
       <OffersBlock gridLayout={gridLayout} />
+      <PopularCategoriesBlock />
     </PageWrapper>
   )
 }

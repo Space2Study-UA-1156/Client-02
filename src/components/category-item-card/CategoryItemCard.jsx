@@ -11,7 +11,7 @@ const CategoryItemCard = ({ bg, category, image = 'test', offers }) => {
   const categoryName = category.name
   const link = `${
     authRoutes.subjects.path
-  }?categoryName=${categoryName.toLowerCase()}&id=${category._id}`
+  }?categoryName=${categoryName?.toLowerCase()}&id=${category._id}`
   const description = `${offers} ${t('categoriesPage.offers')}`
   const urlImg = `/src/assets/img/categories/${image}`
   const bgWithOpacity = `${bg}33`
