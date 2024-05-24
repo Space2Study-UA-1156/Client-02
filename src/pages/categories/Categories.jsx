@@ -41,6 +41,7 @@ const Categories = () => {
 
   useEffect(() => {
     setInputValue(search)
+    // eslint-disable-next-line no-unused-vars
   }, [])
 
   useEffect(() => {
