@@ -39,7 +39,7 @@ const TutorCardMobile = (props) => {
 
       <Typography sx={styles.userDescription}>
         Advanced Quantum Mechanics: Theoretical Concepts, Mathematical
-        Formulations in Modern Physics
+        Formulations in Modern Physics {props.index}
       </Typography>
       <Box sx={styles.userLangBlock}>
         <LanguageIcon />

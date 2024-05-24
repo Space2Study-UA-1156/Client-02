@@ -56,7 +56,7 @@ const TutorCardBlock = (props) => {
         )}
         <Typography sx={styles.infoTitle}>
           Advanced Quantum Mechanics: Theoretical Concepts, Mathematical
-          Formulations in Modern Physics
+          Formulations in Modern Physics {props.index}
         </Typography>
         <Box sx={styles.flexBlock}>
           <Typography sx={styles.infoFeature}>German</Typography>

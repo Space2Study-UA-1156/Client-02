@@ -4,7 +4,7 @@ import { useMediaQuery } from '@mui/material'
 import TutorCardBlock from '~/components/tutor-card/TutorCardBlock'
 import TutorCardMobile from '~/components/tutor-card/TutorCardMobile'
 
-const TutorCard = () => {
+const TutorCard = ({ index, gridLayout }) => {
   const [favourite, setFavourite] = useState(false)
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down('sm'))
 
@@ -23,13 +23,16 @@ const TutorCard = () => {
     addToFavourite: addToFavourite,
     showDetails: showDetails,
     sendMessage: sendMessage,
-    favourite
+    favourite,
+    index
   }
 
   return (
     <>
       {isMobile ? (
         <TutorCardMobile {...props} />
+      ) : gridLayout ? (
+        <p>Grid {index}</p>
       ) : (
         <TutorCardBlock {...props} />
       )}
