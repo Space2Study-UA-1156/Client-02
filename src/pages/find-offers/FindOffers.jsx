@@ -26,7 +26,7 @@ const FindOffers = () => {
   }
 
   const changeRole = () => {
-    setRole(role === tutor ? student : tutor)
+    setRole(prev => prev === tutor ? student : tutor)
   }
 
   useEffect(() => {
