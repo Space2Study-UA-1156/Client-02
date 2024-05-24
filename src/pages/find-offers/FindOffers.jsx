@@ -13,7 +13,7 @@ const FindOffers = () => {
   const { t } = useTranslation()
   const [searchParams, setSearchParams] = useSearchParams()
   // eslint-disable-next-line no-unused-vars
-  const [view, setView] = useState(() => searchParams.get('view') || 'list')
+  const view = searchParams.get('view') || 'list'
   const [role, setRole] = useState(() => searchParams.get('role') || userRole)
 
   const switchOptions = {
