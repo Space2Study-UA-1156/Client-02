@@ -27,7 +27,7 @@ const Categories = () => {
 
   const { t } = useTranslation()
 
-  const { categories, subjects, findOffers } = authRoutes
+  const { categories, findOffers } = authRoutes
 
   const searchedCategories = useMemo(() => {
     if (!search) return categoriesData
@@ -41,6 +41,7 @@ const Categories = () => {
 
   useEffect(() => {
     setInputValue(search)
+    // eslint-disable-next-line no-unused-vars
   }, [])
 
   useEffect(() => {
@@ -99,7 +100,6 @@ const Categories = () => {
         normalizeString={normalizeString}
         selectedCategory={selectedCategory}
         styles={styles}
-        subjectsPath={subjects.path}
       />
       <Box sx={styles.gridBox}>
         {searchedCategories.length > 0 &&
@@ -108,7 +108,7 @@ const Categories = () => {
             .map((category, index) => (
               <CategoryItemCard
                 bg={category.appearance.color}
-                category={category.name}
+                category={category}
                 id={category._id}
                 image={category.appearance.icon_path}
                 key={`${category.id}-${index}`}

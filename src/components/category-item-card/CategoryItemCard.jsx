@@ -8,7 +8,10 @@ import { styles } from '~/components/category-item-card/CategoryItemCard.styles'
 const CategoryItemCard = ({ bg, category, image = 'test', offers }) => {
   const { t } = useTranslation()
 
-  const subjectPath = `${authRoutes.categories.path}/${category.toLowerCase()}`
+  const categoryName = category.name
+  const link = `${
+    authRoutes.subjects.path
+  }?categoryName=${categoryName.toLowerCase()}&id=${category._id}`
   const description = `${offers} ${t('categoriesPage.offers')}`
   const urlImg = `/src/assets/img/categories/${image}`
   const bgWithOpacity = `${bg}33`
@@ -19,13 +22,13 @@ const CategoryItemCard = ({ bg, category, image = 'test', offers }) => {
   }
 
   return (
-    <AppCard link sx={styles.wrapper} to={subjectPath}>
+    <AppCard link={link} sx={styles.wrapper}>
       <ImgTitleDescription
-        altText={category}
+        altText={categoryName}
         description={description}
         img={urlImg}
         style={style}
-        title={category}
+        title={categoryName}
       />
     </AppCard>
   )
