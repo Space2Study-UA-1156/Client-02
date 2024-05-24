@@ -31,38 +31,63 @@ const useSteps = ({ steps }) => {
   const isTutor = userRole === 'tutor'
 
   const mapDataToAPIObject = () => {
-    const {
-      firstName,
-      lastName,
-      country,
-      city,
-      professionalSummary,
-      subjects,
-      languages
-      // photo
-    } = data
+    return new Promise((resolve, reject) => {
+      const {
+        firstName,
+        lastName,
+        country,
+        city,
+        professionalSummary,
+        subjects,
+        languages,
+        photo
+      } = data
 
-    const address = { country, city }
-    const mainSubjects = subjects
-    const languageData = isTutor
-      ? { nativeLanguage: languages.name }
-      : { spokenLanguages: languages.map((language) => language.name) }
+      const address = { country, city }
+      const mainSubjects = subjects
+      const languageData = isTutor
+        ? { nativeLanguage: languages.name }
+        : { spokenLanguages: languages.map((language) => language.name) }
 
-    return {
-      firstName,
-      lastName,
-      address,
-      professionalSummary,
-      mainSubjects,
-      ...languageData
-      // photo
-    }
+      const result = {
+        firstName,
+        lastName,
+        address,
+        professionalSummary,
+        mainSubjects,
+        ...languageData
+      }
+
+      if (!photo) {
+        return resolve(result)
+      }
+
+      const reader = new FileReader()
+      reader.onloadend = function (event) {
+        if (event.target.error) {
+          return reject(handleUploadPhotoError())
+        }
+        resolve({
+          ...result,
+          photo: event.target.result
+        })
+      }
+
+      reader.readAsDataURL(photo)
+    })
   }
 
   const handleSubmitError = () => {
     setAlert({
       severity: snackbarVariants.error,
       message: 'becomeTutor.errorMessage'
+    })
+  }
+
+  const handleUploadPhotoError = () => {
+    setAlert({
+      severity: snackbarVariants.error,
+      message: 'becomeTutor.errorPhotoUploadMessage'
     })
   }
 
@@ -154,7 +179,11 @@ const useSteps = ({ steps }) => {
       if (hasErrors) {
         handleSubmitError()
       } else {
-        fetchData(mapDataToAPIObject())
+        mapDataToAPIObject()
+          .then((model) => fetchData(model))
+          .catch(() => {
+            handleUploadPhotoError()
+          })
       }
       return () => {
         setSubmitted(false)
