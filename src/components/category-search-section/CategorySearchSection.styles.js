@@ -32,7 +32,8 @@ export const styles = {
   searchContainer: {
     borderRadius: '50px',
     py: '25px',
-    px: '44px'
+    px: '44px',
+    boxShadow: 'rgba(144, 164, 174, 0.12) 0px 3px 16px 2px'
   },
   searchBox: {
     display: 'flex',

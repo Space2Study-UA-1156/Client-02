@@ -10,6 +10,8 @@ import { authRoutes } from '~/router/constants/authRoutes'
 import CategoryItemCard from '~/components/category-item-card/CategoryItemCard'
 import { useNavigate, useLocation } from 'react-router-dom'
 import CategorySearchSection from '~/components/category-search-section/CategorySearchSection'
+import NoResultsContent from '~/components/no-results-content/NoResultsContent'
+import RequestNewCategoryForm from '~/containers/student-home-page/request-new-category-form/RequestNewCategoryForm'
 
 const Categories = () => {
   const [categoriesData, setCategoriesData] = useState([])
@@ -27,7 +29,7 @@ const Categories = () => {
 
   const { t } = useTranslation()
 
-  const { categories, subjects, findOffers } = authRoutes
+  const { categories, findOffers } = authRoutes
 
   const searchedCategories = useMemo(() => {
     if (!search) return categoriesData
@@ -41,6 +43,7 @@ const Categories = () => {
 
   useEffect(() => {
     setInputValue(search)
+    // eslint-disable-next-line no-unused-vars
   }, [])
 
   useEffect(() => {
@@ -86,6 +89,37 @@ const Categories = () => {
     return v.trim().toLowerCase()
   }
 
+  const searchedContent =
+    searchedCategories.length === 0 ? (
+      <NoResultsContent
+        actionModal={RequestNewCategoryForm}
+        contentName={t('categoriesPage.category')}
+      />
+    ) : (
+      <>
+        <Box sx={styles.gridBox}>
+          {searchedCategories.length > 0 &&
+            searchedCategories
+              .filter((_, i) => i < showMore)
+              .map((category, index) => (
+                <CategoryItemCard
+                  bg={category.appearance.color}
+                  category={category}
+                  id={category._id}
+                  image={category.appearance.icon_path}
+                  key={`${category.id}-${index}`}
+                  offers={category?.totalOffers.student}
+                />
+              ))}
+        </Box>
+        {showMore < searchedCategories.length && (
+          <AppButton onClick={handleShowMore} sx={styles.viewMoreButton}>
+            {t('categoriesPage.viewMore')}
+          </AppButton>
+        )}
+      </>
+    )
+
   return (
     <PageWrapper>
       <CreateRequestOfferBlock />
@@ -99,28 +133,8 @@ const Categories = () => {
         normalizeString={normalizeString}
         selectedCategory={selectedCategory}
         styles={styles}
-        subjectsPath={subjects.path}
       />
-      <Box sx={styles.gridBox}>
-        {searchedCategories.length > 0 &&
-          searchedCategories
-            .filter((_, i) => i < showMore)
-            .map((category, index) => (
-              <CategoryItemCard
-                bg={category.appearance.color}
-                category={category.name}
-                id={category._id}
-                image={category.appearance.icon_path}
-                key={`${category.id}-${index}`}
-                offers={category?.totalOffers.student}
-              />
-            ))}
-      </Box>
-      {showMore < searchedCategories.length && (
-        <AppButton onClick={handleShowMore} sx={styles.viewMoreButton}>
-          {t('categoriesPage.viewMore')}
-        </AppButton>
-      )}
+      {searchedContent}
     </PageWrapper>
   )
 }

@@ -12,7 +12,6 @@ const FindOffers = () => {
   const { userRole } = useSelector((state) => state.appMain)
   const { t } = useTranslation()
   const [searchParams, setSearchParams] = useSearchParams()
-  // eslint-disable-next-line no-unused-vars
   const view = searchParams.get('view') || 'list'
   const [role, setRole] = useState(() => searchParams.get('role') || userRole)
 
