@@ -44,7 +44,7 @@ const Subjects = () => {
     // Replace params in URL
     const link = `${
       authRoutes.subjects.path
-    }?category-name=${category.name.toLowerCase()}&subject-id=${category._id}`
+    }?category-name=${category.name.toLowerCase()}&id=${category._id}`
     navigateTo(link, { replace: true })
   }
 
