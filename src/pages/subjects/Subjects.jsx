@@ -18,7 +18,7 @@ const Subjects = () => {
 
   const query = useQuery()
   const categoryName = query.get('category-name') || ''
-  const categoryId = query.get('subject-id')
+  const categoryId = query.get('id')
   const navigateTo = useNavigate()
 
   // Initial values
