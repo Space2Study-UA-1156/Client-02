@@ -23,6 +23,7 @@ export const styles = {
   },
   haveAccount: {
     display: 'flex',
-    color: 'primary.700'
+    color: 'primary.700',
+    mt: '26px'
   }
 }
