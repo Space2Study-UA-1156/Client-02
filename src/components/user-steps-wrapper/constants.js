@@ -1,7 +1,7 @@
 import {
   nameField,
   textField,
-  required,
+  requiredSelect,
   is18yo,
   photoUploaded
 } from '~/utils/validations/common'
@@ -40,12 +40,12 @@ export const validations = (userRole) => {
   const commonValidations = {
     firstName: nameField,
     lastName: nameField,
-    country: required,
-    city: required,
+    country: requiredSelect,
+    city: requiredSelect,
     professionalSummary: textField(0, maxLengthTextField),
     legalAge: is18yo,
-    subjects: required,
-    languages: required
+    subjects: requiredSelect,
+    languages: requiredSelect
   }
   if (userRole === 'tutor') {
     return {
