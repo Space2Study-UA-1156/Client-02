@@ -56,7 +56,8 @@
     "longText": "This text is too long",
     "numbersOnly": "Please enter a valid number",
     "positiveNumbersOnly": "Please enter a positive number",
-    "required": "Please select a value",
+    "requiredSelect": "Please select a value",
+    "requiredInput": "Please enter a value",
     "is18yo": "Please confirm that you are at least 18 years old",
     "photoUploaded": "Please upload a photo"
   },
