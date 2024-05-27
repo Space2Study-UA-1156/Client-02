@@ -85,20 +85,28 @@ export const useForm = ({
   }, [])
 
   const handleBlur = useCallback(
-    (key) => (event) => {
-      setDirty(!isEqual(data, initialValues))
+    (key, updateValue = false) =>
+      (event) => {
+        setDirty(!isEqual(data, initialValues))
 
-      const valid = validateValue(key, event.target.value)
+        const valid = validateValue(key, event.target.value)
 
-      setErrors((prev) => ({
-        ...prev,
-        [key]: valid ?? ''
-      }))
-      setTouched((prev) => ({
-        ...prev,
-        [key]: true
-      }))
-    },
+        setErrors((prev) => ({
+          ...prev,
+          [key]: valid ?? ''
+        }))
+        setTouched((prev) => ({
+          ...prev,
+          [key]: true
+        }))
+
+        if (updateValue) {
+          setData((prev) => ({
+            ...prev,
+            [key]: event.target.value
+          }))
+        }
+      },
     [data, initialValues, validateValue]
   )
 
