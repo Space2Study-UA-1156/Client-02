@@ -27,19 +27,11 @@ const RequestNewCategoryDialog = () => {
     errors
   } = useForm({
     onSubmit: async () => {
-      try {
-        setAlert({
-          severity: snackbarVariants.success,
-          message: 'studentHomePage.requestNewCategory.successMessage'
-        })
-        closeModal()
-        // Will send data to the database soon
-      } catch (e) {
-        setAlert({
-          severity: snackbarVariants.error,
-          message: `errors.${e}`
-        })
-      }
+      setAlert({
+        severity: snackbarVariants.success,
+        message: 'studentHomePage.requestNewCategory.successMessage'
+      })
+      closeModal()
     },
     initialValues: {
       newSubject: '',
