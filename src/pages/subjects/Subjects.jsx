@@ -17,7 +17,7 @@ const Subjects = () => {
   }
 
   const query = useQuery()
-  const categoryName = query.get('categoryName') || ''
+  const categoryName = query.get('category-name') || ''
   const categoryId = query.get('id')
   const navigateTo = useNavigate()
 
@@ -35,12 +35,16 @@ const Subjects = () => {
     setSelectedCategory(category?._id || null)
     setInputValue(category?.name || '')
 
-    if (!category) return
+    if (!category) {
+      const link = `${authRoutes.subjects.path}`
+      navigateTo(link, { replace: true })
+      return
+    }
 
     // Replace params in URL
     const link = `${
       authRoutes.subjects.path
-    }?categoryName=${category.name.toLowerCase()}&id=${category._id}`
+    }?category-name=${category.name.toLowerCase()}&id=${category._id}`
     navigateTo(link, { replace: true })
   }
 
