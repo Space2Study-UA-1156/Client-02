@@ -8,12 +8,14 @@ export const textField = {
       '& label': {
         lineHeight: 'inherit',
         '&.Mui-focused': {
-          color: palette.primary[900]
+          color: palette.primary[300],
+          opacity: 1
         },
         '&.Mui-error': {
           color: palette.error[500]
         },
-        color: palette.primary[500]
+        color: palette.primary[300],
+        opacity: 1
       },
       '& .MuiAutocomplete-inputRoot.MuiOutlinedInput-root ': {
         padding: '5px'
@@ -33,6 +35,10 @@ export const textField = {
           '& fieldset': {
             borderColor: palette.primary[900]
           }
+        },
+        '&::placeholder': {
+          color: palette.primary[300],
+          opacity: 1
         }
       },
       '& .MuiInput-root:before ': {

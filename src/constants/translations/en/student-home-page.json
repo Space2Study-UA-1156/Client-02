@@ -41,5 +41,17 @@
     "bookLeson": "How to book a lesson",
     "rules": "Rules for students",
     "howPayLesons": "How you can pay for lessons"
-  }
+  },
+  "requestNewCategory": {
+    "title": "Request a new study",
+    "description": "If you can’t find a specific category or subject that you need, you can submit a request to our team to review your request and take necessary actions.",
+    "createNewSubjectTitle": "Create a new subject",
+    "newSubjectPlaceholder": "New subject",    
+    "createNewCategoryTitle": "Add subject to existing category or create a new one.",
+    "newCategoryPlaceholder": "Category",
+    "addInformationTitle": "Provide a brief explanation of why you believe this subject or category should be added.",
+    "addInformationPlaceholder": "Additional information",
+    "btnSendRequest": "Send request",
+    "successMessage": "Success! Your data has been sent."
+  }  
 }

@@ -11,7 +11,7 @@ import CategoryItemCard from '~/components/category-item-card/CategoryItemCard'
 import { useNavigate, useLocation } from 'react-router-dom'
 import CategorySearchSection from '~/components/category-search-section/CategorySearchSection'
 import NoResultsContent from '~/components/no-results-content/NoResultsContent'
-import RequestNewCategoryForm from '~/containers/student-home-page/request-new-category-form/RequestNewCategoryForm'
+import RequestNewCategoryDialog from '~/containers/student-home-page/request-new-category/request-new-category-dialog/RequestNewCategoryDialog'
 
 const Categories = () => {
   const [categoriesData, setCategoriesData] = useState([])
@@ -43,7 +43,7 @@ const Categories = () => {
 
   useEffect(() => {
     setInputValue(search)
-    // eslint-disable-next-line no-unused-vars
+    /* eslint-disable-next-line */
   }, [])
 
   useEffect(() => {
@@ -92,7 +92,7 @@ const Categories = () => {
   const searchedContent =
     searchedCategories.length === 0 ? (
       <NoResultsContent
-        actionModal={RequestNewCategoryForm}
+        actionModal={<RequestNewCategoryDialog />}
         contentName={t('categoriesPage.category')}
       />
     ) : (

@@ -70,9 +70,15 @@ export const helperTextHandler = (value, marker, emptyMessage) => {
   return emptyField(value, emptyMessage, validations[marker](value))
 }
 
-export const required = (value) => {
+export const requiredInput = (value) => {
+  if (value.length === 0 || !value) {
+    return 'common.errorMessages.requiredInput'
+  }
+}
+
+export const requiredSelect = (value) => {
   if ((Array.isArray(value) && value.length === 0) || !value) {
-    return 'common.errorMessages.required'
+    return 'common.errorMessages.requiredSelect'
   }
 }
 
@@ -81,5 +87,5 @@ export const is18yo = (value) => {
 }
 
 export const photoUploaded = (value) => {
-  if (!value.size) return 'common.errorMessages.photoUploaded'
+  if (!value?.size) return 'common.errorMessages.photoUploaded'
 }
