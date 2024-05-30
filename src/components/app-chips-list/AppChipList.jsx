@@ -27,9 +27,7 @@ const AppChipList = ({
     )
   })
 
-  const initialItems = (
-    <Box sx={styles.feature}>{chips.slice(0, defaultQuantity)}</Box>
-  )
+  const initialItems = <>{chips.slice(0, defaultQuantity)}</>
 
   const showMoreElem = hideChips && (
     <Chip
