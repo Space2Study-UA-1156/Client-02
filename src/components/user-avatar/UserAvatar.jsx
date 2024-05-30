@@ -3,30 +3,40 @@ import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined
 
 import { styles } from '~/components/user-avatar/UserAvatar.styles'
 
-const UserAvatar = ({ firstName, lastName, photo }) => {
-  const getInitials = () => {
-    return `${firstName.charAt(0)}${lastName.charAt(0)}`
-  }
+const getInitials = (firstName, lastName) => {
+  return `${firstName?.charAt(0).toUpperCase()}${lastName
+    ?.charAt(0)
+    .toUpperCase()}`
+}
 
-  const renderAvatar = () => {
+const UserAvatar = ({ firstName, lastName, photo }) => {
+  const userPhotoAvatar = (
+    <Avatar
+      alt={`${firstName} ${lastName} Avatar`}
+      src={photo}
+      sx={styles.userPhoto}
+    />
+  )
+
+  const userInitialsPlaceholderAvatar = (
+    <Avatar sx={styles.userInitialsPlaceholder}>
+      {getInitials(firstName, lastName)}
+    </Avatar>
+  )
+
+  const userFallbackAvatar = <AccountCircleOutlinedIcon />
+
+  const renderUserAvatar = () => {
     if (photo) {
-      return (
-        <Avatar
-          alt={`${firstName} ${lastName} Avatar`}
-          src={photo}
-          sx={styles.userPhoto}
-        />
-      )
+      return userPhotoAvatar
     }
     if (firstName && lastName) {
-      return (
-        <Avatar sx={styles.userInitialsPlaceholder}>{getInitials()}</Avatar>
-      )
+      return userInitialsPlaceholderAvatar
     }
-    return <AccountCircleOutlinedIcon />
+    return userFallbackAvatar
   }
 
-  return <>{renderAvatar()}</>
+  return <>{renderUserAvatar()}</>
 }
 
 export default UserAvatar
