@@ -58,3 +58,22 @@ body ::-webkit-scrollbar-track {
 body ::-webkit-scrollbar-thumb {
   border-radius: var(--scrollbar-border-radius);
 }
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
+.MuiSlider-thumb{
+  width: 10px !important;
+  height: 10px !important;
+  color: #455A64;
+}
+.MuiSlider-rail{
+  color:#455A64;
+}
+.MuiSlider-track{
+  height: 1px !important;
+  color: #455A64;
+}

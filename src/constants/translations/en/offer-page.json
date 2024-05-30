@@ -47,7 +47,8 @@
       "title": {
         "tutor": "Add a title that briefly describes your offer.",
         "student": "Add a title that briefly describes your request."
-      }
+      },
+      "course": "Link your created course to the offer"
     },
     "successMessage": "Great news! Your submission has been successfully added.",
     "errorMessages": {
@@ -74,7 +75,8 @@
       "language": "Language",
       "title": "Title",
       "question": "Insert Question",
-      "answer": "Insert Answer"
+      "answer": "Insert Answer",
+      "price": "Price"
     }
   }
 }

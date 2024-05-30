@@ -26,7 +26,19 @@ const CreateRequestOfferBlock = () => {
           {t('findOffers.offerRequestBlock.description')}
         </Typography>
         <AppButton
-          onClick={() => openModal({ component: <CreateOfferDialog /> })}
+          onClick={() =>
+            openModal({
+              component: <CreateOfferDialog />,
+              paperProps: {
+                sx: {
+                  maxHeight: '100vh',
+                  borderRadius: '0',
+                  ml: 'auto',
+                  mr: '0'
+                }
+              }
+            })
+          }
           sx={styles.btn}
         >
           {t(`offerPage.createOffer.buttonTitles.${userRole}`)}
