@@ -24,6 +24,7 @@
     "switcher-student": "Offers from students for classes in various categories and subjects"
   },
   "radioFilter": {
+    "rating": "Rating",
     "any": "Any rating",
     "5stars": "5 stars",
     "4stars": "4 and above",
