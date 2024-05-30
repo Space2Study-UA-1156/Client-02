@@ -12,13 +12,7 @@ const AppPagination = ({ totalPages, handlePageChange, page }) => {
         onChange={handlePageChange}
         page={page}
         renderItem={(item) => {
-          return (
-            <PaginationItem
-              component={Link}
-              {...item}
-              to={item.page - 1 !== 0 && `?page=${item.page - 1}`}
-            />
-          )
+          return <PaginationItem component={Link} {...item} />
         }}
       />
     </Box>

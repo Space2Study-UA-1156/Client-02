@@ -3,6 +3,7 @@ import { useMediaQuery } from '@mui/material'
 
 import TutorCardBlock from '~/components/tutor-card/TutorCardBlock'
 import TutorCardMobile from '~/components/tutor-card/TutorCardMobile'
+import GridCard from '~/components/tutor-card/GridCard'
 
 const TutorCard = ({ index, gridLayout }) => {
   const [favourite, setFavourite] = useState(false)
@@ -32,7 +33,7 @@ const TutorCard = ({ index, gridLayout }) => {
       {isMobile ? (
         <TutorCardMobile {...props} />
       ) : gridLayout ? (
-        <p>Grid {index}</p>
+        <GridCard {...props} />
       ) : (
         <TutorCardBlock {...props} />
       )}

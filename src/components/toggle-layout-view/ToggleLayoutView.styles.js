@@ -1,7 +1,6 @@
 export const styles = {
   wrapper: {
     width: 'fit-content',
-    marginLeft: 'auto',
     padding: '24px 0'
   },
   button: {
