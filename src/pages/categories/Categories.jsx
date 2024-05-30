@@ -13,6 +13,13 @@ import CategorySearchSection from '~/components/category-search-section/Category
 import NoResultsContent from '~/components/no-results-content/NoResultsContent'
 import RequestNewCategoryDialog from '~/containers/student-home-page/request-new-category/request-new-category-dialog/RequestNewCategoryDialog'
 
+export function normalizeString(v) {
+  if (typeof v !== 'string') {
+    return ''
+  }
+  return v.trim().toLowerCase()
+}
+
 const Categories = () => {
   const [categoriesData, setCategoriesData] = useState([])
   const [showMore, setShowMore] = useState(6)
@@ -29,7 +36,7 @@ const Categories = () => {
 
   const { t } = useTranslation()
 
-  const { categories, findOffers } = authRoutes
+  const { findOffers } = authRoutes
 
   const searchedCategories = useMemo(() => {
     if (!search) return categoriesData
@@ -82,13 +89,6 @@ const Categories = () => {
     navigateTo(`/categories?search=${newValue}`)
   }
 
-  function normalizeString(v) {
-    if (typeof v !== 'string') {
-      return ''
-    }
-    return v.trim().toLowerCase()
-  }
-
   const searchedContent =
     searchedCategories.length === 0 ? (
       <NoResultsContent
@@ -125,7 +125,6 @@ const Categories = () => {
       <CreateRequestOfferBlock />
       <CategorySearchSection
         categoriesData={categoriesData}
-        categoriesPath={categories.path}
         findOffersPath={findOffers.path}
         handleCategoryChange={handleCategoryChange}
         handleInputChange={handleInputChange}

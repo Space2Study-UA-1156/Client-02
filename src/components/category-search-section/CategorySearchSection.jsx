@@ -13,8 +13,6 @@ const CategorySearch = ({
   categoriesData,
   selectedCategory,
   styles,
-  categoriesPath,
-  subjectsPath,
   findOffersPath,
   normalizeString
 }) => {
@@ -79,7 +77,6 @@ const CategorySearch = ({
           component={HashLink}
           onClick={openCreateNewUserRequestDialog}
           sx={styles.underlineText}
-          to={categoriesPath}
         >
           {t('categoriesPage.category')}
         </Typography>
@@ -88,7 +85,6 @@ const CategorySearch = ({
           component={HashLink}
           onClick={openCreateNewUserRequestDialog}
           sx={styles.underlineText}
-          to={subjectsPath}
         >
           {t('categoriesPage.subject')}
         </Typography>
