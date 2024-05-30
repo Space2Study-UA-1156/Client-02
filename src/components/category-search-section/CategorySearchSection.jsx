@@ -1,8 +1,10 @@
-import { Box, Typography, Paper, Autocomplete, TextField } from '@mui/material'
+import { useTranslation } from 'react-i18next'
 import SearchIcon from '@mui/icons-material/Search'
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
-import { useTranslation } from 'react-i18next'
+import { Box, Typography, Paper, Autocomplete, TextField } from '@mui/material'
 import HashLink from '~/components/hash-link/HashLink'
+import RequestNewCategoryDialog from '~/containers/student-home-page/request-new-category/request-new-category-dialog/RequestNewCategoryDialog'
+import { useModalContext } from '~/context/modal-context'
 
 const CategorySearch = ({
   inputValue,
@@ -17,6 +19,11 @@ const CategorySearch = ({
   normalizeString
 }) => {
   const { t } = useTranslation()
+  const { openModal } = useModalContext()
+
+  const openCreateNewUserRequestDialog = () => {
+    openModal({ component: <RequestNewCategoryDialog /> })
+  }
 
   return (
     <>
@@ -70,6 +77,7 @@ const CategorySearch = ({
         <Typography>{t('categoriesPage.cantFindLabel')}</Typography>
         <Typography
           component={HashLink}
+          onClick={openCreateNewUserRequestDialog}
           sx={styles.underlineText}
           to={categoriesPath}
         >
@@ -78,6 +86,7 @@ const CategorySearch = ({
         <Typography>{t('categoriesPage.and')}</Typography>
         <Typography
           component={HashLink}
+          onClick={openCreateNewUserRequestDialog}
           sx={styles.underlineText}
           to={subjectsPath}
         >

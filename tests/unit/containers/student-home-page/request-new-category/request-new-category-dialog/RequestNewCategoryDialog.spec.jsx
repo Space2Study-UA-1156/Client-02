@@ -5,12 +5,6 @@ import RequestNewCategoryDialog from '~/containers/student-home-page/request-new
 
 const propsSpy = vi.fn()
 
-vi.mock('react-i18next', () => ({
-  useTranslation: () => ({
-    t: (key) => key
-  })
-}))
-
 vi.mock(
   '~/containers/student-home-page/request-new-category/request-new-category-dialog/constants',
   async (importOriginal) => {
@@ -79,6 +73,19 @@ vi.mock('~/context/snackbar-context', async (importOriginal) => {
     useSnackBarContext: () => ({
       setAlert: setAlertMock
     })
+  }
+})
+
+const createUserRequestMock = vi.hoisted(() => {
+  return vi.fn()
+})
+vi.mock('~/services/user-request-service', async (importOriginal) => {
+  const mod = await importOriginal()
+  return {
+    ...mod,
+    userRequestService: {
+      createUserRequest: createUserRequestMock
+    }
   }
 })
 
@@ -166,20 +173,33 @@ describe('Test "RequestNewCategoryDialog" container:', () => {
 
   it('should invoke handleSubmit when form is submitted', async () => {
     const handleSubmitMock = useFormMock().handleSubmit
-    await handleSubmitMock()
+    handleSubmitMock()
     await waitFor(() => {
       expect(handleSubmitMock).toHaveBeenCalled()
     })
   })
 
   it('should call setAlert and closeModal when form is submitted successfully', async () => {
-    await onSubmitMock()
+    onSubmitMock()
     await waitFor(() => {
       expect(setAlertMock).toHaveBeenCalledWith({
         severity: 'success',
         message: 'studentHomePage.requestNewCategory.successMessage'
       })
       expect(closeModalMock).toHaveBeenCalled()
+    })
+  })
+
+  it('should call setAlert with error message when form submission fails', async () => {
+    const databaseError = new Error('Database error')
+    createUserRequestMock.mockRejectedValue(databaseError)
+    onSubmitMock()
+    await waitFor(() => {
+      expect(setAlertMock).toHaveBeenCalledWith({
+        severity: 'error',
+        message: `errors.Error: ${databaseError.message}`
+      })
+      expect(closeModalMock).not.toHaveBeenCalled()
     })
   })
 })
