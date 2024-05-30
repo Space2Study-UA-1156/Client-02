@@ -12,10 +12,12 @@ import { styles } from '~/containers/navigation-icons/NavigationIcons.styles'
 import { authRoutes } from '~/router/constants/authRoutes'
 
 const languageIcon = {
-  disabled: true,
   tooltip: 'iconsTooltip.language',
-  icon: <LanguageIcon color='disabled' />,
-  buttonProps: () => ({ sx: styles.studentIcons })
+  icon: <LanguageIcon />,
+  buttonProps: ({ openLanguageMenu }) => ({
+    onClick: openLanguageMenu,
+    sx: styles.studentIcons
+  })
 }
 
 const menuIcon = {
@@ -73,8 +75,8 @@ export const userIcons = [
   {
     tooltip: 'iconsTooltip.account',
     icon: <AccountCircleOutlinedIcon />,
-    buttonProps: ({ openMenu }) => ({
-      onClick: openMenu,
+    buttonProps: ({ openAccountMenu }) => ({
+      onClick: openAccountMenu,
       sx: styles.studentIcons
     })
   },
