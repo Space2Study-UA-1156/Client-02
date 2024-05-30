@@ -1,9 +1,11 @@
 import { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useSelector } from 'react-redux'
 
 import Box from '@mui/material/Box'
 
 import NavigationIcon from '~/components/navigation-icon/NavigationIcon'
+import UserAvatar from '~/components/user-avatar/UserAvatar'
 import AccountMenu from '~/containers/layout/account-menu/AccountMenu'
 import LanguageMenu from '~/containers/layout/language-menu/LanguageMenu'
 import { userIcons } from '~/containers/navigation-icons/NavigationIcons.constants'
@@ -11,6 +13,7 @@ import { userIcons } from '~/containers/navigation-icons/NavigationIcons.constan
 import { styles } from '~/containers/navigation-icons/NavigationIcons.styles'
 
 const UserIcons = ({ setSidebarOpen }) => {
+  const { firstName, lastName, photo } = useSelector((state) => state.appMain)
   const { t } = useTranslation()
   const anchorRef = useRef(null)
   const [accountMenuAnchorEl, setAccountMenuAnchorEl] = useState(null)
@@ -40,6 +43,17 @@ const UserIcons = ({ setSidebarOpen }) => {
   return (
     <Box ref={anchorRef} sx={styles.iconBox}>
       {icons}
+      <NavigationIcon
+        buttonProps={{
+          onClick: openAccountMenu,
+          sx: styles.studentIcons
+        }}
+        icon={
+          <UserAvatar firstName={firstName} lastName={lastName} photo={photo} />
+        }
+        key={'iconsTooltip.account'}
+        tooltip={t('iconsTooltip.account')}
+      />
       <AccountMenu anchorEl={accountMenuAnchorEl} onClose={closeAccountMenu} />
       <LanguageMenu
         anchorEl={languageMenuAnchorEl}

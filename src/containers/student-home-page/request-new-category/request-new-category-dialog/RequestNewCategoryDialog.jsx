@@ -9,9 +9,19 @@ import { snackbarVariants } from '~/constants'
 import useForm from '~/hooks/use-form'
 import { useModalContext } from '~/context/modal-context'
 import { useSnackBarContext } from '~/context/snackbar-context'
+import { userRequestService } from '~/services/user-request-service'
 
 import image from '~/assets/img/student-home-page/requestNewCategory.svg'
 import { style } from '~/containers/student-home-page/request-new-category/request-new-category-dialog/RequestNewCategoryDialog.style'
+
+const mapDataToAPIObject = (data) => {
+  const { newSubject, newCategory, additionalInformation } = data
+  return {
+    new_subject: newSubject,
+    category: newCategory,
+    additionalInfo: additionalInformation
+  }
+}
 
 const RequestNewCategoryDialog = () => {
   const { t } = useTranslation()
@@ -27,11 +37,19 @@ const RequestNewCategoryDialog = () => {
     errors
   } = useForm({
     onSubmit: async () => {
-      setAlert({
-        severity: snackbarVariants.success,
-        message: 'studentHomePage.requestNewCategory.successMessage'
-      })
-      closeModal()
+      try {
+        await userRequestService.createUserRequest(mapDataToAPIObject(data))
+        setAlert({
+          severity: snackbarVariants.success,
+          message: 'studentHomePage.requestNewCategory.successMessage'
+        })
+        closeModal()
+      } catch (e) {
+        setAlert({
+          severity: snackbarVariants.error,
+          message: `errors.${e}`
+        })
+      }
     },
     initialValues: {
       newSubject: '',

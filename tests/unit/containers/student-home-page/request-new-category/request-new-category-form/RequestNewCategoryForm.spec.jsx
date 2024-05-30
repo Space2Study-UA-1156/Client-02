@@ -10,12 +10,6 @@ const dataMock = {
   addInformation: 'some additional information'
 }
 
-vi.mock('react-i18next', () => ({
-  useTranslation: () => ({
-    t: (key) => key
-  })
-}))
-
 vi.mock('@mui/material/Box', () => ({
   default: (props) => {
     return (
