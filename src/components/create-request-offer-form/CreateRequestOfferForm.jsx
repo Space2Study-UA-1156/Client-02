@@ -530,8 +530,10 @@ const CreateRequestOfferForm = ({
           onClick={(e) => {
             handleSubmit(e)
             setTimeout(() => {
-              modalRef.current.scrollIntoView({ behavior: 'smooth' })
-            }, 0)
+              if (modalRef.current) {
+                modalRef.current.scrollIntoView({ behavior: 'smooth' })
+              }
+            }, 100)
           }}
           sx={styles.btn}
           variant='contained'
