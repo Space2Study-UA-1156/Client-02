@@ -27,7 +27,8 @@ function SubjectsSearch({
   setInputSubjectValue,
   inputSubjectValue,
   handleSubjectChange,
-  handleCategoryChange
+  handleCategoryChange,
+  openCreateNewUserRequestDialog
 }) {
   const { t } = useTranslation()
   const { findOffers, categories } = authRoutes
@@ -58,7 +59,6 @@ function SubjectsSearch({
         <Box sx={styles.autocompleteBox}>
           <AsyncAutocomplete
             getOptionLabel={(v) => v.name}
-            id='left'
             inputValue={inputValue}
             onChange={(_, newValue) => handleCategoryChange(newValue)}
             onInputChange={handleInputChange}
@@ -75,10 +75,14 @@ function SubjectsSearch({
             <SearchIcon />
             <AsyncAutocomplete
               getOptionLabel={(v) => v.name}
-              id='right'
               inputValue={inputSubjectValue}
+              key='subject'
               onChange={(_, newValue) => handleSubjectChange(newValue)}
-              onInputChange={(e, newValue) => setInputSubjectValue(newValue)}
+              onInputChange={(e, newValue) => {
+                if (!e || e.type === 'blur') return
+
+                setInputSubjectValue(newValue)
+              }}
               service={() => subjectService.getSubjectsNames(categoryId)}
               sx={styles.subjectsAutocomplete}
               textFieldProps={{
@@ -89,6 +93,25 @@ function SubjectsSearch({
               valueField='_id'
             />
           </Box>
+        </Box>
+        <Box sx={styles.underSearchBoxText}>
+          <Typography>{t('categoriesPage.cantFindLabel')}</Typography>
+          <Typography
+            component={HashLink}
+            onClick={openCreateNewUserRequestDialog}
+            sx={styles.underlineText}
+          >
+            {t('categoriesPage.category')}
+          </Typography>
+          <Typography>{t('categoriesPage.and')}</Typography>
+          <Typography
+            component={HashLink}
+            onClick={openCreateNewUserRequestDialog}
+            sx={styles.underlineText}
+          >
+            {t('categoriesPage.subject')}
+          </Typography>
+          <Typography>{t('categoriesPage.exclmMark')}</Typography>
         </Box>
       </Box>
     </>
