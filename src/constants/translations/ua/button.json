@@ -7,5 +7,7 @@
   "createCooperation": "Відправити запит на співпрацю",
   "sendRequest": "Надіслати запит",
   "addQuestion": "Додати ще один предмет",
-  "viewMyOffers": "До моїх пропозицій"
+  "viewMyOffers": "До моїх пропозицій",
+  "createOffer": "Створити пропозицію",
+  "createRequest": "Створити запит"
 }

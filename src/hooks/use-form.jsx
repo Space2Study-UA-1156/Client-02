@@ -114,7 +114,6 @@ export const useForm = ({
     event.preventDefault()
     let isValid = true
     const newErrors = { ...errors }
-
     if (validations) {
       for (const key in validations) {
         const value = data[key]
@@ -125,7 +124,6 @@ export const useForm = ({
         }
       }
     }
-
     isValid ? void onSubmit() : setErrors(newErrors)
   }
 

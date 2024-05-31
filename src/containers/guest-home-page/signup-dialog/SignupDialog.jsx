@@ -56,7 +56,8 @@ const SignupDialog = ({ type }) => {
         lastName: '',
         email: '',
         password: '',
-        confirmPassword: ''
+        confirmPassword: '',
+        status: 'active'
       },
       validations: { email, password, firstName, lastName, confirmPassword }
     }
