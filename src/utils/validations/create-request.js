@@ -33,3 +33,19 @@ export const price = (value) => {
     return 'offerPage.createOffer.errorMessages.price'
   }
 }
+
+export const FAQ = (value) => {
+  const errors = []
+  value.map((el, index) => {
+    if (!el.question.length) {
+      errors.push({ question: 'common.errorMessages.emptyField' })
+    }
+    if (!el.answer.length) {
+      errors[index]
+        ? (errors[index].answer = 'common.errorMessages.emptyField')
+        : errors.push({ answer: 'common.errorMessages.emptyField' })
+    }
+    if (!errors[index]) errors[index] = ''
+  })
+  if (errors.filter((el) => el !== '').length) return errors
+}

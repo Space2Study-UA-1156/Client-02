@@ -11,7 +11,8 @@ import {
   title,
   description,
   languages,
-  price
+  price,
+  FAQ
 } from '~/utils/validations/create-request'
 import { offerRequestService } from '~/services/offer-service'
 
@@ -30,6 +31,7 @@ const CreateOfferDialog = () => {
     errors
   } = useForm({
     onSubmit: async () => {
+      console.log(11)
       try {
         await offerRequestService.createOffer(data)
         closeModal()
@@ -66,7 +68,8 @@ const CreateOfferDialog = () => {
       title,
       description,
       languages,
-      price
+      price,
+      FAQ
     }
   })
 

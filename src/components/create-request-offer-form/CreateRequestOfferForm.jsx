@@ -145,9 +145,6 @@ const CreateRequestOfferForm = ({
   }, [selectedLanguages])
 
   useEffect(() => {
-    if (faq.length === 0) {
-      return
-    }
     handleNonInputValueChange('FAQ', faq)
     /* eslint-disable-next-line */
   }, [faq])
@@ -444,12 +441,17 @@ const CreateRequestOfferForm = ({
             <Typography component='p' sx={styles.stepSubtitle} variant='body1'>
               {t(`offerPage.createOffer.description.thirdStep.${userRole}`)}
             </Typography>
-            {data.FAQ.map((item) => (
+            {data.FAQ.map((item, index) => (
               <Box key={item.id} sx={{ display: 'flex' }}>
                 <Box>
                   <AppTextField
+                    error={Boolean(errors.FAQ[index]?.question)}
                     fullWidth
-                    helperText=''
+                    helperText={
+                      errors.FAQ[index]?.question
+                        ? t(errors.FAQ[index].question)
+                        : ''
+                    }
                     onChange={(e) =>
                       setFaq(
                         [
@@ -468,8 +470,13 @@ const CreateRequestOfferForm = ({
                     value={item.question}
                   />
                   <AppTextField
+                    error={Boolean(errors.FAQ[index]?.answer)}
                     fullWidth
-                    helperText=''
+                    helperText={
+                      errors.FAQ[index]?.answer
+                        ? t(errors.FAQ[index].answer)
+                        : ''
+                    }
                     inputProps={{
                       maxLength: Math.round(Number(textAreaMaxLength) / 2.5) + 1
                     }}
@@ -509,7 +516,7 @@ const CreateRequestOfferForm = ({
             ))}
             <AppButton
               onClick={handleAddQuestion}
-              sx={styles.btn}
+              sx={{ ...styles.btn, width: 'fit-content' }}
               variant='outlined'
             >
               {t('button.addQuestion')}
