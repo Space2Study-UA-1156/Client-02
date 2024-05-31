@@ -1,4 +1,4 @@
-import { useState, useCallback, useMemo, useEffect } from 'react'
+import { useState, useCallback, useMemo, useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 
@@ -36,6 +36,7 @@ const CreateRequestOfferForm = ({
 }) => {
   const { t } = useTranslation()
   const { userRole } = useSelector((state) => state.appMain)
+  const modalRef = useRef(null)
   const [selectedLanguage, setSelectedLanguage] = useState(null)
   const [selectedLanguages, setSelectedLanguages] = useState([])
   const [selectedCategory, setSelectedCategory] = useState(null)
@@ -165,7 +166,7 @@ const CreateRequestOfferForm = ({
   }
 
   return (
-    <Box>
+    <Box ref={modalRef}>
       <Typography component='p' sx={styles.title} variant='h5'>
         <Box alt='Leak add' component='img' src={TitleIcon} sx={styles.img} />
         {t(`offerPage.createOffer.title.main.${userRole}`)}
@@ -525,7 +526,16 @@ const CreateRequestOfferForm = ({
         </>
       )}
       <Box sx={styles.btnsWrapper}>
-        <AppButton onClick={handleSubmit} sx={styles.btn} variant='contained'>
+        <AppButton
+          onClick={(e) => {
+            handleSubmit(e)
+            setTimeout(() => {
+              modalRef.current.scrollIntoView({ behavior: 'smooth' })
+            }, 0)
+          }}
+          sx={styles.btn}
+          variant='contained'
+        >
           {userRole === 'tutor'
             ? t('button.createOffer')
             : t('button.createRequest')}
