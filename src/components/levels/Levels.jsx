@@ -20,7 +20,8 @@ const Levels = ({ changeFunc }) => {
 
   useEffect(() => {
     changeFunc('proficiencyLevel', selectedLevels)
-  }, [selectedLevels, changeFunc])
+    /* eslint-disable-next-line */
+  }, [selectedLevels])
 
   return (
     <FormGroup>

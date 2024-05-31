@@ -1,14 +1,11 @@
 const style = {
   root: {
     maxWidth: { sm: 'sm', md: 'md', lg: 'lg' },
-    mt: { xs: '56px', sm: '0' },
-    // mt: '-16px',
-    // mb: '-16px',
+    mt: { sm: '0' },
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
     gap: { lg: '122px', md: '40px' }
-    // maxHeight: '100vh',
   },
   formContainer: {
     display: 'flex',

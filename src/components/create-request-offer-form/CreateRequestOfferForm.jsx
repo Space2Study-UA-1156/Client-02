@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux'
 import Levels from '~/components/levels/Levels'
 import AsyncAutocomplete from '~/components/async-autocomplete/AsyncAutocomplete'
 
-import { Stack, Slider, TextField, InputAdornment } from '@mui/material'
+import { Stack, Slider, InputAdornment } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close'
 import IconButton from '@mui/material/IconButton'
 import Box from '@mui/material/Box'
@@ -73,11 +73,13 @@ const CreateRequestOfferForm = ({
   useEffect(() => {
     handleNonInputValueChange('category', selectedCategory)
     setSelectedSubject(null)
-  }, [selectedCategory, handleNonInputValueChange])
+    /* eslint-disable-next-line */
+  }, [selectedCategory])
 
   useEffect(() => {
     handleNonInputValueChange('subject', selectedSubject)
-  }, [selectedSubject, handleNonInputValueChange])
+    /* eslint-disable-next-line */
+  }, [selectedSubject])
 
   const categoryOptions = useMemo(
     () => ({
@@ -131,21 +133,24 @@ const CreateRequestOfferForm = ({
       setSelectedLanguages(updatedLanguages)
       setTimeout(() => setSelectedLanguage(null), 50)
     }
-  }, [selectedLanguage, selectedLanguages])
+    /* eslint-disable-next-line */
+  }, [selectedLanguage])
 
   useEffect(() => {
     handleNonInputValueChange(
       'languages',
       selectedLanguages.map((el) => el.name)
     )
-  }, [selectedLanguages, handleNonInputValueChange])
+    /* eslint-disable-next-line */
+  }, [selectedLanguages])
 
   useEffect(() => {
     if (faq.length === 0) {
       return
     }
     handleNonInputValueChange('FAQ', faq)
-  }, [faq, handleNonInputValueChange])
+    /* eslint-disable-next-line */
+  }, [faq])
 
   const handleDeleteLanguage = (itemName) => {
     const updatedLanguages = selectedLanguages.filter(
@@ -310,7 +315,7 @@ const CreateRequestOfferForm = ({
             </Box>
             <Slider
               getAriaLabel={() => 'Price range'}
-              max={minPrice}
+              max={maxPrice}
               min={minPrice}
               onChange={handlePriceRangeChange}
               sx={{ ...styles.sliderStyles, ml: '5px' }}
@@ -323,7 +328,7 @@ const CreateRequestOfferForm = ({
               justifyContent='flex-start'
               marginBottom='6px'
             >
-              <TextField
+              <AppTextField
                 InputLabelProps={{ shrink: true }}
                 InputProps={{
                   endAdornment: (
@@ -337,8 +342,12 @@ const CreateRequestOfferForm = ({
                   ),
                   style: { fontSize: '14px', color: '#455A64' }
                 }}
+                helperText=''
                 label='min'
                 onChange={(e) => {
+                  if (/(?!^\d+$)^.+$/.test(e.currentTarget.value)) {
+                    return
+                  }
                   setPriceRangeValue([
                     Number(e.target.value),
                     priceRangeValue[1]
@@ -354,7 +363,7 @@ const CreateRequestOfferForm = ({
               >
                 -
               </Typography>
-              <TextField
+              <AppTextField
                 InputLabelProps={{ shrink: true }}
                 InputProps={{
                   endAdornment: (
@@ -368,15 +377,19 @@ const CreateRequestOfferForm = ({
                   ),
                   style: { fontSize: '14px', color: '#455A64' }
                 }}
+                helperText=''
                 label='max'
                 onChange={(e) => {
+                  if (/(?!^\d+$)^.+$/.test(e.currentTarget.value)) {
+                    return
+                  }
                   setPriceRangeValue([
                     priceRangeValue[0],
                     Number(e.target.value)
                   ])
                 }}
                 sx={{ width: '118px' }}
-                type='number'
+                type='text'
                 value={priceRangeValue[1]}
                 variant='outlined'
               />
