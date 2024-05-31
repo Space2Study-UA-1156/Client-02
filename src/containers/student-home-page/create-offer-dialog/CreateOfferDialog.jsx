@@ -31,7 +31,6 @@ const CreateOfferDialog = () => {
     errors
   } = useForm({
     onSubmit: async () => {
-      console.log(11)
       try {
         await offerRequestService.createOffer(data)
         closeModal()
