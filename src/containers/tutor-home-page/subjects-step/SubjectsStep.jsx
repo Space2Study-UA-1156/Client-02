@@ -52,8 +52,8 @@ const SubjectsStep = ({ btnsBox, userRole }) => {
         ? t('becomeTutor.categories.subjectLabel')
         : t('becomeStudent.categories.subjectLabel'),
       required: true,
-      error: Boolean(errors.subject) && !!selectedCategory,
-      helperText: selectedCategory ? t(errors.subject) : ''
+      error: Boolean(errors.subjects) && !!selectedCategory,
+      helperText: selectedCategory ? t(errors.subjects) : ''
     }),
     /* eslint-disable-next-line */
     [isTutor, errors.subjects]
