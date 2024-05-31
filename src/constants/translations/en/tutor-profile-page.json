@@ -24,8 +24,10 @@
     "title":"What students say",
     "buttonTitle":"More reviews",
     "starsCount_one": "{{count}} star",
+    "starsCount_5": "{{count}} stars",
     "starsCount_other": "{{count}} stars",
     "reviewsCount_one": "{{count}} review",
+    "reviewsCount_2-4": "{{count}} reviews",
     "reviewsCount_other": "{{count}} reviews"
   }
 }

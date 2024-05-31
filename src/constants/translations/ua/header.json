@@ -3,7 +3,7 @@
   "how-it-works": "Як це працює",
   "who-we-are": "Про нас",
   "findOffers": "Пропозиції",
-  "subjects":"Предмети",
+  "subjects": "Предмети",
   "categories": "Категорії",
   "homePage": "Домашня сторінка",
   "faq": "Поширені питання",
@@ -11,6 +11,7 @@
   "loginButton": "Увійти",
   "my-profile": "Мій профіль",
   "my-cooperations": "Мої співпраці",
+  "my-offers": "Мої пропозиції",
   "logout": "Вийти",
   "notifications": {
     "emptyNotifications": "Немає сповіщень",
@@ -23,5 +24,4 @@
       "CANCEL_COOPERATION": "Вашу співпрацю відхилено"
     }
   }
-  
 }

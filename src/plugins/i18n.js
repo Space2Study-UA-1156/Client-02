@@ -1,6 +1,9 @@
 import i18n from 'i18next'
 import { initReactI18next } from 'react-i18next'
 import resources from '~/constants/translations'
+import languages from '~/constants/translations/languages'
+
+const languageKeys = Object.keys(languages)
 
 void i18n.use(initReactI18next).init({
   resources,
@@ -8,6 +11,6 @@ void i18n.use(initReactI18next).init({
   ns: ['translations']
 })
 
-i18n.languages = ['en', 'ua']
+i18n.languages = languageKeys
 
 export default i18n

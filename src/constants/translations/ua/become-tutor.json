@@ -6,7 +6,7 @@
     "photo": "Фото"
   },
   "generalInfo": {
-    "title": "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint.",
+    "title": "Будь ласка, надайте наступні дані, щоб завершити налаштування вашого профілю. Ви завжди зможете оновити цю інформацію у налаштуваннях облікового запису пізніше.",
     "textFieldLabel": "Коротко опишіть свій професійний статус",
     "helperText": "Поля зі знаком * є обов'язковими",
     "inputFirstName": "Ім'я",
@@ -17,15 +17,15 @@
   },
   "experience": {
     "title": "Опишіть свій професійний досвід. Максимум 70 символів.",
-    "textFieldLabel": "Текст тут"
+    "textFieldLabel": "Написати тут"
   },
   "languages": {
-    "title": "Velit officia consequat duis enim velit mollit. Other categories you can add in your account settings later.",
+    "title": "Будь ласка, виберіть відповідні дані для налаштування вашого профілю. Інші мови ви можете додати пізніше в налаштуваннях облікового запису.",
     "autocompleteLabel": "Твоя рідна мова",
     "emptyFields": "Усі поля мають бути заповнені"
   },
   "categories": {
-    "title": "Velit officia consequat duis enim velit mollit. Other categories you can add in your account settings later.",
+    "title": "Будь ласка, виберіть відповідні дані для налаштування вашого профілю. Інші категорії ви можете додати пізніше в налаштуваннях облікового запису.",
     "mainSubjectsLabel": "Основна категорія предмету",
     "subjectLabel": "Предмет",
     "btnText": "Додати ще один предмет",
@@ -36,7 +36,7 @@
     "imageAlt": "Ваша фотографія",
     "button": "Завантажте свою фотографію профілю",
     "placeholder": "Попередній перегляд фотографій",
-    "description": "Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.",
+    "description": "Будь ласка, оберіть ваше фото для налаштування вашого профілю. Ви можете змінити це в налаштуваннях облікового запису пізніше.",
     "typeError": "Неправильний тип файлу. Дозволяються лише файли .png/.jpg/.jpeg.",
     "fileSizeError": "Розмір одного файлу не може перевищувати 10 Мб."
   },

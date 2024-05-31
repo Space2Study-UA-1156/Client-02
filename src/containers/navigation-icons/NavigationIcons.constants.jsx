@@ -11,10 +11,12 @@ import { authRoutes } from '~/router/constants/authRoutes'
 import { styles } from '~/containers/navigation-icons/NavigationIcons.styles'
 
 const languageIcon = {
-  disabled: true,
   tooltip: 'iconsTooltip.language',
-  icon: <LanguageIcon color='disabled' />,
-  buttonProps: () => ({ sx: styles.studentIcons })
+  icon: <LanguageIcon />,
+  buttonProps: ({ openLanguageMenu }) => ({
+    onClick: openLanguageMenu,
+    sx: styles.studentIcons
+  })
 }
 
 const menuIcon = {

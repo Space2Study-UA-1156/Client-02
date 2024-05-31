@@ -1,13 +1,13 @@
 {
   "languages": {
-    "title": "Velit officia consequat duis enim velit mollit. Other categories you can add in your account settings later.",
+    "title": "Please select the relevant data to set up your profile. Other languages you can add in your account settings later.",
     "autocompleteLabel": "Language spoken",
     "btnText": "Add one more language",
     "emptyFields": "All fields must be filled",
     "sameLanguage": "You have the same language"
   },
   "categories": {
-    "title": "Velit officia consequat duis enim velit mollit. Other categories you can add in your account settings later.",
+    "title": "Please select the relevant data to set up your profile. Other categories you can add in your account settings later.",
     "mainSubjectsLabel": "Study Category",
     "subjectLabel": "Subject",
     "btnText": "Add one more subject",

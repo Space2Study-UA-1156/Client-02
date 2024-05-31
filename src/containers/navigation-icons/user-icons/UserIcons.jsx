@@ -5,27 +5,32 @@ import { useSelector } from 'react-redux'
 import Box from '@mui/material/Box'
 
 import NavigationIcon from '~/components/navigation-icon/NavigationIcon'
-import { userIcons } from '~/containers/navigation-icons/NavigationIcons.constants'
-
 import UserAvatar from '~/components/user-avatar/UserAvatar'
 import AccountMenu from '~/containers/layout/account-menu/AccountMenu'
+import LanguageMenu from '~/containers/layout/language-menu/LanguageMenu'
+import { userIcons } from '~/containers/navigation-icons/NavigationIcons.constants'
+
 import { styles } from '~/containers/navigation-icons/NavigationIcons.styles'
 
 const UserIcons = ({ setSidebarOpen }) => {
   const { firstName, lastName, photo } = useSelector((state) => state.appMain)
-  const [menuAnchorEl, setMenuAnchorEl] = useState(null)
-  const anchorRef = useRef(null)
   const { t } = useTranslation()
+  const anchorRef = useRef(null)
+  const [accountMenuAnchorEl, setAccountMenuAnchorEl] = useState(null)
+  const openAccountMenu = () => setAccountMenuAnchorEl(anchorRef.current)
+  const closeAccountMenu = () => setAccountMenuAnchorEl(null)
 
-  const openMenu = () => setMenuAnchorEl(anchorRef.current)
-  const closeMenu = () => setMenuAnchorEl(null)
+  const [languageMenuAnchorEl, setLanguageMenuAnchorEl] = useState(null)
+  const openLanguageMenu = () => setLanguageMenuAnchorEl(anchorRef.current)
+  const closeLanguageMenu = () => setLanguageMenuAnchorEl(null)
 
   const icons = userIcons.map(
     (item) =>
       !item.disabled && (
         <NavigationIcon
           buttonProps={item.buttonProps({
-            openMenu,
+            openAccountMenu,
+            openLanguageMenu,
             setSidebarOpen
           })}
           icon={item.icon}
@@ -40,7 +45,7 @@ const UserIcons = ({ setSidebarOpen }) => {
       {icons}
       <NavigationIcon
         buttonProps={{
-          onClick: openMenu,
+          onClick: openAccountMenu,
           sx: styles.studentIcons
         }}
         icon={
@@ -49,7 +54,11 @@ const UserIcons = ({ setSidebarOpen }) => {
         key={'iconsTooltip.account'}
         tooltip={t('iconsTooltip.account')}
       />
-      <AccountMenu anchorEl={menuAnchorEl} onClose={closeMenu} />
+      <AccountMenu anchorEl={accountMenuAnchorEl} onClose={closeAccountMenu} />
+      <LanguageMenu
+        anchorEl={languageMenuAnchorEl}
+        onClose={closeLanguageMenu}
+      />
     </Box>
   )
 }
