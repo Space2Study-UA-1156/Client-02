@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback } from 'react'
+import { useState, useEffect, useMemo, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
@@ -31,6 +31,10 @@ const SubjectsStep = ({ btnsBox, userRole }) => {
     errors
   } = useStepContext()
 
+  useEffect(() => {
+    setSelectedSubject(null)
+  }, [selectedCategory])
+
   const getOptionLabel = useCallback((option) => option.name, [])
   const categoriesOptions = useMemo(
     () => ({
@@ -48,8 +52,8 @@ const SubjectsStep = ({ btnsBox, userRole }) => {
         ? t('becomeTutor.categories.subjectLabel')
         : t('becomeStudent.categories.subjectLabel'),
       required: true,
-      error: Boolean(errors.subjects),
-      helperText: t(errors.subjects)
+      error: Boolean(errors.subject) && !!selectedCategory,
+      helperText: selectedCategory ? t(errors.subject) : ''
     }),
     /* eslint-disable-next-line */
     [isTutor, errors.subjects]
@@ -117,6 +121,7 @@ const SubjectsStep = ({ btnsBox, userRole }) => {
               value={selectedCategory}
             />
             <AsyncAutocomplete
+              disabled={selectedCategory ? false : true}
               fetchCondition={selectedCategory}
               fetchOnFocus
               getOptionLabel={getOptionLabel}
